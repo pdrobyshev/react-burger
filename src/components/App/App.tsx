@@ -1,11 +1,17 @@
 import React from 'react';
+import AppHeader from '../AppHeader/AppHeader';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import { data } from '../../utils/data';
 
-function App() {
+const App = () => {
 	return (
-		<div className="App">
-			<h1>App component</h1>
-		</div>
+		<>
+			<AppHeader />
+			<BurgerIngredients />
+			<BurgerConstructor />
+		</>
 	);
-}
+};
 
 export default App;
