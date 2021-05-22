@@ -1,0 +1,41 @@
+.tabs {
+  display: flex;
+}
+
+.ingredientsWrapper {
+  max-height: 716px;
+  overflow-y: scroll;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 24px;
+
+  margin: 0;
+
+  list-style: none;
+}
+
+.item {
+  cursor: pointer;
+}
+
+.image {
+  display: block;
+
+  margin: 0 auto;
+  margin-bottom: 4px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  display: block;
+
+  text-align: center;
+}

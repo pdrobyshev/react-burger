@@ -1,19 +1,16 @@
 import React from 'react';
-import styles from './App.module.scss';
-import AppHeader from '../AppHeader/AppHeader';
+
+import styles from './MainContent.module.scss';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import { data } from '../../utils/data';
 
-const App = () => {
+const MainContent = () => {
 	return (
-		<div className={styles.app}>
-			<AppHeader />
-
+		<main className={styles.main}>
 			<BurgerIngredients />
 			<BurgerConstructor />
-		</div>
+		</main>
 	);
 };
 
-export default App;
+export default MainContent;

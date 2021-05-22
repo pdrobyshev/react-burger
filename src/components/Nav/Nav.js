@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './Nav.module.scss';
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import LinkItem from '../LinkItem/LinkItem';

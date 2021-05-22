@@ -11,7 +11,11 @@
 import React from 'react';
 
 const BurgerConstructor = () => {
-	return <h1>BurgerConstructor component</h1>;
+	return (
+		<>
+			<h1 className={`text  text_type_main-large`}>Соберите бургер</h1>
+		</>
+	);
 };
 
 export default BurgerConstructor;
