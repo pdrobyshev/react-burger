@@ -5,7 +5,7 @@ import LinkItem from '../LinkItem/LinkItem';
 
 const Nav = () => {
 	return (
-		<nav>
+		<nav className={styles.nav}>
 			<ul className={styles.list}>
 				<li className={styles.item}>
 					<LinkItem Icon={BurgerIcon} iconType="primary" text="Конструктор" />

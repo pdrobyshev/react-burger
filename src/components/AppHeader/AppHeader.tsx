@@ -1,17 +1,8 @@
-/*
-Из библиотеки UI-компонентов возьмите следующие:
-	логотип,
-		иконки,
-		типографику,
-		систему отступов.
-	Остальную вёрстку выполните самостоятельно
-	*/
-
 import React from 'react';
 import styles from './AppHeader.module.scss';
 import Nav from '../Nav/Nav';
-import { ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import LinkItem from '../LinkItem/LinkItem';
+import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
+import Profile from '../Profile/Profile';
 
 const AppHeader = () => {
 	return (
@@ -19,7 +10,7 @@ const AppHeader = () => {
 			<div className={styles.content}>
 				<Nav />
 				<Logo />
-				<LinkItem Icon={ProfileIcon} iconType="secondary" text="Личный кабинет" />
+				<Profile />
 			</div>
 		</header>
 	);
