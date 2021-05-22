@@ -6,8 +6,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './BurgerIngredients.module.scss';
-import { CurrencyIcon, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
+import Price from '../Price/Price';
 
 const buns = data.filter((ingredient) => ingredient.type === 'bun');
 const sauces = data.filter((ingredient) => ingredient.type === 'sauce');
@@ -37,10 +38,7 @@ const Ingredient = ({ image, price, name }) => (
 	<li className={styles.item}>
 		<div className={`pl-4  pr-4  mb-1`}>
 			<img className={styles.image} src={image} alt={name} />
-			<div className={styles.price}>
-				<span className={`text  text_type_digits-default  mr-2`}>{price}</span>
-				<CurrencyIcon type="primary" />
-			</div>
+			<Price price={price} />
 		</div>
 		<span className={`${styles.name}  text  text_type_main-default`}>{name}</span>
 	</li>
