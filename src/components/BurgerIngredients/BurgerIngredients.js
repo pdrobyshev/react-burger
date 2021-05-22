@@ -22,7 +22,7 @@ const IngredientsGroup = ({ title, ingredients }) => (
 );
 
 const IngredientsList = ({ ingredients }) => (
-	<ul className={`${styles.list}  p-4  pt-6  pb-10`}>
+	<ul className={`${styles.list}  p-4  pt-6`}>
 		{ingredients.map((ingredient) => (
 			<Ingredient
 				image={ingredient.image}
