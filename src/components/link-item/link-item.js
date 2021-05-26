@@ -8,8 +8,9 @@ const LinkItem = ({ Icon, iconType, text }) => {
 		<a className={`${styles.link}  p-4  pl-5  pr-5`} href="#">
 			<Icon type={iconType} />
 			<span
-				className={` ${styles.color}
-				${iconType === 'primary' && styles.colorActive}  text  text_type_main-default  ml-2`}
+				className={`${
+					iconType === 'primary' ? styles.colorActive : `text_color_inactive`
+				} text  text_type_main-default  ml-2`}
 			>
 				{text}
 			</span>

@@ -1,0 +1,11 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-gap: 40px;
+  place-content: center;
+  place-items: center;
+
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
