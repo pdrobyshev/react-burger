@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.scss';
 import {
@@ -84,5 +85,14 @@ const BurgerConstructor = () => (
 		<Total />
 	</div>
 );
+
+ElementWrapper.propTypes = {
+	type: PropTypes.string,
+	isLocked: PropTypes.bool,
+	draggable: PropTypes.bool.isRequired,
+	text: PropTypes.string.isRequired,
+	thumbnail: PropTypes.string.isRequired,
+	price: PropTypes.string.isRequired,
+};
 
 export default BurgerConstructor;
