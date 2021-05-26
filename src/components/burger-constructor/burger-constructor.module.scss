@@ -1,0 +1,65 @@
+.content {
+  max-width: 600px;
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+.scroll {
+  max-height: 440px;
+
+  overflow-y: scroll;
+
+  scrollbar-color: #8585AD #2F2F37;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+.ingredientsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.elementWrapper {
+  display: flex;
+  align-items: center;
+
+  padding-left: 32px;
+
+  cursor: pointer;
+
+  &.draggable {
+    padding-left: 0;
+  }
+
+  &.fixed {
+    padding-right: 16px;
+  }
+}
+
+.totalWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

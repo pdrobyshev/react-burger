@@ -60,7 +60,7 @@ const Ingredient = ({ image, price, name }) => (
 );
 
 const BurgerIngredients = () => (
-	<section className={`${styles.content}  pt-10`}>
+	<section className={`${styles.content}  mt-10`}>
 		<h1 className="text  text_type_main-large  mb-5">Соберите бургер</h1>
 
 		<Tabs />
