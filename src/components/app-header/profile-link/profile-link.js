@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './Profile.module.scss';
+import styles from './profile-link.module.scss';
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import LinkItem from '../LinkItem/LinkItem';
+import LinkItem from '../link-item/link-item';
 
 const Profile = () => {
 	return (

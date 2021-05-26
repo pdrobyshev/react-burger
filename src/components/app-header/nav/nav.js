@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './Nav.module.scss';
+import styles from './nav.module.scss';
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import LinkItem from '../LinkItem/LinkItem';
+import LinkItem from '../link-item/link-item';
 
 const Nav = () => {
 	return (
