@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './burger-ingredients.module.scss';
 import { data } from '../../utils/data';
-import { CurrencyIcon, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const buns = data.filter((ingredient) => ingredient.type === 'bun');
 const sauces = data.filter((ingredient) => ingredient.type === 'sauce');
@@ -48,6 +48,7 @@ const IngredientsList = ({ ingredients }) => (
 
 const Ingredient = ({ image, price, name }) => (
 	<li className={styles.item}>
+		<Counter count={1} size="default" />
 		<div className="pl-4  pr-4  mb-1">
 			<img className={styles.image} src={image} alt={name} />
 			<div className={styles.price}>

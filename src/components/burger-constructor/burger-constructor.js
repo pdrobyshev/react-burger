@@ -15,7 +15,7 @@ const tempImg3 = 'https://code.s3.yandex.net/react/code/meat-02.png';
 const tempImg4 = 'https://code.s3.yandex.net/react/code/sp_1.png';
 const tempImg5 = 'https://code.s3.yandex.net/react/code/mineral_rings.png';
 
-const ElementWrapper = ({ type, isLocked, draggable, text, thumbnail, price }) => (
+const ConstructorElementWrapper = ({ type, isLocked, draggable, text, thumbnail, price }) => (
 	<div className={`${styles.elementWrapper} ${draggable === true ? styles.draggable : styles.fixed}`}>
 		{draggable && (
 			<span className="mr-2">
@@ -28,7 +28,7 @@ const ElementWrapper = ({ type, isLocked, draggable, text, thumbnail, price }) =
 
 const IngredientsList = () => (
 	<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
-		<ElementWrapper
+		<ConstructorElementWrapper
 			type="top"
 			isLocked={true}
 			draggable={false}
@@ -38,25 +38,45 @@ const IngredientsList = () => (
 		/>
 
 		<div className={`${styles.ingredientsWrapper}  ${styles.scroll}  pr-2`}>
-			<ElementWrapper
+			<ConstructorElementWrapper
 				draggable={true}
 				text="Соус традиционный галактический"
 				thumbnail={tempImg2}
 				price={30}
 			/>
-			<ElementWrapper
+			<ConstructorElementWrapper
 				draggable={true}
 				text="Мясо бессмертных моллюсков Protostomia"
 				thumbnail={tempImg3}
 				price={300}
 			/>
-			<ElementWrapper draggable={true} text="Плоды Фалленианского дерева" thumbnail={tempImg4} price={80} />
-			<ElementWrapper draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
-			<ElementWrapper draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
-			<ElementWrapper draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
+			<ConstructorElementWrapper
+				draggable={true}
+				text="Плоды Фалленианского дерева"
+				thumbnail={tempImg4}
+				price={80}
+			/>
+			<ConstructorElementWrapper
+				draggable={true}
+				text="Хрустящие минеральные кольца"
+				thumbnail={tempImg5}
+				price={80}
+			/>
+			<ConstructorElementWrapper
+				draggable={true}
+				text="Хрустящие минеральные кольца"
+				thumbnail={tempImg5}
+				price={80}
+			/>
+			<ConstructorElementWrapper
+				draggable={true}
+				text="Хрустящие минеральные кольца"
+				thumbnail={tempImg5}
+				price={80}
+			/>
 		</div>
 
-		<ElementWrapper
+		<ConstructorElementWrapper
 			type="bottom"
 			isLocked={true}
 			draggable={false}
@@ -86,7 +106,7 @@ const BurgerConstructor = () => (
 	</div>
 );
 
-ElementWrapper.propTypes = {
+ConstructorElementWrapper.propTypes = {
 	type: PropTypes.string,
 	isLocked: PropTypes.bool,
 	draggable: PropTypes.bool.isRequired,
