@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './nav.module.scss';
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import LinkItem from '../../link-item/link-item';
+import LogoWrapper from '../logo-wrapper/logo-wrapper';
+import Profile from '../profile-link/profile-link';
 
 const Nav = () => {
 	return (
@@ -15,6 +17,10 @@ const Nav = () => {
 					<LinkItem Icon={ListIcon} iconType="secondary" text="Лента заказов" />
 				</li>
 			</ul>
+
+			<LogoWrapper />
+
+			<Profile />
 		</nav>
 	);
 };

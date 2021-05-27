@@ -5,9 +5,9 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const LogoWrapper = () => {
 	return (
-		<div className={styles.logo}>
+		<a className={`${styles.logo}  ml-4  mr-4`} href="#">
 			<Logo />
-		</div>
+		</a>
 	);
 };
 

@@ -1,18 +1,28 @@
 .nav {
-  margin-right: 112px;
+  display: grid;
+  grid-template-columns: 400px 1fr 1fr;
+
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .list {
   display: flex;
+  flex-wrap: wrap;
 
+  max-width: 400px;
+  width: 100%;
   margin: 0;
+  margin-right: auto;
   padding: 0;
 
   list-style: none;
 }
 
 .item {
-  margin-right: 8px;
+  max-width: 200px;
+  width: 100%;
 
   &:last-child {
     margin-right: 0;
