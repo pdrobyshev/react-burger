@@ -2,12 +2,16 @@ import React from 'react';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
+import { data } from '../../../utils/data';
 
 const tempImg1 = 'https://code.s3.yandex.net/react/code/bun-02.png';
-const tempImg2 = 'https://code.s3.yandex.net/react/code/sauce-03.png';
-const tempImg3 = 'https://code.s3.yandex.net/react/code/meat-02.png';
-const tempImg4 = 'https://code.s3.yandex.net/react/code/sp_1.png';
-const tempImg5 = 'https://code.s3.yandex.net/react/code/mineral_rings.png';
+
+const burgerElementsList = data
+	.filter((ingredient) => ingredient.type !== 'bun')
+	.map((ingredient) => {
+		const { _id, name, image, price } = ingredient;
+		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
+	});
 
 const IngredientsList = () => (
 	<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
@@ -21,22 +25,7 @@ const IngredientsList = () => (
 		/>
 
 		<div className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
-			<BurgerElement
-				draggable={true}
-				text="Соус традиционный галактический"
-				thumbnail={tempImg2}
-				price={30}
-			/>
-			<BurgerElement
-				draggable={true}
-				text="Мясо бессмертных моллюсков Protostomia"
-				thumbnail={tempImg3}
-				price={300}
-			/>
-			<BurgerElement draggable={true} text="Плоды Фалленианского дерева" thumbnail={tempImg4} price={80} />
-			<BurgerElement draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
-			<BurgerElement draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
-			<BurgerElement draggable={true} text="Хрустящие минеральные кольца" thumbnail={tempImg5} price={80} />
+			{burgerElementsList}
 		</div>
 
 		<BurgerElement

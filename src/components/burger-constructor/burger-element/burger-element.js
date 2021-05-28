@@ -22,7 +22,7 @@ BurgerElement.propTypes = {
 	draggable: PropTypes.bool.isRequired,
 	text: PropTypes.string.isRequired,
 	thumbnail: PropTypes.string.isRequired,
-	price: PropTypes.string.isRequired,
+	price: PropTypes.number.isRequired,
 };
 
 export default BurgerElement;
