@@ -1,0 +1,14 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 40px 24px;
+
+  margin: 0;
+  margin-bottom: 40px;
+
+  list-style: none;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
