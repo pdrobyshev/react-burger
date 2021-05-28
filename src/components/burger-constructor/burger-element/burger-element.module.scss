@@ -1,0 +1,16 @@
+.element {
+  display: flex;
+  align-items: center;
+
+  composes: pl-8 from global;
+
+  cursor: pointer;
+}
+
+.draggable {
+  padding-left: 0;
+}
+
+.fixed {
+  composes: pr-4 from global;
+}
