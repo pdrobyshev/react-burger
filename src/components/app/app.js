@@ -4,6 +4,7 @@ import AppHeader from '../app-header/app-header';
 import PageContent from '../page-content/page-content';
 import Error from '../error/error';
 import Loader from '../loader/loader';
+import Modal from '../modal/modal';
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -42,6 +43,8 @@ const App = () => {
 		<>
 			<AppHeader />
 			{content}
+
+			<Modal title="Детали ингредиента" />
 		</>
 	);
 };
