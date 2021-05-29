@@ -2,6 +2,6 @@ import React from 'react';
 
 import styles from './modal-overlay.module.scss';
 
-const ModalOverlay = () => <div className={styles.overlay} />;
+const ModalOverlay = ({ onModalClose }) => <div className={styles.overlay} onClick={onModalClose} />;
 
 export default ModalOverlay;

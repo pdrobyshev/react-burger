@@ -5,6 +5,7 @@ import PageContent from '../page-content/page-content';
 import Error from '../error/error';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -12,6 +13,11 @@ const App = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
 	const [data, setData] = useState([]);
+	const [isOrderModalOpened, setIsOrderModalOpened] = useState(false);
+
+	const onOrderModalToggle = () => {
+		setIsOrderModalOpened((prevState) => !prevState);
+	};
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -32,7 +38,7 @@ const App = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
-	let content = <PageContent ingredients={data} />;
+	let content = <PageContent ingredients={data} onOrderModalOpen={onOrderModalToggle} />;
 	if (hasError) {
 		content = <Error />;
 	} else if (isLoading) {
@@ -44,7 +50,11 @@ const App = () => {
 			<AppHeader />
 			{content}
 
-			<Modal title="Детали ингредиента" />
+			{isOrderModalOpened && (
+				<Modal onModalClose={onOrderModalToggle}>
+					<OrderDetails />
+				</Modal>
+			)}
 		</>
 	);
 };
