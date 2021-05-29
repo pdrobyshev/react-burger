@@ -1,0 +1,24 @@
+.element {
+  display: flex;
+  align-items: center;
+
+  composes: pl-8 from global;
+
+  cursor: pointer;
+
+  :global(.constructor-element) {
+    width: 100%;
+  }
+
+  :global(.constructor-element__text) {
+    width: 100%;
+  }
+}
+
+.draggable {
+  padding-left: 0;
+}
+
+.fixed {
+  composes: pr-4 from global;
+}

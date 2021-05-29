@@ -1,0 +1,8 @@
+.tabs {
+  display: flex;
+
+  > div {
+    min-width: auto;
+    width: 100%;
+  }
+}
