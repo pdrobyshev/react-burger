@@ -23,8 +23,8 @@ const Modal = ({ title = '', children, onModalClose }) => {
 
 	return createPortal(
 		<div className={styles.wrapper}>
-			<section className={`${styles.modal}  p-10`}>
-				<div className={`${styles.header}  ${title === '' ? 'mb-4' : ''}  pt-3  pb-3`}>
+			<section className={`${styles.modal}  ${title !== '' ? 'pb-15' : 'pt-15  pb-30'}  p-10`}>
+				<div className={`${styles.header}  ${title !== '' ? 'pt-3  pb-3' : 'mb-9'}`}>
 					{title && <h2 className={`${styles.title}  text  text_type_main-large`}>{title}</h2>}
 					<span className={styles.icon} onClick={onModalClose}>
 						<CloseIcon type="primary" />
