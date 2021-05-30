@@ -1,0 +1,25 @@
+.image {
+  display: block;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.name {
+  display: block;
+
+  composes: text text_type_main-medium from global;
+  text-align: center;
+}
+
+.flexWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  display: block;
+
+  composes: text from global;
+  composes: text_color_inactive from global;
+}
