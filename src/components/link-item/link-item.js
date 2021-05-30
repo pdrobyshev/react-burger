@@ -19,7 +19,7 @@ const LinkItem = ({ Icon, iconType, text }) => {
 };
 
 LinkItem.propTypes = {
-	Icon: PropTypes.any,
+	Icon: PropTypes.func.isRequired,
 	iconType: PropTypes.string,
 	text: PropTypes.string.isRequired,
 };

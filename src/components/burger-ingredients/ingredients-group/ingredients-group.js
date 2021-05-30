@@ -10,16 +10,10 @@ const IngredientsGroup = ({ title, ingredients, onIngredientModalOpen }) => (
 	</>
 );
 
-const ingredientsPropTypes = PropTypes.shape({
-	image: PropTypes.string.isRequired,
-	price: PropTypes.number.isRequired,
-	name: PropTypes.string.isRequired,
-	_id: PropTypes.string.isRequired,
-});
-
 IngredientsGroup.propTypes = {
 	title: PropTypes.string.isRequired,
-	ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onIngredientModalOpen: PropTypes.func.isRequired,
 };
 
 export default IngredientsGroup;

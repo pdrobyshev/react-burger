@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,5 +15,9 @@ const Cart = ({ onOrderModalOpen }) => (
 		</Button>
 	</section>
 );
+
+Cart.propTypes = {
+	onOrderModalOpen: PropTypes.func.isRequired,
+};
 
 export default Cart;

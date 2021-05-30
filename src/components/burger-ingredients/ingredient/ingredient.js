@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -20,6 +21,15 @@ const Ingredient = ({ ingredient, onIngredientModalOpen }) => {
 			<span className={`${styles.name}  text  text_type_main-default`}>{name}</span>
 		</li>
 	);
+};
+
+Ingredient.propTypes = {
+	ingredient: PropTypes.shape({
+		image: PropTypes.string.isRequired,
+		price: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+	}).isRequired,
+	onIngredientModalOpen: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

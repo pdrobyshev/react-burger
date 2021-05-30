@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './page-content.module.scss';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -8,7 +9,7 @@ const PageContent = ({ ingredients, onOrderModalOpen, onIngredientModalOpen }) =
 	const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
 	const sauces = ingredients.filter((ingredient) => ingredient.type === 'sauce');
 	const main = ingredients.filter((ingredient) => ingredient.type === 'main');
-	const filteredIngredients = ingredients.filter((ingredient) => ingredient.type !== 'bun');
+	const burgerConstructorElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
 
 	return (
 		<main className={`${styles.main}  pl-5  pr-5`}>
@@ -18,9 +19,19 @@ const PageContent = ({ ingredients, onOrderModalOpen, onIngredientModalOpen }) =
 				main={main}
 				onIngredientModalOpen={onIngredientModalOpen}
 			/>
-			<BurgerConstructor ingredients={filteredIngredients} onOrderModalOpen={onOrderModalOpen} />
+			<BurgerConstructor ingredients={burgerConstructorElements} onOrderModalOpen={onOrderModalOpen} />
 		</main>
 	);
+};
+
+PageContent.propTypes = {
+	ingredients: PropTypes.arrayOf(
+		PropTypes.shape({
+			type: PropTypes.string.isRequired,
+		})
+	).isRequired,
+	onOrderModalOpen: PropTypes.func.isRequired,
+	onIngredientModalOpen: PropTypes.func.isRequired,
 };
 
 export default PageContent;

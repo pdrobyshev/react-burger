@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './ingredients-list.module.scss';
 import Ingredient from '../ingredient/ingredient';
@@ -14,5 +15,10 @@ const IngredientsList = ({ ingredients, onIngredientModalOpen }) => (
 		))}
 	</ul>
 );
+
+IngredientsList.propTypes = {
+	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onIngredientModalOpen: PropTypes.func.isRequired,
+};
 
 export default IngredientsList;

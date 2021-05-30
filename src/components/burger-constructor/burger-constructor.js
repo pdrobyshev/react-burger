@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.scss';
 import Cart from './cart/cart';
@@ -11,6 +12,11 @@ const BurgerConstructor = ({ ingredients, onOrderModalOpen }) => {
 			<Cart onOrderModalOpen={onOrderModalOpen} />
 		</div>
 	);
+};
+
+BurgerConstructor.propTypes = {
+	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onOrderModalOpen: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 
 import styles from './modal.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,17 +10,20 @@ const modalRoot = document.getElementById('modals');
 const KEYCODE_ESC = 27;
 
 const Modal = ({ title = '', children, onModalClose }) => {
-	const onEscPress = (e) => {
-		if (e.keyCode === KEYCODE_ESC) {
-			onModalClose();
-		}
-	};
+	const onEscPress = useCallback(
+		(e) => {
+			if (e.keyCode === KEYCODE_ESC) {
+				onModalClose();
+			}
+		},
+		[onModalClose]
+	);
 
 	useEffect(() => {
 		document.addEventListener('keydown', onEscPress);
 
 		return () => document.removeEventListener('keydown', onEscPress);
-	}, []);
+	}, [onEscPress]);
 
 	return createPortal(
 		<div className={styles.wrapper}>
@@ -38,6 +42,12 @@ const Modal = ({ title = '', children, onModalClose }) => {
 		</div>,
 		modalRoot
 	);
+};
+
+Modal.propTypes = {
+	title: PropTypes.string,
+	children: PropTypes.element.isRequired,
+	onModalClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './burger-ingredients.module.scss';
 import Tabs from './tabs/tabs';
@@ -17,5 +18,12 @@ const BurgerIngredients = ({ buns, sauces, main, onIngredientModalOpen }) => (
 		</section>
 	</section>
 );
+
+BurgerIngredients.propTypes = {
+	buns: PropTypes.arrayOf(PropTypes.object).isRequired,
+	sauces: PropTypes.arrayOf(PropTypes.object).isRequired,
+	main: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onIngredientModalOpen: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredients;
