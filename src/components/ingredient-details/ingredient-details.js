@@ -12,19 +12,19 @@ const IngredientDetails = ({ image_large, name, calories, proteins, fat, carbohy
 		<section className={styles.flexWrapper}>
 			<div className="mr-5">
 				<span className={`${styles.text}  text_type_main-default  mb-2`}>Калории,ккал</span>
-				<span className={`${styles.text}  text_type_digits-default`}>{calories}</span>
+				<span className={`${styles.text}  ${styles.amount}`}>{calories}</span>
 			</div>
 			<div className="mr-5">
 				<span className={`${styles.text}  text_type_main-default  mb-2`}>Белки, г</span>
-				<span className={`${styles.text}  text_type_digits-default`}>{proteins}</span>
+				<span className={`${styles.text}  ${styles.amount}`}>{proteins}</span>
 			</div>
 			<div className="mr-5">
 				<span className={`${styles.text}  text_type_main-default  mb-2`}>Жиры, г</span>
-				<span className={`${styles.text}  text_type_digits-default`}>{fat}</span>
+				<span className={`${styles.text}  ${styles.amount}`}>{fat}</span>
 			</div>
 			<div>
 				<span className={`${styles.text}  text_type_main-default  mb-2`}>Углеводы, г</span>
-				<span className={`${styles.text}  text_type_digits-default`}>{carbohydrates}</span>
+				<span className={`${styles.text}  ${styles.amount}`}>{carbohydrates}</span>
 			</div>
 		</section>
 	</section>

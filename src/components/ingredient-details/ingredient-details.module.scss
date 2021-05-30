@@ -23,3 +23,9 @@
   composes: text from global;
   composes: text_color_inactive from global;
 }
+
+.amount {
+  text-align: center;
+
+  composes:   text_type_digits-default from global;
+}
