@@ -6,8 +6,11 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 const Ingredient = ({ ingredient, onIngredientModalOpen }) => {
 	const { image, price, name } = ingredient;
+
+	const handleClick = (e) => onIngredientModalOpen(e, ingredient);
+
 	return (
-		<li className={styles.item} onClick={() => onIngredientModalOpen(ingredient)}>
+		<li className={styles.item} onClick={handleClick}>
 			<Counter count={1} size="default" />
 
 			<div className="pl-4  pr-4  mb-1">

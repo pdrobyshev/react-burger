@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -10,20 +10,17 @@ const modalRoot = document.getElementById('modals');
 const KEYCODE_ESC = 27;
 
 const Modal = ({ title = '', children, onModalClose }) => {
-	const onEscPress = useCallback(
-		(e) => {
+	useEffect(() => {
+		const onEscPress = (e) => {
 			if (e.keyCode === KEYCODE_ESC) {
 				onModalClose();
 			}
-		},
-		[onModalClose]
-	);
+		};
 
-	useEffect(() => {
 		document.addEventListener('keydown', onEscPress);
 
 		return () => document.removeEventListener('keydown', onEscPress);
-	}, [onEscPress]);
+	}, [onModalClose]);
 
 	return createPortal(
 		<div className={styles.wrapper}>

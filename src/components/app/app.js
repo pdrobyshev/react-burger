@@ -13,19 +13,27 @@ const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const App = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
-	const [data, setData] = useState([]);
+	const [ingredients, setIngredients] = useState([]);
 	const [isOrderModalOpened, setIsOrderModalOpened] = useState(false);
 	const [isIngredientModalOpened, setIsIngredientModalOpened] = useState(false);
 	const [currentIngredient, setCurrentIngredient] = useState({});
+
+	const tempOrderId = '034536';
 
 	const onOrderModalToggle = () => {
 		setIsOrderModalOpened((prevState) => !prevState);
 	};
 
-	const onIngredientModalToggle = (ingredient) => {
-		setCurrentIngredient(ingredient);
+	const onIngredientModalToggle = (e, ingredient) => {
+		/* Не уверен, что это правильное решение - принимать event и потом ingredients
+		 * Возможно, лучшим решением будет проверять здесь ingredients на то, что это не объект event'а и не undefined  */
+		ingredient && setCurrentIngredient(ingredient);
 		setIsIngredientModalOpened((prevState) => !prevState);
 	};
+
+	useEffect(() => {
+		console.log(currentIngredient);
+	}, [currentIngredient]);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -33,40 +41,39 @@ const App = () => {
 		fetch(API_URL)
 			.then((res) => {
 				if (!res.ok) {
-					setHasError(true);
 					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
 				}
 
 				return res.json();
 			})
 			.then((res) => {
-				setData(res.data);
-				setIsLoading(false);
+				setIngredients(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				setHasError(true);
+				console.log(err);
+			})
+			.finally(() => setIsLoading(false));
 	}, []);
 
-	let content = (
+	let content = hasError ? (
+		<Error />
+	) : (
 		<PageContent
-			ingredients={data}
+			ingredients={ingredients}
 			onOrderModalOpen={onOrderModalToggle}
 			onIngredientModalOpen={onIngredientModalToggle}
 		/>
 	);
-	if (hasError) {
-		content = <Error />;
-	} else if (isLoading) {
-		content = <Loader />;
-	}
 
 	return (
 		<>
 			<AppHeader />
-			{content}
+			{isLoading ? <Loader /> : content}
 
 			{isOrderModalOpened && (
 				<Modal onModalClose={onOrderModalToggle}>
-					<OrderDetails />
+					<OrderDetails orderId={tempOrderId} />
 				</Modal>
 			)}
 
