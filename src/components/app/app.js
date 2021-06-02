@@ -32,10 +32,6 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		console.log(currentIngredient);
-	}, [currentIngredient]);
-
-	useEffect(() => {
 		setIsLoading(true);
 
 		fetch(API_URL)
