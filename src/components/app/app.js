@@ -16,18 +16,17 @@ const App = () => {
 	const [ingredients, setIngredients] = useState([]);
 	const [isOrderModalOpened, setIsOrderModalOpened] = useState(false);
 	const [isIngredientModalOpened, setIsIngredientModalOpened] = useState(false);
-	const [currentIngredient, setCurrentIngredient] = useState({});
+	const [currentIngredient, setCurrentIngredient] = useState(null);
 
 	const tempOrderId = '034536';
 
 	const onOrderModalToggle = () => {
+		setCurrentIngredient(null);
 		setIsOrderModalOpened((prevState) => !prevState);
 	};
 
-	const onIngredientModalToggle = (e, ingredient) => {
-		/* Не уверен, что это правильное решение - принимать event и потом ingredients
-		 * Возможно, лучшим решением будет проверять здесь ingredients на то, что это не объект event'а и не undefined  */
-		ingredient && setCurrentIngredient(ingredient);
+	const onIngredientModalToggle = (ingredient) => {
+		setCurrentIngredient(ingredient);
 		setIsIngredientModalOpened((prevState) => !prevState);
 	};
 
@@ -52,7 +51,7 @@ const App = () => {
 			.finally(() => setIsLoading(false));
 	}, []);
 
-	let content = hasError ? (
+	const content = hasError ? (
 		<Error />
 	) : (
 		<PageContent
@@ -73,7 +72,7 @@ const App = () => {
 				</Modal>
 			)}
 
-			{isIngredientModalOpened && (
+			{isIngredientModalOpened && currentIngredient && (
 				<Modal title="Детали ингредиента" onModalClose={onIngredientModalToggle}>
 					<IngredientDetails {...currentIngredient} />
 				</Modal>

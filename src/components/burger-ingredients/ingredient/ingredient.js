@@ -7,7 +7,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 const Ingredient = ({ ingredient, onIngredientModalOpen }) => {
 	const { image, price, name } = ingredient;
 
-	const handleClick = (e) => onIngredientModalOpen(e, ingredient);
+	const handleClick = () => onIngredientModalOpen(ingredient);
 
 	return (
 		<li className={styles.item} onClick={handleClick}>

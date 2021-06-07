@@ -17,7 +17,6 @@ const IngredientsList = ({ ingredients }) => {
 			<BurgerElement
 				type="top"
 				isLocked={true}
-				draggable={false}
 				text="Краторная булка N-200i (верх)"
 				thumbnail={tempImg1}
 				price={20}
@@ -30,7 +29,6 @@ const IngredientsList = ({ ingredients }) => {
 			<BurgerElement
 				type="bottom"
 				isLocked={true}
-				draggable={false}
 				text="Краторная булка N-200i (низ)"
 				thumbnail={tempImg1}
 				price={20}

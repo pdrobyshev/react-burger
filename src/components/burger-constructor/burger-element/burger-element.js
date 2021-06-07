@@ -19,7 +19,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price }) =>
 BurgerElement.propTypes = {
 	type: PropTypes.string,
 	isLocked: PropTypes.bool,
-	draggable: PropTypes.bool.isRequired,
+	draggable: PropTypes.bool,
 	text: PropTypes.string.isRequired,
 	thumbnail: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
