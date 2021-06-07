@@ -1,0 +1,27 @@
+.title {
+  text-align: center;
+
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25),
+               0 0 8px rgba(51, 51, 255, 0.25),
+               0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.titleText {
+  display: block;
+
+  text-align: center;
+}
+
+.icon {
+  display: block;
+
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text {
+  display: block;
+
+  text-align: center;
+}

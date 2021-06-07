@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
@@ -16,7 +17,6 @@ const IngredientsList = ({ ingredients }) => {
 			<BurgerElement
 				type="top"
 				isLocked={true}
-				draggable={false}
 				text="Краторная булка N-200i (верх)"
 				thumbnail={tempImg1}
 				price={20}
@@ -29,13 +29,16 @@ const IngredientsList = ({ ingredients }) => {
 			<BurgerElement
 				type="bottom"
 				isLocked={true}
-				draggable={false}
 				text="Краторная булка N-200i (низ)"
 				thumbnail={tempImg1}
 				price={20}
 			/>
 		</section>
 	);
+};
+
+IngredientsList.propTypes = {
+	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default IngredientsList;
