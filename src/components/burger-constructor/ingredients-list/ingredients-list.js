@@ -1,44 +1,54 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
+import { BurgerContext } from '../../../context/burger';
 
-const tempImg1 = 'https://code.s3.yandex.net/react/code/bun-02.png';
+const IngredientsList = () => {
+	const { ingredients, totalPriceDispatcher } = useContext(BurgerContext);
 
-const IngredientsList = ({ ingredients }) => {
-	const burgerElementsList = ingredients.map((ingredient) => {
+	const buns = ingredients && ingredients.filter((ingredient) => ingredient.type === 'bun');
+	const bun = buns[0];
+
+	const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
+	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
 		const { _id, name, image, price } = ingredient;
 		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
 	});
 
+	useEffect(() => {
+		ingredients &&
+			bun &&
+			totalPriceDispatcher({ type: 'ingredients', payload: { filteredBurgerElements, bun } });
+	}, [totalPriceDispatcher]);
+
 	return (
 		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
-			<BurgerElement
-				type="top"
-				isLocked={true}
-				text="Краторная булка N-200i (верх)"
-				thumbnail={tempImg1}
-				price={20}
-			/>
+			{bun && (
+				<BurgerElement
+					type="top"
+					isLocked={true}
+					text={`${bun.name} (верх)`}
+					thumbnail={bun.image}
+					price={bun.price}
+				/>
+			)}
 
 			<div className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
 				{burgerElementsList}
 			</div>
 
-			<BurgerElement
-				type="bottom"
-				isLocked={true}
-				text="Краторная булка N-200i (низ)"
-				thumbnail={tempImg1}
-				price={20}
-			/>
+			{bun && (
+				<BurgerElement
+					type="bottom"
+					isLocked={true}
+					text={`${bun.name} (низ)`}
+					thumbnail={bun.image}
+					price={bun.price}
+				/>
+			)}
 		</section>
 	);
-};
-
-IngredientsList.propTypes = {
-	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default IngredientsList;
