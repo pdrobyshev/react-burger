@@ -7,8 +7,7 @@ import { BurgerContext } from '../../../context/burger';
 const IngredientsList = () => {
 	const { ingredients, totalPriceDispatcher } = useContext(BurgerContext);
 
-	const buns = ingredients && ingredients.filter((ingredient) => ingredient.type === 'bun');
-	const bun = buns[0];
+	const bun = ingredients && ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
 
 	const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
 	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
