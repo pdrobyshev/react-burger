@@ -7,6 +7,11 @@ import { BurgerContext } from '../../../context/burger';
 const IngredientsList = () => {
 	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
 
+	/*
+	Здесь много проверок вроде ingredients && do smth
+	И пока данные не пришли надо проверять, но, вероятнее всего, есть более корректный и лаконичный способ :/
+	*/
+
 	const bun = ingredients && ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
 
 	const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
