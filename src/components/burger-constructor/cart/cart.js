@@ -51,21 +51,13 @@ const Cart = ({ onOrderModalOpen }) => {
 		</Button>
 	);
 
-	const orderBtnDisabled = (
-		<button className={styles.button} disabled>
-			<Button type="primary" size="large">
-				Оформляем заказ
-			</Button>
-		</button>
-	);
-
 	return (
 		<section className={`${styles.totalWrapper}  mr-4`}>
 			<div className={`${styles.price}  mr-10`}>
 				<span className="text  text_type_digits-medium  mr-2">{totalPrice.totalPrice}</span>
 				<CurrencyIcon type="primary" />
 			</div>
-			{isLoading ? orderBtnDisabled : orderBtn}
+			{isLoading ? <span className="text  text_type_main-medium">Оформляем заказ</span> : orderBtn}
 		</section>
 	);
 };

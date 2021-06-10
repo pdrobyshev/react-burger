@@ -1,5 +1,6 @@
 .totalWrapper {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -7,15 +8,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.button {
-  margin: 0;
-  padding: 0;
-
-  background: transparent;
-  border: none;
-  border-radius: 64px;
-
-  outline: none;
 }
