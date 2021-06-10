@@ -6,7 +6,38 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import { BurgerContext } from '../../../context/burger';
 
 const Cart = ({ onOrderModalOpen }) => {
-	const { totalPrice } = useContext(BurgerContext);
+	const { totalPrice, orderElementsIds, setOrderId } = useContext(BurgerContext);
+	const payload = {
+		ingredients: orderElementsIds,
+	};
+
+	const API_URL = 'https://norma.nomoreparties.space/api/orders';
+	const fetchSettings = {
+		method: 'POST',
+		body: JSON.stringify(payload),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	const onOrderBtnClick = () => {
+		fetch(API_URL, fetchSettings)
+			.then((res) => {
+				if (!res.ok) {
+					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
+				}
+
+				return res.json();
+			})
+			.then((res) => {
+				setOrderId(res.order.number);
+				onOrderModalOpen();
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {});
+	};
 
 	return (
 		<section className={`${styles.totalWrapper}  mr-4`}>
@@ -14,7 +45,7 @@ const Cart = ({ onOrderModalOpen }) => {
 				<span className="text  text_type_digits-medium  mr-2">{totalPrice.totalPrice}</span>
 				<CurrencyIcon type="primary" />
 			</div>
-			<Button type="primary" size="large" onClick={onOrderModalOpen}>
+			<Button type="primary" size="large" onClick={onOrderBtnClick}>
 				Оформить заказ
 			</Button>
 		</section>

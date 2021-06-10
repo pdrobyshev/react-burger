@@ -19,9 +19,9 @@ const App = () => {
 	const [isOrderModalOpened, setIsOrderModalOpened] = useState(false);
 	const [isIngredientModalOpened, setIsIngredientModalOpened] = useState(false);
 	const [currentIngredient, setCurrentIngredient] = useState(null);
+	const [orderElementsIds, setOrderElementsIds] = useState([]);
+	const [orderId, setOrderId] = useState(0);
 	const [totalPrice, totalPriceDispatcher] = useReducer(reducer, totalPriceInitialState, undefined);
-
-	const tempOrderId = '034536';
 
 	const onOrderModalToggle = () => {
 		setCurrentIngredient(null);
@@ -59,7 +59,16 @@ const App = () => {
 	const content = hasError ? (
 		<Error />
 	) : (
-		<BurgerContext.Provider value={{ ingredients, totalPrice, totalPriceDispatcher }}>
+		<BurgerContext.Provider
+			value={{
+				ingredients,
+				totalPrice,
+				totalPriceDispatcher,
+				orderElementsIds,
+				setOrderElementsIds,
+				setOrderId,
+			}}
+		>
 			<PageContent onOrderModalOpen={onOrderModalToggle} onIngredientModalOpen={onIngredientModalToggle} />
 		</BurgerContext.Provider>
 	);
@@ -71,7 +80,7 @@ const App = () => {
 
 			{isOrderModalOpened && (
 				<Modal onModalClose={onOrderModalToggle}>
-					<OrderDetails orderId={tempOrderId} />
+					<OrderDetails orderId={orderId} />
 				</Modal>
 			)}
 
