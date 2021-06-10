@@ -23,7 +23,7 @@ const IngredientsList = () => {
 			bun &&
 			totalPriceDispatcher({ type: 'ingredients', payload: { filteredBurgerElements, bun } });
 		setOrderElementsIds(order);
-	}, [totalPriceDispatcher]);
+	}, [totalPriceDispatcher, setOrderElementsIds]);
 
 	return (
 		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
