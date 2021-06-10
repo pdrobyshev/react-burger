@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerContext } from '../../../context/burger';
+import { API_URL } from '../../../constants';
 
 const Cart = ({ onOrderModalOpen }) => {
 	const { totalPrice, orderElementsIds, setOrderId } = useContext(BurgerContext);
+
 	const payload = {
 		ingredients: orderElementsIds,
 	};
 
-	const API_URL = 'https://norma.nomoreparties.space/api/orders';
 	const fetchSettings = {
 		method: 'POST',
 		body: JSON.stringify(payload),
@@ -21,7 +22,7 @@ const Cart = ({ onOrderModalOpen }) => {
 	};
 
 	const onOrderBtnClick = () => {
-		fetch(API_URL, fetchSettings)
+		fetch(`${API_URL}orders`, fetchSettings)
 			.then((res) => {
 				if (!res.ok) {
 					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);

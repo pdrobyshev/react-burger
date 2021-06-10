@@ -9,8 +9,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { BurgerContext } from '../../context/burger';
 import { reducer, totalPriceInitialState } from '../../reducers/totalPrice';
-
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { API_URL } from '../../constants';
 
 const App = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +35,7 @@ const App = () => {
 	useEffect(() => {
 		setIsLoading(true);
 
-		fetch(API_URL)
+		fetch(`${API_URL}ingredients`)
 			.then((res) => {
 				if (!res.ok) {
 					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
