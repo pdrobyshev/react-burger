@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './cart.module.scss';
@@ -8,6 +8,7 @@ import { API_URL } from '../../../constants';
 
 const Cart = ({ onOrderModalOpen }) => {
 	const { totalPrice, orderElementsIds, setOrderId } = useContext(BurgerContext);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const payload = {
 		ingredients: orderElementsIds,
@@ -22,6 +23,8 @@ const Cart = ({ onOrderModalOpen }) => {
 	};
 
 	const onOrderBtnClick = () => {
+		setIsLoading(true);
+
 		fetch(`${API_URL}orders`, fetchSettings)
 			.then((res) => {
 				if (!res.ok) {
@@ -37,8 +40,24 @@ const Cart = ({ onOrderModalOpen }) => {
 			.catch((err) => {
 				console.log(err);
 			})
-			.finally(() => {});
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
+
+	const orderBtn = (
+		<Button type="primary" size="large" onClick={onOrderBtnClick}>
+			Оформить заказ
+		</Button>
+	);
+
+	const orderBtnDisabled = (
+		<button className={styles.button} disabled>
+			<Button type="primary" size="large">
+				Оформляем заказ
+			</Button>
+		</button>
+	);
 
 	return (
 		<section className={`${styles.totalWrapper}  mr-4`}>
@@ -46,9 +65,7 @@ const Cart = ({ onOrderModalOpen }) => {
 				<span className="text  text_type_digits-medium  mr-2">{totalPrice.totalPrice}</span>
 				<CurrencyIcon type="primary" />
 			</div>
-			<Button type="primary" size="large" onClick={onOrderBtnClick}>
-				Оформить заказ
-			</Button>
+			{isLoading ? orderBtnDisabled : orderBtn}
 		</section>
 	);
 };
