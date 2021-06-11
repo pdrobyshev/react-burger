@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
@@ -6,15 +6,16 @@ import { BurgerContext } from '../../../context/burger';
 
 const IngredientsList = () => {
 	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
+	const [bun, setBun] = useState(null);
+	const [filteredBurgerElements, setFilteredBurgerElements] = useState([]);
 
-	/*
-	Здесь много проверок вроде ingredients && do smth
-	И пока данные не пришли надо проверять, но, вероятнее всего, есть более корректный и лаконичный способ :/
-	*/
+	useEffect(() => {
+		const bun = ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
+		const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
+		setBun(bun);
+		setFilteredBurgerElements(filteredBurgerElements);
+	}, [ingredients]);
 
-	const bun = ingredients && ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
-
-	const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
 	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
 		const { _id, name, image, price } = ingredient;
 		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
@@ -24,7 +25,7 @@ const IngredientsList = () => {
 	bun && order.push(bun._id);
 
 	useEffect(() => {
-		ingredients &&
+		filteredBurgerElements &&
 			bun &&
 			totalPriceDispatcher({ type: 'INGREDIENTS', payload: { filteredBurgerElements, bun } });
 		setOrderElementsIds(order);
