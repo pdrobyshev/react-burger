@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerContext } from '../../../context/burger';
 import { API_URL } from '../../../constants';
 
-const Cart = ({ onOrderModalOpen }) => {
-	const { totalPrice, orderElementsIds, setOrderId } = useContext(BurgerContext);
+const Cart = () => {
+	const { totalPrice, orderElementsIds, setOrderId, onOrderModalToggle } = useContext(BurgerContext);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const payload = {
@@ -35,7 +34,7 @@ const Cart = ({ onOrderModalOpen }) => {
 			})
 			.then((res) => {
 				setOrderId(res.order.number);
-				onOrderModalOpen();
+				onOrderModalToggle();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -60,10 +59,6 @@ const Cart = ({ onOrderModalOpen }) => {
 			{isLoading ? <span className="text  text_type_main-medium">Оформляем заказ</span> : orderBtn}
 		</section>
 	);
-};
-
-Cart.propTypes = {
-	onOrderModalOpen: PropTypes.func.isRequired,
 };
 
 export default Cart;

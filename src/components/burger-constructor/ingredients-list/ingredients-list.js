@@ -26,7 +26,7 @@ const IngredientsList = () => {
 	useEffect(() => {
 		ingredients &&
 			bun &&
-			totalPriceDispatcher({ type: 'ingredients', payload: { filteredBurgerElements, bun } });
+			totalPriceDispatcher({ type: 'INGREDIENTS', payload: { filteredBurgerElements, bun } });
 		setOrderElementsIds(order);
 	}, [totalPriceDispatcher, setOrderElementsIds]);
 

@@ -66,9 +66,11 @@ const App = () => {
 				orderElementsIds,
 				setOrderElementsIds,
 				setOrderId,
+				onOrderModalToggle,
+				onIngredientModalToggle,
 			}}
 		>
-			<PageContent onOrderModalOpen={onOrderModalToggle} onIngredientModalOpen={onIngredientModalToggle} />
+			<PageContent />
 		</BurgerContext.Provider>
 	);
 

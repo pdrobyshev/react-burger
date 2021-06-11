@@ -4,7 +4,7 @@ export const totalPriceInitialState = { totalPrice: 0 };
 
 export const reducer = (state, action) => {
 	switch (action.type) {
-		case 'ingredients':
+		case 'INGREDIENTS':
 			const totalPrice = action.payload.filteredBurgerElements.reduce((acc, el) => acc + el.price, 0);
 			const bunPrice = action.payload.bun.price * bunsAmount;
 			return { totalPrice: totalPrice + bunPrice };

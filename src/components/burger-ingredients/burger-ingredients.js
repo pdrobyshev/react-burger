@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './burger-ingredients.module.scss';
 import Tabs from './tabs/tabs';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import { BurgerContext } from '../../context/burger';
 
-const BurgerIngredients = ({ onIngredientModalOpen }) => {
+const BurgerIngredients = () => {
 	const { ingredients } = useContext(BurgerContext);
 	const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
 	const sauces = ingredients.filter((ingredient) => ingredient.type === 'sauce');
@@ -19,16 +18,12 @@ const BurgerIngredients = ({ onIngredientModalOpen }) => {
 			<Tabs />
 
 			<section className={`${styles.ingredientsWrapper}  scroll`}>
-				<IngredientsGroup title="Булки" ingredients={buns} onIngredientModalOpen={onIngredientModalOpen} />
-				<IngredientsGroup title="Соусы" ingredients={sauces} onIngredientModalOpen={onIngredientModalOpen} />
-				<IngredientsGroup title="Начинки" ingredients={main} onIngredientModalOpen={onIngredientModalOpen} />
+				<IngredientsGroup title="Булки" ingredients={buns} />
+				<IngredientsGroup title="Соусы" ingredients={sauces} />
+				<IngredientsGroup title="Начинки" ingredients={main} />
 			</section>
 		</section>
 	);
-};
-
-BurgerIngredients.propTypes = {
-	onIngredientModalOpen: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;
