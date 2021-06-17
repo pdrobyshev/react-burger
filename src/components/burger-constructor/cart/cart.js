@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerContext } from '../../../context/burger';
-import { API_URL } from '../../../constants';
+import { API_URL } from '../../../constants/api';
 
 const Cart = () => {
 	const { totalPrice, orderElementsIds, setOrderId, onOrderModalToggle } = useContext(BurgerContext);

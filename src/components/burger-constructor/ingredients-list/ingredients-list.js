@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
 import { BurgerContext } from '../../../context/burger';
+import { INGREDIENTS } from '../../../constants/actionTypes';
 
 const IngredientsList = () => {
 	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
@@ -27,9 +28,9 @@ const IngredientsList = () => {
 	useEffect(() => {
 		filteredBurgerElements &&
 			bun &&
-			totalPriceDispatcher({ type: 'INGREDIENTS', payload: { filteredBurgerElements, bun } });
+			totalPriceDispatcher({ type: INGREDIENTS, payload: { filteredBurgerElements, bun } });
 		setOrderElementsIds(order);
-	}, [totalPriceDispatcher, setOrderElementsIds]);
+	}, [totalPriceDispatcher, setOrderElementsIds, filteredBurgerElements, bun]);
 
 	return (
 		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>

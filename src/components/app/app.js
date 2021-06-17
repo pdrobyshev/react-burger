@@ -9,7 +9,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { BurgerContext } from '../../context/burger';
 import { reducer, totalPriceInitialState } from '../../reducers/totalPrice';
-import { API_URL } from '../../constants';
+import { API_URL } from '../../constants/api';
 
 const App = () => {
 	const [isLoading, setIsLoading] = useState(false);
