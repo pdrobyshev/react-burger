@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import AppHeader from '../app-header/app-header';
 import PageContent from '../page-content/page-content';
@@ -7,8 +7,9 @@ import Loader from '../loader/loader';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { BurgerContext } from '../../context/burger';
+import { reducer, totalPriceInitialState } from '../../reducers/totalPrice';
+import { API_URL } from '../../constants/api';
 
 const App = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -17,8 +18,9 @@ const App = () => {
 	const [isOrderModalOpened, setIsOrderModalOpened] = useState(false);
 	const [isIngredientModalOpened, setIsIngredientModalOpened] = useState(false);
 	const [currentIngredient, setCurrentIngredient] = useState(null);
-
-	const tempOrderId = '034536';
+	const [orderElementsIds, setOrderElementsIds] = useState([]);
+	const [orderId, setOrderId] = useState(0);
+	const [totalPrice, totalPriceDispatcher] = useReducer(reducer, totalPriceInitialState, undefined);
 
 	const onOrderModalToggle = () => {
 		setCurrentIngredient(null);
@@ -33,7 +35,7 @@ const App = () => {
 	useEffect(() => {
 		setIsLoading(true);
 
-		fetch(API_URL)
+		fetch(`${API_URL}ingredients`)
 			.then((res) => {
 				if (!res.ok) {
 					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
@@ -48,17 +50,28 @@ const App = () => {
 				setHasError(true);
 				console.log(err);
 			})
-			.finally(() => setIsLoading(false));
+			.finally(() => {
+				setIsLoading(false);
+			});
 	}, []);
 
 	const content = hasError ? (
 		<Error />
 	) : (
-		<PageContent
-			ingredients={ingredients}
-			onOrderModalOpen={onOrderModalToggle}
-			onIngredientModalOpen={onIngredientModalToggle}
-		/>
+		<BurgerContext.Provider
+			value={{
+				ingredients,
+				totalPrice,
+				totalPriceDispatcher,
+				orderElementsIds,
+				setOrderElementsIds,
+				setOrderId,
+				onOrderModalToggle,
+				onIngredientModalToggle,
+			}}
+		>
+			<PageContent />
+		</BurgerContext.Provider>
 	);
 
 	return (
@@ -68,7 +81,7 @@ const App = () => {
 
 			{isOrderModalOpened && (
 				<Modal onModalClose={onOrderModalToggle}>
-					<OrderDetails orderId={tempOrderId} />
+					<OrderDetails orderId={orderId} />
 				</Modal>
 			)}
 

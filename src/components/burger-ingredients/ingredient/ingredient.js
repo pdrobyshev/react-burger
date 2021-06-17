@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BurgerContext } from '../../../context/burger';
 
-const Ingredient = ({ ingredient, onIngredientModalOpen }) => {
+const Ingredient = ({ ingredient }) => {
+	const { onIngredientModalToggle } = useContext(BurgerContext);
 	const { image, price, name } = ingredient;
 
-	const handleClick = () => onIngredientModalOpen(ingredient);
+	const handleClick = () => onIngredientModalToggle(ingredient);
 
 	return (
 		<li className={styles.item} onClick={handleClick}>
@@ -32,7 +34,6 @@ Ingredient.propTypes = {
 		price: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
 	}).isRequired,
-	onIngredientModalOpen: PropTypes.func.isRequired,
 };
 
 export default Ingredient;
