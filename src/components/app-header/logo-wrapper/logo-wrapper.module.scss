@@ -1,4 +1,8 @@
 .logo {
-  display: flex;
-  place-self: center;
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    place-self: center;
+  }
 }
