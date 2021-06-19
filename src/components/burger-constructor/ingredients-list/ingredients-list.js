@@ -4,8 +4,11 @@ import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
 import { BurgerContext } from '../../../context/burger';
 import { COUNT_TOTAL_PRICE } from '../../../constants/actionTypes';
+import { useDispatch } from 'react-redux';
+import { countTotalPrice } from '../../../services/actions/total-price';
 
 const IngredientsList = () => {
+	const dispatch = useDispatch();
 	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
 	const [bun, setBun] = useState(null);
 	const [filteredBurgerElements, setFilteredBurgerElements] = useState([]);
@@ -26,9 +29,8 @@ const IngredientsList = () => {
 	bun && order.push(bun._id);
 
 	useEffect(() => {
-		filteredBurgerElements &&
-			bun &&
-			totalPriceDispatcher({ type: COUNT_TOTAL_PRICE, payload: { filteredBurgerElements, bun } });
+		filteredBurgerElements && bun && dispatch(countTotalPrice({ filteredBurgerElements, bun }));
+		// totalPriceDispatcher({ type: COUNT_TOTAL_PRICE, payload: { filteredBurgerElements, bun } });
 		setOrderElementsIds(order);
 	}, [totalPriceDispatcher, setOrderElementsIds, filteredBurgerElements, bun]);
 
