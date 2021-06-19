@@ -7,7 +7,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 const PageContent = () => (
 	<main className={`${styles.main}  pl-5  pr-5`}>
 		<BurgerIngredients />
-		<BurgerConstructor />
+		{/*<BurgerConstructor />*/}
 	</main>
 );
 

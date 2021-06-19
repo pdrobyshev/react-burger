@@ -1,11 +1,11 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
-import { BurgerContext } from '../../../context/burger';
 
 const IngredientsGroup = ({ title, type }) => {
-	const { ingredients } = useContext(BurgerContext);
+	const { ingredients } = useSelector((store) => store.burger);
 	const buns = useMemo(() => ingredients.filter((ingredient) => ingredient.type === 'bun'), [ingredients]);
 	const sauces = useMemo(
 		() => ingredients.filter((ingredient) => ingredient.type === 'sauce'),

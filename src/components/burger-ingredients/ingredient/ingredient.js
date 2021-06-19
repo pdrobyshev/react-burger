@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { openIngredientModal } from '../../../services/actions/modals';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerContext } from '../../../context/burger';
 
 const Ingredient = ({ ingredient }) => {
-	const { onIngredientModalToggle } = useContext(BurgerContext);
+	const dispatch = useDispatch();
 	const { image, price, name } = ingredient;
 
-	const handleClick = () => onIngredientModalToggle(ingredient);
+	const handleClick = () => dispatch(openIngredientModal(ingredient));
 
 	return (
 		<li className={styles.item} onClick={handleClick}>
