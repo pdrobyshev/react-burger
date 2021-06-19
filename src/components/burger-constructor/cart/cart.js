@@ -1,49 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { createOrder } from '../../../services/actions/order';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerContext } from '../../../context/burger';
-import { API_URL } from '../../../constants/api';
-import { useSelector } from 'react-redux';
 
 const Cart = () => {
-	const { orderElementsIds, setOrderId, onOrderModalToggle } = useContext(BurgerContext);
-	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
+	const { order, isLoading } = useSelector((store) => store.order);
 	const { totalPrice } = useSelector((store) => store.totalPrice);
 
 	const payload = {
-		ingredients: orderElementsIds,
-	};
-
-	const fetchSettings = {
-		method: 'POST',
-		body: JSON.stringify(payload),
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		ingredients: order,
 	};
 
 	const onOrderBtnClick = () => {
-		setIsLoading(true);
-
-		fetch(`${API_URL}orders`, fetchSettings)
-			.then((res) => {
-				if (!res.ok) {
-					return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
-				}
-
-				return res.json();
-			})
-			.then((res) => {
-				setOrderId(res.order.number);
-				onOrderModalToggle();
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		dispatch(createOrder(payload));
 	};
 
 	const orderBtn = (

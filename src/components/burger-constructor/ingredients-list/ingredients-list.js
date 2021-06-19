@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { countTotalPrice } from '../../../services/actions/total-price';
+import { setOrderElementsIds } from '../../../services/actions/order';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
-import { BurgerContext } from '../../../context/burger';
-import { COUNT_TOTAL_PRICE } from '../../../constants/actionTypes';
-import { useDispatch } from 'react-redux';
-import { countTotalPrice } from '../../../services/actions/total-price';
 
 const IngredientsList = () => {
 	const dispatch = useDispatch();
-	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
+	const { ingredients } = useSelector((store) => store.burger);
 	const [bun, setBun] = useState(null);
 	const [filteredBurgerElements, setFilteredBurgerElements] = useState([]);
 
@@ -20,19 +20,18 @@ const IngredientsList = () => {
 		setFilteredBurgerElements(filteredBurgerElements);
 	}, [ingredients]);
 
-	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
-		const { _id, name, image, price } = ingredient;
-		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
-	});
-
 	const order = filteredBurgerElements.map((el) => el._id);
 	bun && order.push(bun._id);
 
 	useEffect(() => {
 		filteredBurgerElements && bun && dispatch(countTotalPrice({ filteredBurgerElements, bun }));
-		// totalPriceDispatcher({ type: COUNT_TOTAL_PRICE, payload: { filteredBurgerElements, bun } });
-		setOrderElementsIds(order);
-	}, [totalPriceDispatcher, setOrderElementsIds, filteredBurgerElements, bun]);
+		dispatch(setOrderElementsIds(order));
+	}, [dispatch, filteredBurgerElements, bun]);
+
+	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
+		const { _id, name, image, price } = ingredient;
+		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
+	});
 
 	return (
 		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>

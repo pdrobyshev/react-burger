@@ -1,8 +1,14 @@
-import { CLOSE_INGREDIENT_MODAL, OPEN_INGREDIENT_MODAL } from '../../constants/actionTypes';
+import {
+	OPEN_INGREDIENT_MODAL,
+	CLOSE_INGREDIENT_MODAL,
+	OPEN_ORDER_MODAL,
+	CLOSE_ORDER_MODAL,
+} from '../../constants/actionTypes';
 
 export const initialState = {
 	currentIngredient: null,
 	isIngredientModalOpened: false,
+	isOrderModalOpened: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -16,6 +22,14 @@ export const reducer = (state = initialState, action) => {
 			return {
 				currentIngredient: null,
 				isIngredientModalOpened: false,
+			};
+		case OPEN_ORDER_MODAL:
+			return {
+				isOrderModalOpened: true,
+			};
+		case CLOSE_ORDER_MODAL:
+			return {
+				isOrderModalOpened: false,
 			};
 		default:
 			return state;

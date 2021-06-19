@@ -1,36 +1,38 @@
 import {
-	GET_INGREDIENTS_REQUEST,
-	GET_INGREDIENTS_SUCCESS,
-	GET_INGREDIENTS_FAIL,
+	CREATE_ORDER_REQUEST,
+	CREATE_ORDER_SUCCESS,
+	CREATE_ORDER_FAIL,
+	SET_ORDER_ELEMENTS_IDS,
 } from '../../constants/actionTypes';
 
 export const initialState = {
-	ingredients: [],
-	constructorIngredients: [],
+	orderId: null,
+	order: [],
 	isLoading: false,
-	hasError: false,
 };
 
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_INGREDIENTS_REQUEST:
+		case CREATE_ORDER_REQUEST:
 			return {
 				...state,
 				isLoading: true,
-				hasError: false,
 			};
-		case GET_INGREDIENTS_SUCCESS:
-			return {
-				...state,
-				ingredients: action.ingredients,
-				isLoading: false,
-				hasError: false,
-			};
-		case GET_INGREDIENTS_FAIL:
+		case CREATE_ORDER_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
-				hasError: true,
+				orderId: action.orderId,
+			};
+		case CREATE_ORDER_FAIL:
+			return {
+				...state,
+				isLoading: false,
+			};
+		case SET_ORDER_ELEMENTS_IDS:
+			return {
+				...state,
+				order: action.order,
 			};
 		default:
 			return state;
