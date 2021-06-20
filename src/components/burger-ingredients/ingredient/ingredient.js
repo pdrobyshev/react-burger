@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useDrag } from 'react-dnd';
 
 import { openIngredientModal } from '../../../services/modals/actions';
 
@@ -9,12 +10,20 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 const Ingredient = ({ ingredient }) => {
 	const dispatch = useDispatch();
-	const { image, price, name } = ingredient;
+	const { image, price, name, _id, type } = ingredient;
+	const [{ isDragging }, dragRef] = useDrag({
+		type: 'ingredient',
+		item: { _id, type },
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	});
+	const opacity = isDragging ? 0.25 : 1;
 
 	const handleClick = () => dispatch(openIngredientModal(ingredient));
 
 	return (
-		<li className={styles.item} onClick={handleClick}>
+		<li className={styles.item} style={{ opacity }} onClick={handleClick} ref={dragRef}>
 			<Counter count={1} size="default" />
 
 			<div className="pl-4  pr-4  mb-1">

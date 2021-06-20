@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
 
+import { addConstructorIngredient } from '../../../services/burger/actions';
 import { countTotalPrice } from '../../../services/total-price/actions';
 import { setOrderElementsIds } from '../../../services/order/actions';
 
@@ -9,32 +11,50 @@ import BurgerElement from '../burger-element/burger-element';
 
 const IngredientsList = () => {
 	const dispatch = useDispatch();
-	const { ingredients } = useSelector((store) => store.burger);
+	const { constructorIngredients } = useSelector((store) => store.burger);
 	const [bun, setBun] = useState(null);
-	const [filteredBurgerElements, setFilteredBurgerElements] = useState([]);
+	const [saucesAndMain, setSaucesAndMain] = useState([]);
 
-	useEffect(() => {
-		const bun = ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
-		const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
-		setBun(bun);
-		setFilteredBurgerElements(filteredBurgerElements);
-	}, [ingredients]);
+	// useEffect(() => {
+	// 	console.log(constructorIngredients);
+	// }, [constructorIngredients]);
 
-	const order = filteredBurgerElements.map((el) => el._id);
-	bun && order.push(bun._id);
+	const handleDrop = ({ _id, type }) => dispatch(addConstructorIngredient(_id, type));
 
-	useEffect(() => {
-		filteredBurgerElements && bun && dispatch(countTotalPrice({ filteredBurgerElements, bun }));
-		dispatch(setOrderElementsIds(order));
-	}, [dispatch, filteredBurgerElements, bun]);
-
-	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
-		const { _id, name, image, price } = ingredient;
-		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
+	const [{ isHover }, dropTarget] = useDrop({
+		accept: 'ingredient',
+		collect: (monitor) => ({
+			isHover: monitor.isOver(),
+		}),
+		drop(item) {
+			handleDrop(item);
+		},
 	});
 
-	return (
-		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
+	const backgroundColor = isHover && 'rgba(133, 133, 173, 0.5)';
+
+	useEffect(() => {
+		const bun = constructorIngredients.filter((ingredient) => ingredient.type === 'bun')[0];
+		const saucesAndMain = constructorIngredients.filter((ingredient) => ingredient.type !== 'bun');
+		setBun(bun);
+		setSaucesAndMain(saucesAndMain);
+	}, [constructorIngredients]);
+
+	const burgerElementsList = saucesAndMain.map((ingredient) => {
+		const { _id, name, image, price } = ingredient;
+		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} id={_id} />;
+	});
+
+	// const constructorIngredientsIds = saucesAndMain.map((ingredient) => ingredient._id);
+	// bun && constructorIngredientsIds.push(bun._id);
+
+	// useEffect(() => {
+	// 	saucesAndMain && bun && dispatch(countTotalPrice({ saucesAndMain, bun }));
+	// 	dispatch(setOrderElementsIds(constructorIngredientsIds));
+	// }, [dispatch, saucesAndMain, bun]);
+
+	const constructorContent = constructorIngredients.length ? (
+		<>
 			{bun && (
 				<BurgerElement
 					type="top"
@@ -58,6 +78,18 @@ const IngredientsList = () => {
 					price={bun.price}
 				/>
 			)}
+		</>
+	) : (
+		<h2 className={styles.title}>Перетащите ингредиенты в эту область</h2>
+	);
+
+	return (
+		<section
+			className={`${styles.ingredientsWrapper}  ${styles.fixedHeight}  mb-10`}
+			style={{ backgroundColor }}
+			ref={dropTarget}
+		>
+			{constructorContent}
 		</section>
 	);
 };

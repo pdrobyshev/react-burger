@@ -4,6 +4,18 @@
   gap: 10px;
 }
 
+.fixedHeight {
+  height: 620px;
+}
+
 .scrollHeight {
   max-height: 440px;
+}
+
+.title {
+  align-self: center;
+
+  margin: auto;
+
+  composes: text text_type_main-medium from global;
 }

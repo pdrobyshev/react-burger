@@ -7,7 +7,7 @@ import {
 
 export const initialState = {
 	orderId: null,
-	order: [],
+	constructorElementsIds: [],
 	isLoading: false,
 };
 
@@ -32,7 +32,7 @@ export const reducer = (state = initialState, action) => {
 		case SET_ORDER_ELEMENTS_IDS:
 			return {
 				...state,
-				order: action.order,
+				constructorElementsIds: action.constructorElementsIds,
 			};
 		default:
 			return state;

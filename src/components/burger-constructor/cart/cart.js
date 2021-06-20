@@ -8,11 +8,11 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 
 const Cart = () => {
 	const dispatch = useDispatch();
-	const { order, isLoading } = useSelector((store) => store.order);
+	const { constructorElementsIds, isLoading } = useSelector((store) => store.order);
 	const { totalPrice } = useSelector((store) => store.totalPrice);
 
 	const payload = {
-		ingredients: order,
+		ingredients: constructorElementsIds,
 	};
 
 	const onOrderBtnClick = () => {
