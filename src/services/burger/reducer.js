@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import {
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
@@ -51,7 +52,10 @@ export const reducer = (state = initialState, action) => {
 					...state,
 					constructorIngredients: [
 						...state.constructorIngredients,
-						...state.ingredients.filter((ingredient) => ingredient._id === action.ingredientId),
+						{
+							...state.ingredients.filter((ingredient) => ingredient._id === action.ingredientId)[0],
+							constructorIngredientId: uuidv4(),
+						},
 					],
 				};
 			}
@@ -59,7 +63,9 @@ export const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				constructorIngredients: [
-					...state.constructorIngredients.filter((ingredient) => ingredient._id !== action.ingredientId),
+					...state.constructorIngredients.filter(
+						(ingredient) => ingredient.constructorIngredientId !== action.ingredientId
+					),
 				],
 			};
 		default:

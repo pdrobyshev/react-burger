@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 
 import { openIngredientModal } from '../../../services/modals/actions';
@@ -11,6 +11,22 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 const Ingredient = ({ ingredient }) => {
 	const dispatch = useDispatch();
 	const { image, price, name, _id, type } = ingredient;
+	// const { constructorIngredients } = useSelector((store) => store.burger);
+
+	// const count = useMemo(() => {
+	// 	if (constructorIngredients.length) {
+	// 		const bun = constructorIngredients.filter((ing) => ing.type === 'bun' && ing._id === ingredient._id);
+	// 		const arr = constructorIngredients.filter((constructorIng) => constructorIng._id === ingredient._id);
+	//
+	// 		if (bun) {
+	// 			return 2;
+	// 		} else {
+	// 			return arr.length;
+	// 		}
+	// 	}
+	// 	return 0;
+	// }, [ingredient, constructorIngredients]);
+
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingredient',
 		item: { _id, type },
@@ -24,6 +40,7 @@ const Ingredient = ({ ingredient }) => {
 
 	return (
 		<li className={styles.item} style={{ opacity }} onClick={handleClick} ref={dragRef}>
+			{/*{!!count && <Counter count={count} size="default" />}*/}
 			<Counter count={1} size="default" />
 
 			<div className="pl-4  pr-4  mb-1">

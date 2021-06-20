@@ -15,10 +15,6 @@ const IngredientsList = () => {
 	const [bun, setBun] = useState(null);
 	const [saucesAndMain, setSaucesAndMain] = useState([]);
 
-	// useEffect(() => {
-	// 	console.log(constructorIngredients);
-	// }, [constructorIngredients]);
-
 	const handleDrop = ({ _id, type }) => dispatch(addConstructorIngredient(_id, type));
 
 	const [{ isHover }, dropTarget] = useDrop({
@@ -34,15 +30,26 @@ const IngredientsList = () => {
 	const backgroundColor = isHover && 'rgba(133, 133, 173, 0.5)';
 
 	useEffect(() => {
+		console.dir(constructorIngredients);
+
 		const bun = constructorIngredients.filter((ingredient) => ingredient.type === 'bun')[0];
 		const saucesAndMain = constructorIngredients.filter((ingredient) => ingredient.type !== 'bun');
 		setBun(bun);
 		setSaucesAndMain(saucesAndMain);
 	}, [constructorIngredients]);
 
-	const burgerElementsList = saucesAndMain.map((ingredient) => {
-		const { _id, name, image, price } = ingredient;
-		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} id={_id} />;
+	const burgerElementsList = saucesAndMain.map((ingredient, index) => {
+		const { constructorIngredientId, name, image, price } = ingredient;
+		return (
+			<BurgerElement
+				key={index}
+				draggable={true}
+				text={name}
+				thumbnail={image}
+				price={price}
+				id={constructorIngredientId}
+			/>
+		);
 	});
 
 	// const constructorIngredientsIds = saucesAndMain.map((ingredient) => ingredient._id);
