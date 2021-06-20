@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIngredients } from '../../services/actions/burger';
-import { closeIngredientModal, closeOrderModal } from '../../services/actions/modals';
+import { getIngredients } from '../../services/burger/actions';
+import { closeIngredientModal, closeOrderModal } from '../../services/modals/actions';
 
 import AppHeader from '../app-header/app-header';
 import PageContent from '../page-content/page-content';

@@ -5,7 +5,7 @@ import {
 	CREATE_ORDER_FAIL,
 	SET_ORDER_ELEMENTS_IDS,
 } from '../../constants/actionTypes';
-import { openOrderModal } from './modals';
+import { openOrderModal } from '../modals/actions';
 
 export const createOrder = (payload) => (dispatch) => {
 	dispatch({ type: CREATE_ORDER_REQUEST });

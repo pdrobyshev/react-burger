@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { countTotalPrice } from '../../../services/actions/total-price';
-import { setOrderElementsIds } from '../../../services/actions/order';
+import { countTotalPrice } from '../../../services/total-price/actions';
+import { setOrderElementsIds } from '../../../services/order/actions';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
