@@ -1,21 +1,28 @@
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import styles from './burger-ingredients.module.scss';
 import Tabs from './tabs/tabs';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 
-const BurgerIngredients = () => (
-	<section className={`${styles.content}  mt-10`}>
-		<h1 className="text  text_type_main-large  mb-5">Соберите бургер</h1>
+const BurgerIngredients = () => {
+	const [bunsRef, inViewBuns] = useInView({ threshold: 0 });
+	const [saucesRef, inViewSauces] = useInView({ threshold: 0 });
+	const [mainsRef, inViewMains] = useInView({ threshold: 0 });
 
-		<Tabs />
+	return (
+		<section className={`${styles.content}  mt-10`}>
+			<h1 className="text  text_type_main-large  mb-5">Соберите бургер</h1>
 
-		<section className={`${styles.ingredientsWrapper}  scroll`}>
-			<IngredientsGroup title="Булки" type="bun" />
-			<IngredientsGroup title="Соусы" type="sauce" />
-			<IngredientsGroup title="Начинки" type="main" />
+			<Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewMains={inViewMains} />
+
+			<section className={`${styles.ingredientsWrapper}  scroll`}>
+				<IngredientsGroup title="Булки" type="bun" ref={bunsRef} />
+				<IngredientsGroup title="Соусы" type="sauce" ref={saucesRef} />
+				<IngredientsGroup title="Начинки" type="main" ref={mainsRef} />
+			</section>
 		</section>
-	</section>
-);
+	);
+};
 
 export default BurgerIngredients;
