@@ -7,6 +7,7 @@ import {
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
 	MOVE_CONSTRUCTOR_ITEM,
+	RESET_CONSTRUCTOR_STATE,
 } from '../../constants/actionTypes';
 
 export const initialState = {
@@ -19,6 +20,12 @@ export const initialState = {
 
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case RESET_CONSTRUCTOR_STATE:
+			return {
+				...state,
+				bun: null,
+				constructorIngredients: [],
+			};
 		case MOVE_CONSTRUCTOR_ITEM:
 			const arr = [...state.constructorIngredients];
 			const dragItem = arr[action.dragIndex];

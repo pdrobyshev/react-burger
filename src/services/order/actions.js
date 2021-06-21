@@ -6,6 +6,7 @@ import {
 	SET_ORDER_ELEMENTS_IDS,
 } from '../../constants/actionTypes';
 import { openOrderModal } from '../modals/actions';
+import { resetConstructorState } from '../burger/actions';
 
 export const createOrder = (payload) => (dispatch) => {
 	dispatch({ type: CREATE_ORDER_REQUEST });
@@ -26,6 +27,7 @@ export const createOrder = (payload) => (dispatch) => {
 		.then((res) => {
 			dispatch({ type: CREATE_ORDER_SUCCESS, orderId: res.order.number });
 			dispatch(openOrderModal());
+			dispatch(resetConstructorState());
 		})
 		.catch((err) => {
 			console.log(err);

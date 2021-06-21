@@ -7,7 +7,14 @@ import {
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
 	MOVE_CONSTRUCTOR_ITEM,
+	RESET_CONSTRUCTOR_STATE,
 } from '../../constants/actionTypes';
+
+export const resetConstructorState = () => (dispatch) => {
+	dispatch({
+		type: RESET_CONSTRUCTOR_STATE,
+	});
+};
 
 export const moveConstructorItem = (dragIndex, hoverIndex) => (dispatch) => {
 	dispatch({
