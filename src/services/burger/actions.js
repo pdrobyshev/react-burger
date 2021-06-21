@@ -3,15 +3,22 @@ import {
 	GET_INGREDIENTS_FAIL,
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
+	ADD_CONSTRUCTOR_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
 } from '../../constants/actionTypes';
 
-export const addConstructorIngredient = (ingredientId, ingredientType) => (dispatch) => {
+export const addConstructorIngredient = (ingredient) => (dispatch) => {
 	dispatch({
 		type: ADD_CONSTRUCTOR_INGREDIENT,
-		ingredientId: ingredientId,
-		ingredientType: ingredientType,
+		ingredient: ingredient,
+	});
+};
+
+export const addConstructorBun = (ingredient) => (dispatch) => {
+	dispatch({
+		type: ADD_CONSTRUCTOR_BUN,
+		bun: ingredient,
 	});
 };
 

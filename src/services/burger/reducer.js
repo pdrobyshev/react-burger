@@ -3,12 +3,14 @@ import {
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
 	GET_INGREDIENTS_FAIL,
+	ADD_CONSTRUCTOR_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
 } from '../../constants/actionTypes';
 
 export const initialState = {
 	ingredients: [],
+	bun: null,
 	constructorIngredients: [],
 	isLoading: false,
 	hasError: false,
@@ -35,30 +37,22 @@ export const reducer = (state = initialState, action) => {
 				isLoading: false,
 				hasError: true,
 			};
+		case ADD_CONSTRUCTOR_BUN:
+			return {
+				...state,
+				bun: action.bun,
+			};
 		case ADD_CONSTRUCTOR_INGREDIENT:
-			if (action.ingredientType === 'bun') {
-				const noBunsConstructorIngredients = state.constructorIngredients.filter(
-					(ingredient) => ingredient.type !== action.ingredientType
-				);
-				const newConstructorIngredients = state.ingredients.filter(
-					(ingredient) => ingredient._id === action.ingredientId
-				);
-				return {
-					...state,
-					constructorIngredients: [...noBunsConstructorIngredients, ...newConstructorIngredients],
-				};
-			} else {
-				return {
-					...state,
-					constructorIngredients: [
-						...state.constructorIngredients,
-						{
-							...state.ingredients.filter((ingredient) => ingredient._id === action.ingredientId)[0],
-							constructorIngredientId: uuidv4(),
-						},
-					],
-				};
-			}
+			return {
+				...state,
+				constructorIngredients: [
+					...state.constructorIngredients,
+					{
+						...action.ingredient,
+						constructorIngredientId: uuidv4(),
+					},
+				],
+			};
 		case DELETE_CONSTRUCTOR_INGREDIENT:
 			return {
 				...state,

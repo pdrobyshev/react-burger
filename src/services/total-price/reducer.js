@@ -9,9 +9,15 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case COUNT_TOTAL_PRICE:
-			const totalPrice = action.payload.saucesAndMain.reduce((acc, el) => acc + el.price, 0);
-			const bunPrice = action.payload.bun.price * bunsAmount;
-			return { totalPrice: totalPrice + bunPrice };
+			let bunPrice = 0;
+			let ingredientsPrice = 0;
+			if (action.payload.bun) {
+				bunPrice = action.payload.bun.price * bunsAmount;
+			}
+			if (action.payload.constructorIngredients.length) {
+				ingredientsPrice = action.payload.constructorIngredients.reduce((acc, el) => acc + el.price, 0);
+			}
+			return { totalPrice: ingredientsPrice + bunPrice };
 		default:
 			return state;
 	}
