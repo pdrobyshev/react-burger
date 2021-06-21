@@ -13,10 +13,6 @@ const Ingredient = ({ ingredient }) => {
 	const { image, price, name } = ingredient;
 	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
-	useEffect(() => {
-		console.log(constructorIngredients);
-	}, [constructorIngredients]);
-
 	const counters = useMemo(() => {
 		const counter = {};
 

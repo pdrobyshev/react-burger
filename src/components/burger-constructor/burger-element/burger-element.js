@@ -20,8 +20,13 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 		}),
 	}));
 
-	const [, dropRef] = useDrop({
+	const [{ handlerId }, dropRef] = useDrop({
 		accept: 'constructor',
+		collect(monitor) {
+			return {
+				handlerId: monitor.getHandlerId(),
+			};
+		},
 		hover(item, monitor) {
 			if (!ref.current) {
 				return;
@@ -61,6 +66,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 			className={`${styles.element} ${draggable === true ? styles.draggable : styles.fixed}`}
 			style={{ opacity }}
 			ref={ref}
+			data-handler-id={handlerId}
 		>
 			{draggable && (
 				<span className="mr-2">

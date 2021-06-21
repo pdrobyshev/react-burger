@@ -29,6 +29,10 @@ const IngredientsList = () => {
 		}
 	};
 
+	useEffect(() => {
+		console.log(constructorIngredients);
+	}, [constructorIngredients]);
+
 	const [{ isHover }, dropTarget] = useDrop({
 		accept: 'ingredient',
 		collect: (monitor) => ({
