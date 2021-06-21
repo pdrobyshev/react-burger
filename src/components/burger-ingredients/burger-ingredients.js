@@ -17,9 +17,9 @@ const BurgerIngredients = () => {
 			<Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewMains={inViewMains} />
 
 			<section className={`${styles.ingredientsWrapper}  scroll`}>
-				<IngredientsGroup title="Булки" type="bun" ref={bunsRef} />
-				<IngredientsGroup title="Соусы" type="sauce" ref={saucesRef} />
-				<IngredientsGroup title="Начинки" type="main" ref={mainsRef} />
+				<IngredientsGroup title="Булки" type="bun" groupId="buns" ref={bunsRef} />
+				<IngredientsGroup title="Соусы" type="sauce" groupId="sauces" ref={saucesRef} />
+				<IngredientsGroup title="Начинки" type="main" groupId="main" ref={mainsRef} />
 			</section>
 		</section>
 	);
