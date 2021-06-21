@@ -45,12 +45,13 @@ const IngredientsList = () => {
 		const { constructorIngredientId, name, image, price } = ingredient;
 		return (
 			<BurgerElement
-				key={index}
+				key={constructorIngredientId}
 				draggable={true}
 				text={name}
 				thumbnail={image}
 				price={price}
 				id={constructorIngredientId}
+				idx={index}
 			/>
 		);
 	});

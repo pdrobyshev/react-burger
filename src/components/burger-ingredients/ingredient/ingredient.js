@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
@@ -12,6 +12,10 @@ const Ingredient = ({ ingredient }) => {
 	const dispatch = useDispatch();
 	const { image, price, name } = ingredient;
 	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+
+	useEffect(() => {
+		console.log(constructorIngredients);
+	}, [constructorIngredients]);
 
 	const counters = useMemo(() => {
 		const counter = {};
@@ -40,7 +44,6 @@ const Ingredient = ({ ingredient }) => {
 	return (
 		<li className={styles.item} style={{ opacity }} onClick={handleClick} ref={dragRef}>
 			{counters[ingredient._id] && <Counter count={counters[ingredient._id]} size="default" />}
-			{/*<Counter count={1} size="default" />*/}
 
 			<div className="pl-4  pr-4  mb-1">
 				<img className={styles.image} src={image} alt={name} />

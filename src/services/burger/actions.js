@@ -6,7 +6,16 @@ import {
 	ADD_CONSTRUCTOR_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
+	MOVE_CONSTRUCTOR_ITEM,
 } from '../../constants/actionTypes';
+
+export const moveConstructorItem = (dragIndex, hoverIndex) => (dispatch) => {
+	dispatch({
+		type: MOVE_CONSTRUCTOR_ITEM,
+		dragIndex,
+		hoverIndex,
+	});
+};
 
 export const addConstructorIngredient = (ingredient) => (dispatch) => {
 	dispatch({

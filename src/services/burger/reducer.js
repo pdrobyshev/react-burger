@@ -6,6 +6,7 @@ import {
 	ADD_CONSTRUCTOR_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
+	MOVE_CONSTRUCTOR_ITEM,
 } from '../../constants/actionTypes';
 
 export const initialState = {
@@ -18,6 +19,17 @@ export const initialState = {
 
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case MOVE_CONSTRUCTOR_ITEM:
+			const arr = [...state.constructorIngredients];
+			const dragItem = arr.find((el, index) => index === action.dragIndex);
+			const hoverItem = arr.find((el, index) => index === action.hoverIndex);
+			arr[action.hoverIndex] = dragItem;
+			arr[action.dragIndex] = hoverItem;
+			// [arr[dragItem], arr[hoverItem]] = [arr[hoverItem], arr[dragItem]];
+			return {
+				...state,
+				constructorIngredients: arr,
+			};
 		case GET_INGREDIENTS_REQUEST:
 			return {
 				...state,
