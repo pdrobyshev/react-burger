@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
@@ -10,22 +10,21 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 const Ingredient = ({ ingredient }) => {
 	const dispatch = useDispatch();
-	const { image, price, name, _id, type } = ingredient;
-	// const { constructorIngredients } = useSelector((store) => store.burger);
+	const { image, price, name } = ingredient;
+	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
-	// const count = useMemo(() => {
-	// 	if (constructorIngredients.length) {
-	// 		const bun = constructorIngredients.filter((ing) => ing.type === 'bun' && ing._id === ingredient._id);
-	// 		const arr = constructorIngredients.filter((constructorIng) => constructorIng._id === ingredient._id);
-	//
-	// 		if (bun) {
-	// 			return 2;
-	// 		} else {
-	// 			return arr.length;
-	// 		}
-	// 	}
-	// 	return 0;
-	// }, [ingredient, constructorIngredients]);
+	const counters = useMemo(() => {
+		const counter = {};
+
+		constructorIngredients.forEach((ingredient) => {
+			if (!counter[ingredient._id]) counter[ingredient._id] = 0;
+			counter[ingredient._id]++;
+		});
+
+		if (bun) counter[bun._id] = 2;
+
+		return counter;
+	}, [constructorIngredients, bun]);
 
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingredient',
@@ -40,8 +39,8 @@ const Ingredient = ({ ingredient }) => {
 
 	return (
 		<li className={styles.item} style={{ opacity }} onClick={handleClick} ref={dragRef}>
-			{/*{!!count && <Counter count={count} size="default" />}*/}
-			<Counter count={1} size="default" />
+			{counters[ingredient._id] && <Counter count={counters[ingredient._id]} size="default" />}
+			{/*<Counter count={1} size="default" />*/}
 
 			<div className="pl-4  pr-4  mb-1">
 				<img className={styles.image} src={image} alt={name} />
