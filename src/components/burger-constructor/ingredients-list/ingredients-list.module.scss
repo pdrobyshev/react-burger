@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  composes: pr-2 from global;
+  list-style: none;
 }
 
 .fixedHeight {

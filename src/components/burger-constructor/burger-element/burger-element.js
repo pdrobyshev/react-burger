@@ -12,13 +12,13 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 
-	const [{ isDragging }, dragRef] = useDrag(() => ({
+	const [{ isDragging }, dragRef] = useDrag({
 		type: 'constructor',
 		item: { idx },
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
-	}));
+	});
 
 	const [{ handlerId }, dropRef] = useDrop({
 		accept: 'constructor',
@@ -32,7 +32,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 				return;
 			}
 
-			const dragIndex = item.index;
+			const dragIndex = item.idx;
 			const hoverIndex = idx;
 
 			if (dragIndex === hoverIndex) {
@@ -52,7 +52,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 
 			dispatch(moveConstructorItem(dragIndex, hoverIndex));
 
-			item.index = hoverIndex;
+			item.idx = hoverIndex;
 		},
 	});
 
@@ -62,7 +62,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 	const onDeleteIngredientClick = () => dispatch(deleteConstructorIngredient(id));
 
 	return (
-		<div
+		<li
 			className={`${styles.element} ${draggable === true ? styles.draggable : styles.fixed}`}
 			style={{ opacity }}
 			ref={ref}
@@ -82,7 +82,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 				price={price}
 				handleClose={onDeleteIngredientClick}
 			/>
-		</div>
+		</li>
 	);
 };
 

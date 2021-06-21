@@ -21,17 +21,10 @@ export const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case MOVE_CONSTRUCTOR_ITEM:
 			const arr = [...state.constructorIngredients];
-			// const dragItem = arr[action.dragIndex];
-			// const prevItem = arr.splice(action.hoverIndex, 1, dragItem);
-			// arr.splice(action.dragIndex, 1, prevItem[0]);
-
 			const dragItem = arr[action.dragIndex];
 			const hoverItem = arr[action.hoverIndex];
-			// const dragItem = arr.find((el, index) => index === action.dragIndex);
-			// const hoverItem = arr.find((el, index) => index === action.hoverIndex);
 			arr[action.hoverIndex] = dragItem;
 			arr[action.dragIndex] = hoverItem;
-			// [arr[dragItem], arr[hoverItem]] = [arr[hoverItem], arr[dragItem]];
 			return {
 				...state,
 				constructorIngredients: arr,

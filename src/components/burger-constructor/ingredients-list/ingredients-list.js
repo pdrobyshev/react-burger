@@ -8,6 +8,7 @@ import { setOrderElementsIds } from '../../../services/order/actions';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const IngredientsList = () => {
 	const dispatch = useDispatch();
@@ -28,10 +29,6 @@ const IngredientsList = () => {
 			dispatch(addConstructorIngredient(item));
 		}
 	};
-
-	useEffect(() => {
-		console.log(constructorIngredients);
-	}, [constructorIngredients]);
 
 	const [{ isHover }, dropTarget] = useDrop({
 		accept: 'ingredient',
@@ -64,27 +61,33 @@ const IngredientsList = () => {
 		bun || constructorIngredients.length ? (
 			<>
 				{bun && (
-					<BurgerElement
-						type="top"
-						isLocked={true}
-						text={`${bun.name} (верх)`}
-						thumbnail={bun.image}
-						price={bun.price}
-					/>
+					<div className="pl-8  pr-4">
+						<ConstructorElement
+							type="top"
+							draggable={false}
+							isLocked={true}
+							text={`${bun.name} (верх)`}
+							thumbnail={bun.image}
+							price={bun.price}
+						/>
+					</div>
 				)}
 
-				<div className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
+				<ul className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
 					{burgerElementsList}
-				</div>
+				</ul>
 
 				{bun && (
-					<BurgerElement
-						type="bottom"
-						isLocked={true}
-						text={`${bun.name} (низ)`}
-						thumbnail={bun.image}
-						price={bun.price}
-					/>
+					<div className="pl-8  pr-4">
+						<ConstructorElement
+							type="bottom"
+							draggable={false}
+							isLocked={true}
+							text={`${bun.name} (низ)`}
+							thumbnail={bun.image}
+							price={bun.price}
+						/>
+					</div>
 				)}
 			</>
 		) : (
