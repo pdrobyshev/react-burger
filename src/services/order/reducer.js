@@ -27,6 +27,7 @@ export const reducer = (state = initialState, action) => {
 		case CREATE_ORDER_ERROR:
 			return {
 				...state,
+				orderId: null,
 				isLoading: false,
 			};
 		case SET_ORDER_ELEMENTS_IDS:
