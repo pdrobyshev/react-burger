@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
-	GET_INGREDIENTS_FAIL,
+	GET_INGREDIENTS_ERROR,
 	ADD_CONSTRUCTOR_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
 	DELETE_CONSTRUCTOR_INGREDIENT,
@@ -31,7 +31,7 @@ export const reducer = (state = initialState, action) => {
 				isLoading: false,
 				hasError: false,
 			};
-		case GET_INGREDIENTS_FAIL:
+		case GET_INGREDIENTS_ERROR:
 			return {
 				...state,
 				isLoading: false,

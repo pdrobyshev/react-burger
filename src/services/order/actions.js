@@ -2,7 +2,7 @@ import { API_URL } from '../../constants/api';
 import {
 	CREATE_ORDER_REQUEST,
 	CREATE_ORDER_SUCCESS,
-	CREATE_ORDER_FAIL,
+	CREATE_ORDER_ERROR,
 	SET_ORDER_ELEMENTS_IDS,
 } from '../../constants/actionTypes';
 import { openOrderModal } from '../modals/actions';
@@ -29,7 +29,7 @@ export const createOrder = (payload) => (dispatch) => {
 		})
 		.catch((err) => {
 			console.log(err);
-			dispatch({ type: CREATE_ORDER_FAIL });
+			dispatch({ type: CREATE_ORDER_ERROR });
 		});
 };
 

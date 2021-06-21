@@ -1,7 +1,7 @@
 import {
 	CREATE_ORDER_REQUEST,
 	CREATE_ORDER_SUCCESS,
-	CREATE_ORDER_FAIL,
+	CREATE_ORDER_ERROR,
 	SET_ORDER_ELEMENTS_IDS,
 } from '../../constants/actionTypes';
 
@@ -24,7 +24,7 @@ export const reducer = (state = initialState, action) => {
 				isLoading: false,
 				orderId: action.orderId,
 			};
-		case CREATE_ORDER_FAIL:
+		case CREATE_ORDER_ERROR:
 			return {
 				...state,
 				isLoading: false,

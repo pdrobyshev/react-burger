@@ -1,6 +1,6 @@
 import { API_URL } from '../../constants/api';
 import {
-	GET_INGREDIENTS_FAIL,
+	GET_INGREDIENTS_ERROR,
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
 	ADD_CONSTRUCTOR_BUN,
@@ -42,6 +42,6 @@ export const getIngredients = () => (dispatch) => {
 		})
 		.catch((err) => {
 			console.log(err);
-			dispatch({ type: GET_INGREDIENTS_FAIL });
+			dispatch({ type: GET_INGREDIENTS_ERROR });
 		});
 };
