@@ -16,7 +16,7 @@ const IngredientsList = () => {
 	useEffect(() => {
 		const order = constructorIngredients.map((ingredient) => ingredient._id);
 		bun && order.push(bun._id);
-		order.length && dispatch(setOrderElementsIds(order));
+		dispatch(setOrderElementsIds(order));
 	}, [dispatch, constructorIngredients, bun]);
 
 	const handleDrop = (item) => {
