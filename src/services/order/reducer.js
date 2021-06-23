@@ -3,7 +3,7 @@ import {
 	CREATE_ORDER_SUCCESS,
 	CREATE_ORDER_ERROR,
 	SET_ORDER_ELEMENTS_IDS,
-} from '../../constants/actionTypes';
+} from './actions';
 
 export const initialState = {
 	orderId: null,

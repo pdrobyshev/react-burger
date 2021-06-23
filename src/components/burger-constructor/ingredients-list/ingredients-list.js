@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
 import { addConstructorBun, addConstructorIngredient } from '../../../services/burger/actions';
-import { countTotalPrice } from '../../../services/total-price/actions';
 import { setOrderElementsIds } from '../../../services/order/actions';
 
 import styles from './ingredients-list.module.scss';
@@ -15,11 +14,9 @@ const IngredientsList = () => {
 	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
 	useEffect(() => {
-		if (bun || constructorIngredients.length) dispatch(countTotalPrice({ constructorIngredients, bun }));
-
 		const order = constructorIngredients.map((ingredient) => ingredient._id);
 		bun && order.push(bun._id);
-		dispatch(setOrderElementsIds(order));
+		order.length && dispatch(setOrderElementsIds(order));
 	}, [dispatch, constructorIngredients, bun]);
 
 	const handleDrop = (item) => {

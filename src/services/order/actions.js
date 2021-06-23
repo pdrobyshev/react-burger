@@ -1,12 +1,11 @@
 import { API_URL } from '../../constants/api';
-import {
-	CREATE_ORDER_REQUEST,
-	CREATE_ORDER_SUCCESS,
-	CREATE_ORDER_ERROR,
-	SET_ORDER_ELEMENTS_IDS,
-} from '../../constants/actionTypes';
 import { openOrderModal } from '../modals/actions';
 import { resetConstructorState } from '../burger/actions';
+
+export const SET_ORDER_ELEMENTS_IDS = 'SET_ORDER_ELEMENTS_IDS',
+	CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST',
+	CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS',
+	CREATE_ORDER_ERROR = 'CREATE_ORDER_ERROR';
 
 export const createOrder = (payload) => (dispatch) => {
 	dispatch({ type: CREATE_ORDER_REQUEST });
@@ -19,7 +18,7 @@ export const createOrder = (payload) => (dispatch) => {
 		},
 	};
 
-	fetch(`${API_URL}orders`, fetchSettings)
+	return fetch(`${API_URL}orders`, fetchSettings)
 		.then((res) => {
 			if (!res.ok) return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
 			return res.json();

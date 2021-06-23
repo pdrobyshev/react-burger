@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createOrder } from '../../../services/order/actions';
@@ -9,7 +9,15 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 const Cart = () => {
 	const dispatch = useDispatch();
 	const { constructorElementsIds, isLoading } = useSelector((store) => store.order);
-	const { totalPrice } = useSelector((store) => store.totalPrice);
+	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+
+	const totalPrice = useMemo(() => {
+		const bunPrice = bun ? bun.price * 2 : 0;
+		const ingredientsPrice = constructorIngredients
+			? constructorIngredients.reduce((acc, el) => acc + el.price, 0)
+			: 0;
+		return ingredientsPrice + bunPrice;
+	}, [constructorIngredients, bun]);
 
 	const payload = {
 		ingredients: constructorElementsIds,

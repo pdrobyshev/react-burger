@@ -3,7 +3,7 @@ import {
 	CLOSE_INGREDIENT_MODAL,
 	OPEN_ORDER_MODAL,
 	CLOSE_ORDER_MODAL,
-} from '../../constants/actionTypes';
+} from './actions';
 
 export const initialState = {
 	currentIngredient: null,

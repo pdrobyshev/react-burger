@@ -1,9 +1,7 @@
-import {
-	CLOSE_INGREDIENT_MODAL,
-	CLOSE_ORDER_MODAL,
-	OPEN_INGREDIENT_MODAL,
-	OPEN_ORDER_MODAL,
-} from '../../constants/actionTypes';
+export const OPEN_INGREDIENT_MODAL = 'OPEN_INGREDIENT_MODAL',
+	CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL',
+	OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL',
+	CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 
 export const openIngredientModal = (ingredient) => (dispatch) => {
 	dispatch({ type: OPEN_INGREDIENT_MODAL, ingredient: ingredient });

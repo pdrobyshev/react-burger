@@ -1,14 +1,13 @@
+import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../constants/api';
-import {
-	GET_INGREDIENTS_ERROR,
-	GET_INGREDIENTS_REQUEST,
-	GET_INGREDIENTS_SUCCESS,
-	ADD_CONSTRUCTOR_BUN,
-	ADD_CONSTRUCTOR_INGREDIENT,
-	DELETE_CONSTRUCTOR_INGREDIENT,
-	MOVE_CONSTRUCTOR_ITEM,
-	RESET_CONSTRUCTOR_STATE,
-} from '../../constants/actionTypes';
+export const MOVE_CONSTRUCTOR_ITEM = 'MOVE_CONSTRUCTOR_ITEM',
+	RESET_CONSTRUCTOR_STATE = 'RESET_CONSTRUCTOR_STATE',
+	ADD_CONSTRUCTOR_BUN = 'ADD_CONSTRUCTOR_BUN',
+	ADD_CONSTRUCTOR_INGREDIENT = 'ADD_CONSTRUCTOR_INGREDIENT',
+	DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT',
+	GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST',
+	GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS',
+	GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
 export const resetConstructorState = () => (dispatch) => {
 	dispatch({
@@ -28,6 +27,7 @@ export const addConstructorIngredient = (ingredient) => (dispatch) => {
 	dispatch({
 		type: ADD_CONSTRUCTOR_INGREDIENT,
 		ingredient: ingredient,
+		constructorIngredientId: uuidv4(),
 	});
 };
 
@@ -48,7 +48,7 @@ export const deleteConstructorIngredient = (ingredientId) => (dispatch) => {
 export const getIngredients = () => (dispatch) => {
 	dispatch({ type: GET_INGREDIENTS_REQUEST });
 
-	fetch(`${API_URL}ingredients`)
+	return fetch(`${API_URL}ingredients`)
 		.then((res) => {
 			if (!res.ok) return Promise.reject(`Что-то пошло не так :( Статус ${res.status}`);
 			return res.json();
