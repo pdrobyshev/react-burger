@@ -9,41 +9,31 @@ export const MOVE_CONSTRUCTOR_ITEM = 'MOVE_CONSTRUCTOR_ITEM',
 	GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS',
 	GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
-export const resetConstructorState = () => (dispatch) => {
-	dispatch({
-		type: RESET_CONSTRUCTOR_STATE,
-	});
-};
+export const resetConstructorState = () => ({
+	type: RESET_CONSTRUCTOR_STATE,
+});
 
-export const moveConstructorItem = (dragIndex, hoverIndex) => (dispatch) => {
-	dispatch({
-		type: MOVE_CONSTRUCTOR_ITEM,
-		dragIndex,
-		hoverIndex,
-	});
-};
+export const moveConstructorItem = (dragIndex, hoverIndex) => ({
+	type: MOVE_CONSTRUCTOR_ITEM,
+	dragIndex,
+	hoverIndex,
+});
 
-export const addConstructorIngredient = (ingredient) => (dispatch) => {
-	dispatch({
-		type: ADD_CONSTRUCTOR_INGREDIENT,
-		ingredient: ingredient,
-		constructorIngredientId: uuidv4(),
-	});
-};
+export const addConstructorIngredient = (ingredient) => ({
+	type: ADD_CONSTRUCTOR_INGREDIENT,
+	ingredient: ingredient,
+	constructorIngredientId: uuidv4(),
+});
 
-export const addConstructorBun = (ingredient) => (dispatch) => {
-	dispatch({
-		type: ADD_CONSTRUCTOR_BUN,
-		bun: ingredient,
-	});
-};
+export const addConstructorBun = (ingredient) => ({
+	type: ADD_CONSTRUCTOR_BUN,
+	bun: ingredient,
+});
 
-export const deleteConstructorIngredient = (ingredientId) => (dispatch) => {
-	dispatch({
-		type: DELETE_CONSTRUCTOR_INGREDIENT,
-		ingredientId: ingredientId,
-	});
-};
+export const deleteConstructorIngredient = (ingredientId) => ({
+	type: DELETE_CONSTRUCTOR_INGREDIENT,
+	ingredientId: ingredientId,
+});
 
 export const getIngredients = () => (dispatch) => {
 	dispatch({ type: GET_INGREDIENTS_REQUEST });

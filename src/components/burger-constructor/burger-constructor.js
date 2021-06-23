@@ -6,12 +6,12 @@ import Cart from './cart/cart';
 import IngredientsList from './ingredients-list/ingredients-list';
 
 const BurgerConstructor = () => {
-	const { constructorElementsIds } = useSelector((store) => store.order);
+	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
 	return (
 		<div className={`${styles.content}  pl-4  mt-25`}>
 			<IngredientsList />
-			{constructorElementsIds.length ? <Cart /> : null}
+			{bun || constructorIngredients.length ? <Cart /> : null}
 		</div>
 	);
 };

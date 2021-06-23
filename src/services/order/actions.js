@@ -34,6 +34,7 @@ export const createOrder = (payload) => (dispatch) => {
 		});
 };
 
-export const setOrderElementsIds = (constructorElementsIds) => (dispatch) => {
-	dispatch({ type: SET_ORDER_ELEMENTS_IDS, constructorElementsIds: constructorElementsIds });
-};
+export const setOrderElementsIds = (constructorElementsIds) => ({
+	type: SET_ORDER_ELEMENTS_IDS,
+	constructorElementsIds: constructorElementsIds,
+});
