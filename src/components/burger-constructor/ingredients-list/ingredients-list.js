@@ -13,12 +13,6 @@ const IngredientsList = () => {
 	const dispatch = useDispatch();
 	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
-	/*
-	Рассчёт общей стоимости я вынес в компонент Cart
-	Но здесь не уверен, что будет правильно так оставлять
-	Нужно ли вынести рассчёт айдишников заказа из useEffect в useMemo
-	А в useEffect оставить только диспатч и передавать также эти айдишники
-	*/
 	useEffect(() => {
 		const order = constructorIngredients.map((ingredient) => ingredient._id);
 		bun && order.push(bun._id);
