@@ -2,8 +2,27 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  composes: pr-2 from global;
+  list-style: none;
+}
+
+.fixedHeight {
+  height: 620px;
 }
 
 .scrollHeight {
   max-height: 440px;
+}
+
+.title {
+  align-self: center;
+
+  margin: auto;
+
+  composes: text text_type_main-medium from global;
 }

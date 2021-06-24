@@ -1,14 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './burger-constructor.module.scss';
 import Cart from './cart/cart';
 import IngredientsList from './ingredients-list/ingredients-list';
 
-const BurgerConstructor = () => (
-	<div className={`${styles.content}  pl-4  mt-25`}>
-		<IngredientsList />
-		<Cart />
-	</div>
-);
+const BurgerConstructor = () => {
+	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+
+	return (
+		<div className={`${styles.content}  pl-4  mt-25`}>
+			<IngredientsList />
+			{bun || constructorIngredients.length ? <Cart /> : null}
+		</div>
+	);
+};
 
 export default BurgerConstructor;

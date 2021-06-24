@@ -12,9 +12,7 @@ const KEYCODE_ESC = 27;
 const Modal = ({ title = '', children, onModalClose }) => {
 	useEffect(() => {
 		const onEscPress = (e) => {
-			if (e.keyCode === KEYCODE_ESC) {
-				onModalClose();
-			}
+			if (e.keyCode === KEYCODE_ESC) onModalClose();
 		};
 
 		document.addEventListener('keydown', onEscPress);

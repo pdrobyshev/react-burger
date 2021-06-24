@@ -1,62 +1,103 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+
+import { addConstructorBun, addConstructorIngredient } from '../../../services/burger/actions';
+import { setOrderElementsIds } from '../../../services/order/actions';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
-import { BurgerContext } from '../../../context/burger';
-import { INGREDIENTS } from '../../../constants/actionTypes';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const IngredientsList = () => {
-	const { ingredients, totalPriceDispatcher, setOrderElementsIds } = useContext(BurgerContext);
-	const [bun, setBun] = useState(null);
-	const [filteredBurgerElements, setFilteredBurgerElements] = useState([]);
+	const dispatch = useDispatch();
+	const { constructorIngredients, bun } = useSelector((store) => store.burger);
 
 	useEffect(() => {
-		const bun = ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
-		const filteredBurgerElements = ingredients.filter((ingredient) => ingredient.type !== 'bun');
-		setBun(bun);
-		setFilteredBurgerElements(filteredBurgerElements);
-	}, [ingredients]);
+		const order = constructorIngredients.map((ingredient) => ingredient._id);
+		bun && order.push(bun._id);
+		order.length && dispatch(setOrderElementsIds(order));
+	}, [dispatch, constructorIngredients, bun]);
 
-	const burgerElementsList = filteredBurgerElements.map((ingredient) => {
-		const { _id, name, image, price } = ingredient;
-		return <BurgerElement key={_id} draggable={true} text={name} thumbnail={image} price={price} />;
+	const handleDrop = (item) => {
+		if (item.type === 'bun') {
+			dispatch(addConstructorBun(item));
+		} else {
+			dispatch(addConstructorIngredient(item));
+		}
+	};
+
+	const [{ isHover }, dropTarget] = useDrop({
+		accept: 'ingredient',
+		collect: (monitor) => ({
+			isHover: monitor.isOver(),
+		}),
+		drop(item) {
+			handleDrop(item);
+		},
 	});
 
-	const order = filteredBurgerElements.map((el) => el._id);
-	bun && order.push(bun._id);
+	const backgroundColor = isHover && 'rgba(133, 133, 173, 0.5)';
 
-	useEffect(() => {
-		filteredBurgerElements &&
-			bun &&
-			totalPriceDispatcher({ type: INGREDIENTS, payload: { filteredBurgerElements, bun } });
-		setOrderElementsIds(order);
-	}, [totalPriceDispatcher, setOrderElementsIds, filteredBurgerElements, bun]);
+	const burgerElementsList = constructorIngredients.map((ingredient, index) => {
+		const { constructorIngredientId, name, image, price } = ingredient;
+		return (
+			<BurgerElement
+				key={constructorIngredientId}
+				draggable={true}
+				text={name}
+				thumbnail={image}
+				price={price}
+				id={constructorIngredientId}
+				idx={index}
+			/>
+		);
+	});
+
+	const constructorContent =
+		bun || constructorIngredients.length ? (
+			<>
+				{bun && (
+					<div className="pl-8  pr-4">
+						<ConstructorElement
+							type="top"
+							draggable={false}
+							isLocked={true}
+							text={`${bun.name} (верх)`}
+							thumbnail={bun.image}
+							price={bun.price}
+						/>
+					</div>
+				)}
+
+				<ul className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
+					{burgerElementsList}
+				</ul>
+
+				{bun && (
+					<div className="pl-8  pr-4">
+						<ConstructorElement
+							type="bottom"
+							draggable={false}
+							isLocked={true}
+							text={`${bun.name} (низ)`}
+							thumbnail={bun.image}
+							price={bun.price}
+						/>
+					</div>
+				)}
+			</>
+		) : (
+			<h2 className={styles.title}>Перетащите ингредиенты в эту область</h2>
+		);
 
 	return (
-		<section className={`${styles.ingredientsWrapper}  mb-10  pr-4`}>
-			{bun && (
-				<BurgerElement
-					type="top"
-					isLocked={true}
-					text={`${bun.name} (верх)`}
-					thumbnail={bun.image}
-					price={bun.price}
-				/>
-			)}
-
-			<div className={`${styles.ingredientsWrapper}  ${styles.scrollHeight}  scroll  pr-2`}>
-				{burgerElementsList}
-			</div>
-
-			{bun && (
-				<BurgerElement
-					type="bottom"
-					isLocked={true}
-					text={`${bun.name} (низ)`}
-					thumbnail={bun.image}
-					price={bun.price}
-				/>
-			)}
+		<section
+			className={`${styles.ingredientsWrapper}  ${styles.fixedHeight}  mb-10`}
+			style={{ backgroundColor }}
+			ref={dropTarget}
+		>
+			{constructorContent}
 		</section>
 	);
 };
