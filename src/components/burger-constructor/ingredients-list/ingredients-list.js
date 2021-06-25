@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
-import { addConstructorBun, addConstructorIngredient } from '../../../services/burger/actions';
-import { setOrderElementsIds } from '../../../services/order/actions';
+import { addConstructorBun, addConstructorIngredient } from '../../../services/slices/burger';
+import { setOrderElementsIds } from '../../../services/slices/order';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
@@ -11,7 +11,7 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 
 const IngredientsList = () => {
 	const dispatch = useDispatch();
-	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+	const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
 	useEffect(() => {
 		const order = constructorIngredients.map((ingredient) => ingredient._id);

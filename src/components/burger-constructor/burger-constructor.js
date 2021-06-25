@@ -6,7 +6,7 @@ import Cart from './cart/cart';
 import IngredientsList from './ingredients-list/ingredients-list';
 
 const BurgerConstructor = () => {
-	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+	const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
 	return (
 		<div className={`${styles.content}  pl-4  mt-25`}>

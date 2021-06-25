@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import IngredientsList from '../ingredients-list/ingredients-list';
 
 const IngredientsGroup = React.forwardRef(({ title, type, groupId }, ref) => {
-	const { ingredients } = useSelector((store) => store.burger);
+	const { ingredients } = useSelector((state) => state.burger);
 	const buns = useMemo(() => ingredients.filter((ingredient) => ingredient.type === 'bun'), [ingredients]);
 	const sauces = useMemo(
 		() => ingredients.filter((ingredient) => ingredient.type === 'sauce'),

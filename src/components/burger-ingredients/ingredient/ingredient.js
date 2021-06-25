@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 
-import { openIngredientModal } from '../../../services/modals/actions';
+import { openIngredientModal } from '../../../services/slices/modals';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = ({ ingredient }) => {
-	const dispatch = useDispatch();
 	const { image, price, name } = ingredient;
-	const { constructorIngredients, bun } = useSelector((store) => store.burger);
+	const dispatch = useDispatch();
+	const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
 	const counters = useMemo(() => {
 		const counter = {};

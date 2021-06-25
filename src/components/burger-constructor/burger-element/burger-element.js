@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { deleteConstructorIngredient, moveConstructorItem } from '../../../services/burger/actions';
+import { deleteConstructorIngredient, moveConstructorItem } from '../../../services/slices/burger';
 
 import styles from './burger-element.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -50,7 +50,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
 				return;
 			}
 
-			dispatch(moveConstructorItem(dragIndex, hoverIndex));
+			dispatch(moveConstructorItem({ dragIndex, hoverIndex }));
 
 			item.idx = hoverIndex;
 		},

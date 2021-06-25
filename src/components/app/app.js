@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIngredients } from '../../services/burger/actions';
-import { closeIngredientModal, closeOrderModal } from '../../services/modals/actions';
+import { getIngredients } from '../../services/slices/burger';
+import { closeIngredientModal, closeOrderModal } from '../../services/slices/modals';
 
 import AppHeader from '../app-header/app-header';
 import PageContent from '../page-content/page-content';
@@ -14,10 +14,10 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const App = () => {
 	const dispatch = useDispatch();
-	const { orderId } = useSelector((store) => store.order);
-	const { hasError, isLoading } = useSelector((store) => store.burger);
+	const { orderId } = useSelector((state) => state.order);
+	const { hasError, isLoading } = useSelector((state) => state.burger);
 	const { currentIngredient, isIngredientModalOpened, isOrderModalOpened } = useSelector(
-		(store) => store.modals
+		(state) => state.modals
 	);
 
 	const onIngredientModalClose = () => dispatch(closeIngredientModal());
@@ -34,7 +34,7 @@ const App = () => {
 			<AppHeader />
 			{isLoading ? <Loader /> : content}
 
-			{isOrderModalOpened && (
+			{isOrderModalOpened && orderId && (
 				<Modal onModalClose={onOrderModalClose}>
 					<OrderDetails orderId={orderId} />
 				</Modal>
