@@ -30,8 +30,12 @@ export const burgerSlice = createSlice({
 				state.constructorIngredients.push(action.payload);
 			},
 			prepare: (ingredient) => {
-				const constructorIngredientId = uuidv4();
-				return { payload: { ...ingredient, constructorIngredientId } };
+				return {
+					payload: {
+						...ingredient,
+						constructorIngredientId: uuidv4(),
+					},
+				};
 			},
 		},
 		deleteConstructorIngredient(state, action) {
