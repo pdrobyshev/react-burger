@@ -7,12 +7,12 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
 const PageContent = () => (
-	<main className={`${styles.main}  pl-5  pr-5`}>
-		<DndProvider backend={HTML5Backend}>
-			<BurgerIngredients />
-			<BurgerConstructor />
-		</DndProvider>
-	</main>
+  <main className={`${styles.main}  pl-5  pr-5`}>
+    <DndProvider backend={HTML5Backend}>
+      <BurgerIngredients />
+      <BurgerConstructor />
+    </DndProvider>
+  </main>
 );
 
 export default PageContent;

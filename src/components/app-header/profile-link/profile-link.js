@@ -5,11 +5,11 @@ import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import LinkItem from '../../link-item/link-item';
 
 const Profile = () => {
-	return (
-		<div className={styles.profile}>
-			<LinkItem Icon={ProfileIcon} iconType="secondary" text="Личный кабинет" />
-		</div>
-	);
+  return (
+    <div className={styles.profile}>
+      <LinkItem Icon={ProfileIcon} iconType="secondary" text="Личный кабинет" />
+    </div>
+  );
 };
 
 export default Profile;

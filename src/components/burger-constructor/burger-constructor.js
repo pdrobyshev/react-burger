@@ -6,14 +6,14 @@ import Cart from './cart/cart';
 import IngredientsList from './ingredients-list/ingredients-list';
 
 const BurgerConstructor = () => {
-	const { constructorIngredients, bun } = useSelector((state) => state.burger);
+  const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
-	return (
-		<div className={`${styles.content}  pl-4  mt-25`}>
-			<IngredientsList />
-			{bun || constructorIngredients.length ? <Cart /> : null}
-		</div>
-	);
+  return (
+    <div className={`${styles.content}  pl-4  mt-25`}>
+      <IngredientsList />
+      {bun || constructorIngredients.length ? <Cart /> : null}
+    </div>
+  );
 };
 
 export default BurgerConstructor;

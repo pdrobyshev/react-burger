@@ -7,22 +7,22 @@ import LogoWrapper from '../logo-wrapper/logo-wrapper';
 import Profile from '../profile-link/profile-link';
 
 const Nav = () => {
-	return (
-		<nav className={styles.nav}>
-			<ul className={styles.list}>
-				<li className={styles.item}>
-					<LinkItem Icon={BurgerIcon} iconType="primary" text="Конструктор" />
-				</li>
-				<li className={styles.item}>
-					<LinkItem Icon={ListIcon} iconType="secondary" text="Лента заказов" />
-				</li>
-			</ul>
+  return (
+    <nav className={styles.nav}>
+      <ul className={styles.list}>
+        <li className={styles.item}>
+          <LinkItem Icon={BurgerIcon} iconType="primary" text="Конструктор" />
+        </li>
+        <li className={styles.item}>
+          <LinkItem Icon={ListIcon} iconType="secondary" text="Лента заказов" />
+        </li>
+      </ul>
 
-			<LogoWrapper />
+      <LogoWrapper />
 
-			<Profile />
-		</nav>
-	);
+      <Profile />
+    </nav>
+  );
 };
 
 export default Nav;

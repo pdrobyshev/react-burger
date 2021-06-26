@@ -5,7 +5,7 @@ import modalsReducer from './slices/modals';
 import orderReducer from './slices/order';
 
 export const rootReducer = combineReducers({
-	burger: burgerReducer,
-	modals: modalsReducer,
-	order: orderReducer,
+  burger: burgerReducer,
+  modals: modalsReducer,
+  order: orderReducer,
 });

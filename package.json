@@ -54,7 +54,7 @@
   },
   "prettier": {
     "printWidth": 110,
-    "useTabs": true,
+    "useTabs": false,
     "tabWidth": 2,
     "bracketSpacing": true,
     "trailingComma": "es5",
