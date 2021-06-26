@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 import { API_URL } from '../../constants/api';
+import { createOrder } from './order';
 
 const initialState = {
 	ingredients: [],
@@ -72,6 +73,10 @@ export const burgerSlice = createSlice({
 				state.isLoading = false;
 				state.hasError = true;
 				state.ingredients = [];
+			})
+			.addCase(createOrder.fulfilled, (state) => {
+				state.bun = null;
+				state.constructorIngredients = [];
 			});
 	},
 });

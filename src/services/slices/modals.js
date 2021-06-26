@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createOrder } from './order';
 
 const initialState = {
 	currentIngredient: null,
@@ -18,15 +19,15 @@ const modalsSlice = createSlice({
 			state.currentIngredient = null;
 			state.isIngredientModalOpened = false;
 		},
-		openOrderModal(state) {
-			state.isOrderModalOpened = true;
-		},
 		closeOrderModal(state) {
 			state.isOrderModalOpened = false;
 		},
 	},
+	extraReducers: (builder) =>
+		builder.addCase(createOrder.fulfilled, (state) => {
+			state.isOrderModalOpened = true;
+		}),
 });
 
 export default modalsSlice.reducer;
-export const { openIngredientModal, closeIngredientModal, openOrderModal, closeOrderModal } =
-	modalsSlice.actions;
+export const { openIngredientModal, closeIngredientModal, closeOrderModal } = modalsSlice.actions;
