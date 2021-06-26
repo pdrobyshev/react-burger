@@ -18,13 +18,11 @@
   width: 100%;
 
   box-sizing: border-box;
-  background-color: #1C1C21;
+  background-color: #1c1c21;
   border: 1px solid rgba(76, 76, 255, 0.2);
   border-radius: 40px;
-  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04),
-              0 16px 24px rgba(0, 0, 0, 0.04),
-              0 4px 8px rgba(0, 0, 0, 0.04),
-              0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
+    0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .header {

@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 
-import { reducer as burgerReducer } from './burger/reducer';
-import { reducer as modalsReducer } from './modals/reducer';
-import { reducer as orderReducer } from './order/reducer';
+import burgerReducer from './slices/burger';
+import modalsReducer from './slices/modals';
+import orderReducer from './slices/order';
 
 export const rootReducer = combineReducers({
-	burger: burgerReducer,
-	modals: modalsReducer,
-	order: orderReducer,
+  burger: burgerReducer,
+  modals: modalsReducer,
+  order: orderReducer,
 });

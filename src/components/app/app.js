@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIngredients } from '../../services/burger/actions';
-import { closeIngredientModal, closeOrderModal } from '../../services/modals/actions';
+import { getIngredients } from '../../services/slices/burger';
+import { closeIngredientModal, closeOrderModal } from '../../services/slices/modals';
 
 import AppHeader from '../app-header/app-header';
 import PageContent from '../page-content/page-content';
@@ -13,40 +13,40 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const App = () => {
-	const dispatch = useDispatch();
-	const { orderId } = useSelector((store) => store.order);
-	const { hasError, isLoading } = useSelector((store) => store.burger);
-	const { currentIngredient, isIngredientModalOpened, isOrderModalOpened } = useSelector(
-		(store) => store.modals
-	);
+  const dispatch = useDispatch();
+  const { orderId } = useSelector((state) => state.order);
+  const { hasError, isLoading } = useSelector((state) => state.burger);
+  const { currentIngredient, isIngredientModalOpened, isOrderModalOpened } = useSelector(
+    (state) => state.modals
+  );
 
-	const onIngredientModalClose = () => dispatch(closeIngredientModal());
-	const onOrderModalClose = () => dispatch(closeOrderModal());
+  const onIngredientModalClose = () => dispatch(closeIngredientModal());
+  const onOrderModalClose = () => dispatch(closeOrderModal());
 
-	useEffect(() => {
-		dispatch(getIngredients());
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
-	const content = hasError ? <Error /> : <PageContent />;
+  const content = hasError ? <Error /> : <PageContent />;
 
-	return (
-		<>
-			<AppHeader />
-			{isLoading ? <Loader /> : content}
+  return (
+    <>
+      <AppHeader />
+      {isLoading ? <Loader /> : content}
 
-			{isOrderModalOpened && (
-				<Modal onModalClose={onOrderModalClose}>
-					<OrderDetails orderId={orderId} />
-				</Modal>
-			)}
+      {isOrderModalOpened && orderId && (
+        <Modal onModalClose={onOrderModalClose}>
+          <OrderDetails orderId={orderId} />
+        </Modal>
+      )}
 
-			{isIngredientModalOpened && currentIngredient && (
-				<Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
-					<IngredientDetails {...currentIngredient} />
-				</Modal>
-			)}
-		</>
-	);
+      {isIngredientModalOpened && currentIngredient && (
+        <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
+          <IngredientDetails {...currentIngredient} />
+        </Modal>
+      )}
+    </>
+  );
 };
 
 export default App;
