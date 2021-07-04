@@ -9,10 +9,10 @@ import { sendResetPassToken } from '../services/slices/password';
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const { isLoading } = useSelector((state) => state.password);
   const [formData, setFormData] = useState({
     email: '',
   });
-  const { isLoading } = useSelector((state) => state.password);
 
   const onChange = (e) => {
     const value = e.target.value;
