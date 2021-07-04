@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Constructor, Feed, Login } from '../../pages';
+import { Constructor, Feed, Login, Register } from '../../pages';
 import AppHeader from '../app-header/app-header';
 
 const App = () => (
@@ -17,7 +17,7 @@ const App = () => (
           <Login />
         </Route>
         <Route path="/register" exact>
-          {/*<Register />*/}
+          <Register />
         </Route>
         <Route path="/forgot-password" exact>
           {/*<ForgotPassword />*/}

@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-.title {
+.formTitle {
   composes: text text_type_main-medium mb-6 from global;
   color: #F2F2F3;
 }
@@ -34,11 +34,11 @@
   justify-content: center;
 }
 
-.text {
+.formText {
   composes: text text_type_main-default text_color_inactive mr-2 from global;
 }
 
-.link {
+.formLink {
   composes: text text_type_main-default from global;
   color: #4C4CFF;
   text-decoration: none;

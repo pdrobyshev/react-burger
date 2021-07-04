@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import styles from './form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const Login = () => {
+export const Register = () => {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
   });
@@ -31,11 +32,20 @@ export const Login = () => {
   return (
     <section className={styles.formWrapper}>
       <form className={styles.form}>
-        <h2 className={styles.formTitle}>Вход</h2>
+        <h2 className={styles.formTitle}>Регистрация</h2>
 
         <div className={styles.inputWrapper}>
           <Input
             ref={inputRef}
+            type={'text'}
+            placeholder={'Имя'}
+            onChange={onChange}
+            value={formData.name}
+            name={'name'}
+          />
+        </div>
+        <div className={styles.inputWrapper}>
+          <Input
             type={'email'}
             placeholder={'Email'}
             onChange={onChange}
@@ -49,20 +59,14 @@ export const Login = () => {
         </div>
 
         <Button type="primary" size="medium">
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
 
-      <div className={`${styles.flexWrapper}  mb-4`}>
-        <span className={styles.formText}>Вы — новый пользователь?</span>
-        <Link className={styles.formLink} to="/register">
-          Зарегистрироваться
-        </Link>
-      </div>
       <div className={styles.flexWrapper}>
-        <span className={styles.formText}>Забыли пароль?</span>
-        <Link className={styles.formLink} to="/forgot-password">
-          Восстановить пароль
+        <span className={styles.formText}>Уже зарегистрированы?</span>
+        <Link className={styles.formLink} to="/login">
+          Войти
         </Link>
       </div>
     </section>
