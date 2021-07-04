@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const RestorePassword = () => {
+export const ResetPassword = () => {
   const [formData, setFormData] = useState({
     password: '',
     code: '',
