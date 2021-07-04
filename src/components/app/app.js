@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Constructor } from '../../pages';
+import { Constructor, Feed } from '../../pages';
 import AppHeader from '../app-header/app-header';
 
 const App = () => (
@@ -24,7 +24,7 @@ const App = () => (
           {/*<RestorePassword />*/}
         </Route>
         <Route path="/feed" exact>
-          {/*<Feed />*/}
+          <Feed />
         </Route>
         <Route path="/feed/:id" exact>
           {/*<FeedOrder />*/}
