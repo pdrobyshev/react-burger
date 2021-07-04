@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { resetPassword, sendResetPassToken } from '../services/slices/password';
+import { resetPassword } from '../services/slices/password';
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();
