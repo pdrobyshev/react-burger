@@ -31,7 +31,6 @@ export const Constructor = () => {
 
   return (
     <>
-      <AppHeader />
       {isLoading ? <Loader /> : content}
 
       {isOrderModalOpened && orderId && (

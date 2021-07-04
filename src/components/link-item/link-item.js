@@ -2,26 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './link-item.module.scss';
+import { NavLink } from 'react-router-dom';
 
-const LinkItem = ({ Icon, iconType, text }) => {
+const LinkItem = ({ Icon, text, to }) => {
   return (
-    <a className={`${styles.link}  p-4  pl-5  pr-5`} href="#">
-      <Icon type={iconType} />
-      <span
-        className={`${
-          iconType === 'primary' ? styles.colorActive : `text_color_inactive`
-        } text  text_type_main-default  ml-2`}
-      >
-        {text}
-      </span>
-    </a>
+    <NavLink className={styles.link} activeClassName={styles.active} to={to} exact>
+      <Icon />
+      <span className={styles.text}>{text}</span>
+    </NavLink>
   );
 };
 
 LinkItem.propTypes = {
   Icon: PropTypes.func.isRequired,
-  iconType: PropTypes.string,
   text: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export default LinkItem;

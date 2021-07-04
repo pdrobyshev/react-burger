@@ -11,10 +11,10 @@ const Nav = () => {
     <nav className={styles.nav}>
       <ul className={styles.list}>
         <li className={styles.item}>
-          <LinkItem Icon={BurgerIcon} iconType="primary" text="Конструктор" />
+          <LinkItem Icon={BurgerIcon} text="Конструктор" to="/" />
         </li>
         <li className={styles.item}>
-          <LinkItem Icon={ListIcon} iconType="secondary" text="Лента заказов" />
+          <LinkItem Icon={ListIcon} text="Лента заказов" to="feed" />
         </li>
       </ul>
 

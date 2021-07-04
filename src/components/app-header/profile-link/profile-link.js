@@ -7,7 +7,7 @@ import LinkItem from '../../link-item/link-item';
 const Profile = () => {
   return (
     <div className={styles.profile}>
-      <LinkItem Icon={ProfileIcon} iconType="secondary" text="Личный кабинет" />
+      <LinkItem Icon={ProfileIcon} text="Личный кабинет" to="/profile" />
     </div>
   );
 };
