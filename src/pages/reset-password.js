@@ -7,7 +7,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 export const ResetPassword = () => {
   const [formData, setFormData] = useState({
     password: '',
-    code: '',
+    token: '',
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const inputRef = useRef(null);
@@ -57,8 +57,8 @@ export const ResetPassword = () => {
             type={'text'}
             placeholder={'Введите код из письма'}
             onChange={onChange}
-            value={formData.code}
-            name={'code'}
+            value={formData.token}
+            name={'token'}
           />
         </div>
 

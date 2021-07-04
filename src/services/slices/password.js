@@ -7,7 +7,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const resetPassword = createAsyncThunk('password/resetPassword', async (email) => {
+export const forgotPassword = createAsyncThunk('password/forgotPassword', async (email) => {
   const fetchSettings = {
     method: 'POST',
     body: JSON.stringify(email),
@@ -29,10 +29,10 @@ const passwordSlice = createSlice({
   initialState,
   extraReducers: (builder) =>
     builder
-      .addCase(resetPassword.pending, (state) => {
+      .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(resetPassword.fulfilled, (state) => {
+      .addCase(forgotPassword.fulfilled, (state) => {
         state.isLoading = false;
         /*
          * В случае успеха пользователь направляется на маршрут /reset-password,
@@ -42,7 +42,7 @@ const passwordSlice = createSlice({
          * мы рекомендуем вернуться на следующем этапе проектной работы.
          * */
       })
-      .addCase(resetPassword.rejected, (state) => {
+      .addCase(forgotPassword.rejected, (state) => {
         state.isLoading = false;
       }),
 });
