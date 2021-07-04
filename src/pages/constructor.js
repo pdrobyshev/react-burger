@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../services/slices/burger';
 import { closeIngredientModal, closeOrderModal } from '../services/slices/modals';
 
-import AppHeader from '../components/app-header/app-header';
-import PageContent from '../components/page-content/page-content';
+import ConstructorContent from '../components/constructor-content/constructor-content';
 import Error from '../components/error/error';
 import Loader from '../components/loader/loader';
 import Modal from '../components/modal/modal';
@@ -27,7 +26,7 @@ export const Constructor = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const content = hasError ? <Error /> : <PageContent />;
+  const content = hasError ? <Error /> : <ConstructorContent />;
 
   return (
     <>
