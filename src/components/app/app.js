@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Constructor, Feed } from '../../pages';
+import { Constructor, Feed, Login } from '../../pages';
 import AppHeader from '../app-header/app-header';
 
 const App = () => (
@@ -13,7 +13,9 @@ const App = () => (
         <Route path="/" exact>
           <Constructor />
         </Route>
-        <Route path="/login">{/*<Login />*/}</Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/register" exact>
           {/*<Register />*/}
         </Route>
