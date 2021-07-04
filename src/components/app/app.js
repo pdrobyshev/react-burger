@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Constructor, Feed, ForgotPassword, Login, Register } from '../../pages';
+import { Constructor, Feed, ForgotPassword, Login, Register, RestorePassword } from '../../pages';
 import AppHeader from '../app-header/app-header';
 
 const App = () => (
@@ -23,7 +23,7 @@ const App = () => (
           <ForgotPassword />
         </Route>
         <Route path="/restore-password" exact>
-          {/*<RestorePassword />*/}
+          <RestorePassword />
         </Route>
         <Route path="/feed" exact>
           <Feed />
