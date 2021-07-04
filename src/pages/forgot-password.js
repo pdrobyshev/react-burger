@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { forgotPassword } from '../services/slices/password';
+import { sendResetPassToken } from '../services/slices/password';
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export const ForgotPassword = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(formData));
+    dispatch(sendResetPassToken(formData));
   };
 
   return (

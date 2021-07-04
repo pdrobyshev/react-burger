@@ -7,7 +7,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const forgotPassword = createAsyncThunk('password/forgotPassword', async (email) => {
+export const sendResetPassToken = createAsyncThunk('password/sendResetPassToken', async (email) => {
   const fetchSettings = {
     method: 'POST',
     body: JSON.stringify(email),
@@ -24,15 +24,32 @@ export const forgotPassword = createAsyncThunk('password/forgotPassword', async 
   return res.success;
 });
 
+export const resetPassword = createAsyncThunk('password/reset', async (payload) => {
+  const fetchSettings = {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`${API_URL}password-reset/reset`, fetchSettings);
+  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
+  const res = await response.json();
+  console.log('=====PASSWORD RESET RESPONSE===');
+  console.log(res);
+  return res.success;
+});
+
 const passwordSlice = createSlice({
   name: 'password',
   initialState,
   extraReducers: (builder) =>
     builder
-      .addCase(forgotPassword.pending, (state) => {
+      .addCase(sendResetPassToken.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(forgotPassword.fulfilled, (state) => {
+      .addCase(sendResetPassToken.fulfilled, (state) => {
         state.isLoading = false;
         /*
          * В случае успеха пользователь направляется на маршрут /reset-password,
@@ -42,7 +59,7 @@ const passwordSlice = createSlice({
          * мы рекомендуем вернуться на следующем этапе проектной работы.
          * */
       })
-      .addCase(forgotPassword.rejected, (state) => {
+      .addCase(sendResetPassToken.rejected, (state) => {
         state.isLoading = false;
       }),
 });
