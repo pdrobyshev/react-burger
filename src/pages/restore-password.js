@@ -17,6 +17,7 @@ export const RestorePassword = () => {
     const name = e.target.name;
 
     setFormData({
+      ...formData,
       [name]: value,
     });
   };

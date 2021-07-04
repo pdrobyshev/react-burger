@@ -15,6 +15,7 @@ export const ForgotPassword = () => {
     const name = e.target.name;
 
     setFormData({
+      ...formData,
       [name]: value,
     });
   };

@@ -17,6 +17,7 @@ export const Register = () => {
     const name = e.target.name;
 
     setFormData({
+      ...formData,
       [name]: value,
     });
   };

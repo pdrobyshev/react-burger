@@ -16,6 +16,7 @@ export const Login = () => {
     const name = e.target.name;
 
     setFormData({
+      ...formData,
       [name]: value,
     });
   };
