@@ -13,26 +13,36 @@ const App = () => (
         <Route path="/" exact>
           <Constructor />
         </Route>
-        <Route path="/login">
+        <Route path="/login" exact>
           <Login />
         </Route>
-        <Route path="/register">
+        <Route path="/register" exact>
           <Register />
         </Route>
-        <Route path="/forgot-password">
+        <Route path="/forgot-password" exact>
           <ForgotPassword />
         </Route>
-        <Route path="/reset-password">
+        <Route path="/reset-password" exact>
           <ResetPassword />
         </Route>
-        <Route path="/feed">
+        <Route path="/feed" exact>
           <Feed />
         </Route>
-        <Route path="/feed/:id">{/*<FeedOrder />*/}</Route>
-        <Route path="/profile">{/*<Profile />*/}</Route>
-        <Route path="/profile/orders">{/*<History />*/}</Route>
-        <Route path="/profile/orders/:id">{/*<HistoryOrder />*/}</Route>
-        <Route path="/ingredients/:id">{/*<IngredientPage />*/}</Route>
+        <Route path="/feed/:id" exact>
+          {/*<FeedOrder />*/}
+        </Route>
+        <Route path="/profile" exact>
+          {/*<Profile />*/}
+        </Route>
+        <Route path="/profile/orders" exact>
+          {/*<History />*/}
+        </Route>
+        <Route path="/profile/orders/:id" exact>
+          {/*<HistoryOrder />*/}
+        </Route>
+        <Route path="/ingredients/:id" exact>
+          {/*<IngredientPage />*/}
+        </Route>
         <Route>
           <NotFound404 />
         </Route>
