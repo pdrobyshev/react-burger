@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
@@ -9,7 +9,9 @@ import { resetPassword } from '../services/slices/password';
 export const ResetPassword = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const { isLoading } = useSelector((state) => state.password);
+  const location = useLocation();
+  const { isLoading, isPasswordReset } = useSelector((state) => state.password);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     password: '',
@@ -26,10 +28,6 @@ export const ResetPassword = () => {
     });
   };
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
   const onIconClick = () => {
     inputRef.current.type = inputRef.current.type === 'password' ? 'text' : 'password';
     setIsPasswordVisible((prevState) => !prevState);
@@ -39,6 +37,14 @@ export const ResetPassword = () => {
     e.preventDefault();
     dispatch(resetPassword(formData));
   };
+
+  if (isLoggedIn || location.state?.from !== '/forgot-password') {
+    return <Redirect to="/" />;
+  }
+
+  if (isPasswordReset) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <section className={styles.formWrapper}>

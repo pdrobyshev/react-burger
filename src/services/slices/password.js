@@ -3,42 +3,39 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API_URL } from '../../constants/api';
 
 const initialState = {
-  token: null,
+  isResetEmailSent: false,
+  isPasswordReset: false,
   isLoading: false,
 };
 
-export const sendResetPassToken = createAsyncThunk('password/sendResetPassToken', async (email) => {
+export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswordEmail', async (email) => {
   const fetchSettings = {
     method: 'POST',
-    body: JSON.stringify(email),
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(email),
   };
 
   const response = await fetch(`${API_URL}password-reset`, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
-  console.log('===== SEND RESET PASSWORD TOKEN RESPONSE ===');
-  console.log(res);
-  return res.success;
+  return res;
 });
 
 export const resetPassword = createAsyncThunk('password/reset', async (payload) => {
   const fetchSettings = {
     method: 'POST',
-    body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(payload),
   };
 
   const response = await fetch(`${API_URL}password-reset/reset`, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
-  console.log('===== RESET PASSWORD RESPONSE ===');
-  console.log(res);
-  return res.success;
+  return res;
 });
 
 const passwordSlice = createSlice({
@@ -46,29 +43,22 @@ const passwordSlice = createSlice({
   initialState,
   extraReducers: (builder) =>
     builder
-      .addCase(sendResetPassToken.pending, (state) => {
+      .addCase(sendResetPasswordEmail.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(sendResetPassToken.fulfilled, (state) => {
+      .addCase(sendResetPasswordEmail.fulfilled, (state) => {
+        state.isResetEmailSent = true;
         state.isLoading = false;
-        /*
-         * В случае успеха пользователь направляется на маршрут /reset-password,
-         * а на введённый имейл приходит инструкция с кодом для восстановления пароля.
-         * Пока вы не знаете, как реализовывать переадресацию,
-         * поэтому к перенаправлению пользователя
-         * мы рекомендуем вернуться на следующем этапе проектной работы.
-         * */
       })
-      .addCase(sendResetPassToken.rejected, (state) => {
+      .addCase(sendResetPasswordEmail.rejected, (state) => {
         state.isLoading = false;
       })
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(resetPassword.fulfilled, (state) => {
+        state.isPasswordReset = true;
         state.isLoading = false;
-        // если успешно - редирект на страницу логина
-        // или автоматически авторизовать пользователя и редирект на главную
       })
       .addCase(resetPassword.rejected, (state) => {
         state.isLoading = false;

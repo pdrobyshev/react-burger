@@ -1,15 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { loginRequest } from '../services/slices/user';
 
 export const Login = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const inputRef = useRef(null);
+  const { isLoading, isLoggedIn } = useSelector((state) => state.user);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -21,22 +24,22 @@ export const Login = () => {
     });
   };
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginRequest(formData));
+  };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <section className={styles.formWrapper}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2 className={styles.formTitle}>Вход</h2>
 
         <div className={styles.inputWrapper}>
           <Input
-            ref={inputRef}
             type={'email'}
             placeholder={'Email'}
             onChange={onChange}
@@ -49,9 +52,13 @@ export const Login = () => {
           <PasswordInput onChange={onChange} value={formData.password} name={'password'} />
         </div>
 
-        <Button type="primary" size="medium">
-          Войти
-        </Button>
+        {isLoading ? (
+          <span className="text text_type_main-default">Идёт запрос...</span>
+        ) : (
+          <Button type="primary" size="medium">
+            Войти
+          </Button>
+        )}
       </form>
 
       <div className={`${styles.flexWrapper}  mb-4`}>

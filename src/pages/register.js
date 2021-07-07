@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { registerRequest } from '../services/slices/user';
 
 export const Register = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
   });
-  const inputRef = useRef(null);
+  const { isLoading, isLoggedIn } = useSelector((state) => state.user);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -22,28 +25,22 @@ export const Register = () => {
     });
   };
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerRequest(formData));
+  };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <section className={styles.formWrapper}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2 className={styles.formTitle}>Регистрация</h2>
 
         <div className={styles.inputWrapper}>
-          <Input
-            ref={inputRef}
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={onChange}
-            value={formData.name}
-            name={'name'}
-          />
+          <Input type={'text'} placeholder={'Имя'} onChange={onChange} value={formData.name} name={'name'} />
         </div>
         <div className={styles.inputWrapper}>
           <Input
@@ -59,9 +56,13 @@ export const Register = () => {
           <PasswordInput onChange={onChange} value={formData.password} name={'password'} />
         </div>
 
-        <Button type="primary" size="medium">
-          Зарегистрироваться
-        </Button>
+        {isLoading ? (
+          <span className="text text_type_main-default">Идёт запрос...</span>
+        ) : (
+          <Button type="primary" size="medium">
+            Зарегистрироваться
+          </Button>
+        )}
       </form>
 
       <div className={styles.flexWrapper}>
