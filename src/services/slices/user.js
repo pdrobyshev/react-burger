@@ -21,8 +21,6 @@ export const registerRequest = createAsyncThunk('user/registerRequest', async (p
   const response = await fetch(`${API_URL}auth/register`, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
-  console.log('===== REGISTER USER RESPONSE ===');
-  console.log(res);
   return res;
 });
 
