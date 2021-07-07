@@ -10,13 +10,13 @@ export const ResetPassword = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const location = useLocation();
-  const { isLoading, isPasswordReset } = useSelector((state) => state.password);
-  const { isLoggedIn } = useSelector((state) => state.user);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     password: '',
     token: '',
   });
+  const { isLoading, isPasswordReset } = useSelector((state) => state.password);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const onChange = (e) => {
     const value = e.target.value;
