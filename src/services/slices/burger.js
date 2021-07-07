@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-import { API_URL } from '../../constants/api';
+import { INGREDIENTS_URL } from '../../constants/api';
 import { createOrder } from './order';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const getIngredients = createAsyncThunk('burger/getIngredients', async () => {
-  const response = await fetch(`${API_URL}ingredients`);
+  const response = await fetch(INGREDIENTS_URL);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res.data;

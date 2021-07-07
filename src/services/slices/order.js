@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API_URL } from '../../constants/api';
+import { ORDER_URL } from '../../constants/api';
 
 const initialState = {
   orderId: null,
@@ -17,7 +17,7 @@ export const createOrder = createAsyncThunk('burger/createOrder', async (order) 
     },
   };
 
-  const response = await fetch(`${API_URL}orders`, fetchSettings);
+  const response = await fetch(ORDER_URL, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res.order.number;

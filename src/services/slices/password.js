@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API_URL } from '../../constants/api';
+import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../constants/api';
 
 const initialState = {
   isResetEmailSent: false,
@@ -17,7 +17,7 @@ export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswo
     body: JSON.stringify(email),
   };
 
-  const response = await fetch(`${API_URL}password-reset`, fetchSettings);
+  const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res;
@@ -32,7 +32,7 @@ export const resetPassword = createAsyncThunk('password/reset', async (payload) 
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${API_URL}password-reset/reset`, fetchSettings);
+  const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res;

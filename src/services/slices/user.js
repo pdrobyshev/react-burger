@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API_URL } from '../../constants/api';
+import { REGISTER_URL, LOGIN_URL } from '../../constants/api';
 import { getCookie, setCookie } from '../../utils/cookie';
 
 const initialState = {
@@ -18,7 +18,7 @@ export const registerRequest = createAsyncThunk('user/registerRequest', async (p
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${API_URL}auth/register`, fetchSettings);
+  const response = await fetch(REGISTER_URL, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res;
@@ -33,7 +33,7 @@ export const loginRequest = createAsyncThunk('user/loginRequest', async (payload
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${API_URL}auth/login`, fetchSettings);
+  const response = await fetch(LOGIN_URL, fetchSettings);
   if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
   const res = await response.json();
   return res;
