@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { REGISTER_URL, LOGIN_URL } from '../../constants/api';
-import { getCookie, setCookie } from '../../utils/cookie';
+import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../constants/api';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 const initialState = {
   isLoggedIn: !!getCookie('accessToken'),
@@ -39,6 +39,21 @@ export const loginRequest = createAsyncThunk('user/loginRequest', async (payload
   return res;
 });
 
+export const logoutRequest = createAsyncThunk('user/logoutRequest', async () => {
+  const fetchSettings = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: getCookie('refreshToken') }),
+  };
+
+  const response = await fetch(LOGOUT_URL, fetchSettings);
+  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
+  const res = await response.json();
+  return res;
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -71,6 +86,19 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(loginRequest.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(logoutRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutRequest.fulfilled, (state, action) => {
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+        state.user = null;
+        state.isLoggedIn = false;
+        state.isLoading = false;
+      })
+      .addCase(logoutRequest.rejected, (state) => {
         state.isLoading = false;
       }),
 });

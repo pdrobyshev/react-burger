@@ -1,7 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Constructor, Feed, ForgotPassword, Login, NotFound404, Register, ResetPassword } from '../../pages';
+import {
+  Constructor,
+  Feed,
+  ForgotPassword,
+  Login,
+  NotFound404,
+  Profile,
+  Register,
+  ResetPassword,
+} from '../../pages';
 import AppHeader from '../app-header/app-header';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { ProtectedRouteAuthorized } from '../protected-route-authorized/protected-route-authorized';
@@ -35,7 +44,7 @@ const App = () => (
           {/*<FeedOrder />*/}
         </Route>
         <ProtectedRoute path="/profile" exact>
-          {/*<Profile />*/}
+          <Profile />
         </ProtectedRoute>
         <Route path="/profile/orders" exact>
           {/*<History />*/}

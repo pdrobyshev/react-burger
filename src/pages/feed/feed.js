@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './feed.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import img from '../images/done.png';
+import img from '../../images/done.png';
 
 export const Feed = () => (
   <>

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIngredients } from '../services/slices/burger';
-import { closeIngredientModal, closeOrderModal } from '../services/slices/modals';
+import { getIngredients } from '../../services/slices/burger';
+import { closeIngredientModal, closeOrderModal } from '../../services/slices/modals';
 
-import ConstructorContent from '../components/constructor-content/constructor-content';
-import Error from '../components/error/error';
-import Loader from '../components/loader/loader';
-import Modal from '../components/modal/modal';
-import OrderDetails from '../components/order-details/order-details';
-import IngredientDetails from '../components/ingredient-details/ingredient-details';
+import ConstructorContent from '../../components/constructor-content/constructor-content';
+import Error from '../../components/error/error';
+import Loader from '../../components/loader/loader';
+import Modal from '../../components/modal/modal';
+import OrderDetails from '../../components/order-details/order-details';
+import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 
 export const Constructor = () => {
   const dispatch = useDispatch();

@@ -1,0 +1,42 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import styles from './profile-nav.module.scss';
+import { logoutRequest } from '../../services/slices/user';
+
+export const ProfileNav = () => {
+  const dispatch = useDispatch();
+
+  const onLogoutClick = (e) => {
+    e.preventDefault();
+    dispatch(logoutRequest());
+  };
+
+  return (
+    <section className={styles.nav}>
+      <ul className={styles.list}>
+        <li>
+          <NavLink className={styles.link} activeClassName={styles.activeLink} to="/profile">
+            Профиль
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className={styles.link} activeClassName={styles.activeLink} to="/profile/orders">
+            История заказов
+          </NavLink>
+        </li>
+        <li>
+          <button className={`${styles.link} ${styles.button}`} onClick={onLogoutClick}>
+            Выход
+          </button>
+        </li>
+      </ul>
+
+      <p className={styles.info}>
+        В этом разделе вы можете
+        <br /> изменить свои персональные данные
+      </p>
+    </section>
+  );
+};

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import styles from './form.module.scss';
+import styles from '../form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { sendResetPasswordEmail } from '../services/slices/password';
+import { sendResetPasswordEmail } from '../../services/slices/password';
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
