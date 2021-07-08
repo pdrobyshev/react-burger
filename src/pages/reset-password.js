@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
@@ -9,14 +9,12 @@ import { resetPassword } from '../services/slices/password';
 export const ResetPassword = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const location = useLocation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     password: '',
     token: '',
   });
   const { isLoading, isPasswordReset } = useSelector((state) => state.password);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -38,13 +36,7 @@ export const ResetPassword = () => {
     dispatch(resetPassword(formData));
   };
 
-  if (isLoggedIn || location.state?.from !== '/forgot-password') {
-    return <Redirect to="/" />;
-  }
-
-  if (isPasswordReset) {
-    return <Redirect to="/login" />;
-  }
+  if (isPasswordReset) return <Redirect to="/login" />;
 
   return (
     <section className={styles.formWrapper}>

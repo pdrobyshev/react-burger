@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
@@ -12,7 +12,7 @@ export const Login = () => {
     email: '',
     password: '',
   });
-  const { isLoading, isLoggedIn } = useSelector((state) => state.user);
+  const { isLoading } = useSelector((state) => state.user);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -28,10 +28,6 @@ export const Login = () => {
     e.preventDefault();
     dispatch(loginRequest(formData));
   };
-
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <section className={styles.formWrapper}>

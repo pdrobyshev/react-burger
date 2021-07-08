@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './form.module.scss';
@@ -8,11 +8,9 @@ import { sendResetPasswordEmail } from '../services/slices/password';
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
   });
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const { isLoading, isResetEmailSent } = useSelector((state) => state.password);
 
   const onChange = (e) => {
@@ -30,13 +28,7 @@ export const ForgotPassword = () => {
     dispatch(sendResetPasswordEmail(formData));
   };
 
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
-  }
-
-  if (isResetEmailSent) {
-    return <Redirect to={{ pathname: '/reset-password', state: { from: location.pathname } }} />;
-  }
+  if (isResetEmailSent) return <Redirect to="/reset-password" />;
 
   return (
     <section className={styles.formWrapper}>

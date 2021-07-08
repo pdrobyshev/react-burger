@@ -3,6 +3,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { Constructor, Feed, ForgotPassword, Login, NotFound404, Register, ResetPassword } from '../../pages';
 import AppHeader from '../app-header/app-header';
+import { ProtectedRoute } from '../protected-route/protected-route';
+import { ProtectedRouteAuthorized } from '../protected-route-authorized/protected-route-authorized';
+import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected-route-with-reset';
 
 const App = () => (
   <>
@@ -10,47 +13,37 @@ const App = () => (
       <AppHeader />
 
       <Switch>
-        <Route path='/' exact>
+        <Route path="/" exact>
           <Constructor />
         </Route>
-        //TODO сделать защищенный роут для авторизованного пользователя
-        {/* если залогинен - при переходе на страницу редиректить на главную */}
-        <Route path='/login' exact>
+        <ProtectedRouteAuthorized path="/login" exact>
           <Login />
-        </Route>
-        //TODO сделать защищенный роут для авторизованного пользователя
-        {/* если залогинен - при переходе на страницу редиректить на главную */}
-        <Route path='/register' exact>
+        </ProtectedRouteAuthorized>
+        <ProtectedRouteAuthorized path="/register" exact>
           <Register />
-        </Route>
-        <Route path='/forgot-password' exact>
+        </ProtectedRouteAuthorized>
+        <ProtectedRouteAuthorized path="/forgot-password" exact>
           <ForgotPassword />
-        </Route>
-        //TODO создать protected route component with reset
-        {/* нужно проверять что пришли с урла forgot-password, иначе - редирект на главную */}
-        <Route path='/reset-password' exact>
+        </ProtectedRouteAuthorized>
+        <ProtectedRouteWithReset path="/reset-password" exact>
           <ResetPassword />
-        </Route>
-        <Route path='/feed' exact>
+        </ProtectedRouteWithReset>
+        <Route path="/feed" exact>
           <Feed />
         </Route>
-        <Route path='/feed/:id' exact>
+        <Route path="/feed/:id" exact>
           {/*<FeedOrder />*/}
         </Route>
-        //TODO создать protected route component
-        {/*если залогинен - вернуть children*/}
-        {/*иначе - редирект на страницу логина, а в state передать location "откуда" пришли*/}
-        {/*чтобы после авторизации вернуться на защищенный роут куда хотели попасть*/}
-        <Route path='/profile' exact>
+        <ProtectedRoute path="/profile" exact>
           {/*<Profile />*/}
-        </Route>
-        <Route path='/profile/orders' exact>
+        </ProtectedRoute>
+        <Route path="/profile/orders" exact>
           {/*<History />*/}
         </Route>
-        <Route path='/profile/orders/:id' exact>
+        <Route path="/profile/orders/:id" exact>
           {/*<HistoryOrder />*/}
         </Route>
-        <Route path='/ingredients/:id' exact>
+        <Route path="/ingredients/:id" exact>
           {/*<IngredientPage />*/}
         </Route>
         <Route>
