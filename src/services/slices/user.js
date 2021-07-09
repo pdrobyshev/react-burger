@@ -1,12 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../constants/api';
+import { REGISTER_URL, LOGIN_URL, LOGOUT_URL, USER_INFO_URL, REFRESH_TOKEN_URL } from '../../constants/api';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 const initialState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,
+};
+
+const checkResponse = (res) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+const setCookies = (payload) => {
+  const accessToken = payload.accessToken.split('Bearer ')[1];
+  const refreshToken = payload.refreshToken;
+  setCookie('accessToken', accessToken);
+  setCookie('refreshToken', refreshToken);
 };
 
 export const registerRequest = createAsyncThunk('user/registerRequest', async (payload) => {
@@ -19,9 +30,7 @@ export const registerRequest = createAsyncThunk('user/registerRequest', async (p
   };
 
   const response = await fetch(REGISTER_URL, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res;
+  return await checkResponse(response);
 });
 
 export const loginRequest = createAsyncThunk('user/loginRequest', async (payload) => {
@@ -34,9 +43,7 @@ export const loginRequest = createAsyncThunk('user/loginRequest', async (payload
   };
 
   const response = await fetch(LOGIN_URL, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res;
+  return await checkResponse(response);
 });
 
 export const logoutRequest = createAsyncThunk('user/logoutRequest', async () => {
@@ -49,9 +56,45 @@ export const logoutRequest = createAsyncThunk('user/logoutRequest', async () => 
   };
 
   const response = await fetch(LOGOUT_URL, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res;
+  return await checkResponse(response);
+});
+
+export const refreshTokenRequest = async () => {
+  const fetchSettings = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: getCookie('refreshToken') }),
+  };
+
+  const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
+  return await checkResponse(response);
+};
+
+export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', async () => {
+  const fetchSettings = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getCookie('accessToken')}`,
+    },
+  };
+
+  try {
+    const response = await fetch(USER_INFO_URL, fetchSettings);
+    return await checkResponse(response);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshTokenRequest();
+      setCookies(refreshData);
+
+      const response = await fetch(USER_INFO_URL, fetchSettings);
+      return await checkResponse(response);
+    } else {
+      return Promise.reject(err);
+    }
+  }
 });
 
 const userSlice = createSlice({
@@ -63,10 +106,7 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(registerRequest.fulfilled, (state, action) => {
-        const accessToken = action.payload.accessToken.split('Bearer ')[1];
-        const refreshToken = action.payload.refreshToken;
-        setCookie('accessToken', accessToken);
-        setCookie('refreshToken', refreshToken);
+        setCookies(action.payload);
         state.isLoggedIn = true;
         state.isLoading = false;
       })
@@ -77,10 +117,7 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginRequest.fulfilled, (state, action) => {
-        const accessToken = action.payload.accessToken.split('Bearer ')[1];
-        const refreshToken = action.payload.refreshToken;
-        setCookie('accessToken', accessToken);
-        setCookie('refreshToken', refreshToken);
+        setCookies(action.payload);
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -91,7 +128,7 @@ const userSlice = createSlice({
       .addCase(logoutRequest.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(logoutRequest.fulfilled, (state, action) => {
+      .addCase(logoutRequest.fulfilled, (state) => {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
         state.user = null;
@@ -99,6 +136,20 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(logoutRequest.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getUserInfoRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserInfoRequest.fulfilled, (state, action) => {
+        if (action.payload.accessToken) {
+          setCookies(action.payload);
+        }
+        state.user = action.payload.user;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(getUserInfoRequest.rejected, (state, action) => {
         state.isLoading = false;
       }),
 });
