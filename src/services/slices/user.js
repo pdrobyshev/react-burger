@@ -64,11 +64,14 @@ export const refreshTokenRequest = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: getCookie('refreshToken'),
     },
     body: JSON.stringify({ token: getCookie('refreshToken') }),
   };
 
   const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
+  console.log('refreshTokenRequest response');
+  console.log(response);
   return await checkResponse(response);
 };
 
@@ -149,7 +152,7 @@ const userSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
       })
-      .addCase(getUserInfoRequest.rejected, (state, action) => {
+      .addCase(getUserInfoRequest.rejected, (state) => {
         state.isLoading = false;
       }),
 });

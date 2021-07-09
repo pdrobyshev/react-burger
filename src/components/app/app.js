@@ -4,7 +4,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   Constructor,
   Feed,
+  FeedOrder,
   ForgotPassword,
+  History,
+  HistoryOrder,
+  Ingredient,
   Login,
   NotFound404,
   Profile,
@@ -50,20 +54,20 @@ const App = () => {
             <Feed />
           </Route>
           <Route path="/feed/:id" exact>
-            {/*<FeedOrder />*/}
+            <FeedOrder />
           </Route>
           <ProtectedRoute path="/profile" exact>
             <Profile />
           </ProtectedRoute>
-          <Route path="/profile/orders" exact>
-            {/*<History />*/}
-          </Route>
-          <Route path="/profile/orders/:id" exact>
-            {/*<HistoryOrder />*/}
-          </Route>
-          <Route path="/ingredients/:id" exact>
-            {/*<IngredientPage />*/}
-          </Route>
+          <ProtectedRoute path="/profile/orders" exact>
+            <History />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:id" exact>
+            <HistoryOrder />
+          </ProtectedRoute>
+          <ProtectedRoute path="/ingredients/:id" exact>
+            <Ingredient />
+          </ProtectedRoute>
           <Route>
             <NotFound404 />
           </Route>
