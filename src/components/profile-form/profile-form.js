@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user';
+
 import styles from './profile-form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user';
 
 export const ProfileForm = () => {
   const dispatch = useDispatch();
@@ -17,15 +18,15 @@ export const ProfileForm = () => {
 
   useEffect(() => {
     dispatch(getUserInfoRequest());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     user &&
-      setFormData({
-        ...formData,
+      setFormData((state) => ({
+        ...state,
         name: user.name,
         email: user.email,
-      });
+      }));
   }, [user]);
 
   const onChange = (e) => {
@@ -51,10 +52,6 @@ export const ProfileForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserInfoRequest(formData));
-  };
-
-  const onIconClick = () => {
-    setIsDisabled((prevState) => !prevState);
   };
 
   return (

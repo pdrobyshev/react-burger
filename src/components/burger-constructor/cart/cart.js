@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { createOrder } from '../../../services/slices/order';
 
@@ -10,6 +11,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { constructorElementsIds, isLoading } = useSelector((state) => state.order);
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const history = useHistory();
 
   const totalPrice = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
@@ -24,7 +27,7 @@ const Cart = () => {
   };
 
   const onOrderBtnClick = () => {
-    dispatch(createOrder(payload));
+    isLoggedIn ? dispatch(createOrder(payload)) : history.replace('/login');
   };
 
   const orderBtn = (

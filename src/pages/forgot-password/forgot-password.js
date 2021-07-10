@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import styles from '../form.module.scss';
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { sendResetPasswordEmail } from '../../services/slices/password';
+
+import styles from '../form.module.scss';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ export const ForgotPassword = () => {
     dispatch(sendResetPasswordEmail(formData));
   };
 
-  if (isResetEmailSent) return <Redirect to="/reset-password" />;
+  if (isResetEmailSent) {
+    return <Redirect to={{ pathname: '/reset-password', state: { from: location.pathname } }} />;
+  }
 
   return (
     <section className={styles.formWrapper}>
@@ -43,14 +46,15 @@ export const ForgotPassword = () => {
             onChange={onChange}
             value={formData.email}
             name={'email'}
-            errorText={'Некорректный email'}
           />
         </div>
 
         {isLoading ? (
           <span className="text text_type_main-default">Идёт запрос...</span>
         ) : (
-          <Link to={{ pathname: '/reset-password', state: { from: location.pathname } }}>Восстановить</Link>
+          <Button type="primary" size="medium">
+            Сохранить
+          </Button>
         )}
       </form>
 

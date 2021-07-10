@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getUserInfoRequest } from '../../services/slices/user';
+import { getCookie } from '../../utils/cookie';
+import { getIngredients } from '../../services/slices/burger';
 
 import {
   Constructor,
@@ -20,61 +24,82 @@ import AppHeader from '../app-header/app-header';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { ProtectedRouteAuthorized } from '../protected-route-authorized/protected-route-authorized';
 import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected-route-with-reset';
-import { getUserInfoRequest } from '../../services/slices/user';
-import { getCookie } from '../../utils/cookie';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import Loader from '../loader/loader';
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
   const accessToken = getCookie('accessToken');
+  const { isLoading } = useSelector((state) => state.burger);
+  const ingredients = useSelector((state) => state.burger.ingredients);
+  let background = history.action === 'PUSH' && location.state && location.state.background;
 
   useEffect(() => {
+    !ingredients.length && dispatch(getIngredients());
     accessToken && dispatch(getUserInfoRequest());
-  }, [dispatch]);
+  }, [dispatch, accessToken, ingredients]);
+
+  const onIngredientModalClose = () => history.goBack();
 
   return (
     <>
-      <BrowserRouter>
-        <AppHeader />
+      <AppHeader />
 
-        <Switch>
-          <Route path="/" exact>
-            <Constructor />
-          </Route>
-          <ProtectedRouteAuthorized path="/login" exact>
-            <Login />
-          </ProtectedRouteAuthorized>
-          <ProtectedRouteAuthorized path="/register" exact>
-            <Register />
-          </ProtectedRouteAuthorized>
-          <ProtectedRouteAuthorized path="/forgot-password" exact>
-            <ForgotPassword />
-          </ProtectedRouteAuthorized>
-          <ProtectedRouteWithReset path="/reset-password" exact>
-            <ResetPassword />
-          </ProtectedRouteWithReset>
-          <Route path="/feed" exact>
-            <Feed />
-          </Route>
-          <Route path="/feed/:id" exact>
-            <FeedOrder />
-          </Route>
-          <ProtectedRoute path="/profile" exact>
-            <Profile />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders" exact>
-            <History />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders/:id" exact>
-            <HistoryOrder />
-          </ProtectedRoute>
-          <Route path="/ingredients/:id" exact>
-            <Ingredient />
-          </Route>
-          <Route>
-            <NotFound404 />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      {isLoading && <Loader />}
+
+      {!!ingredients.length && (
+        <>
+          <Switch location={background || location}>
+            <Route exact path="/">
+              <Constructor />
+            </Route>
+            <ProtectedRouteAuthorized exact path="/login">
+              <Login />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteAuthorized exact path="/register">
+              <Register />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteAuthorized exact path="/forgot-password">
+              <ForgotPassword />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteWithReset exact path="/reset-password">
+              <ResetPassword />
+            </ProtectedRouteWithReset>
+            <Route exact path="/feed">
+              <Feed />
+            </Route>
+            <Route exact path="/feed/:id">
+              <FeedOrder />
+            </Route>
+            <ProtectedRoute exact path="/profile">
+              <Profile />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/profile/orders">
+              <History />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/profile/orders/:id">
+              <HistoryOrder />
+            </ProtectedRoute>
+            <Route exact path="/ingredients/:id">
+              <Ingredient />
+            </Route>
+            <Route>
+              <NotFound404 />
+            </Route>
+          </Switch>
+
+          {background && (
+            <Route path="/ingredients/:id" exact>
+              <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
+                <IngredientDetails />
+              </Modal>
+            </Route>
+          )}
+        </>
+      )}
     </>
   );
 };

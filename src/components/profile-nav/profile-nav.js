@@ -2,8 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import styles from './profile-nav.module.scss';
 import { logoutRequest } from '../../services/slices/auth';
+
+import styles from './profile-nav.module.scss';
 
 export const ProfileNav = () => {
   const dispatch = useDispatch();

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { registerRequest } from '../../services/slices/auth';
+
 import styles from '../form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { registerRequest } from '../../services/slices/auth';
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,6 @@ export const Register = () => {
             onChange={onChange}
             value={formData.email}
             name={'email'}
-            errorText={'Некорректный email'}
           />
         </div>
         <div className={styles.inputWrapper}>
