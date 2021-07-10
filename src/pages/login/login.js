@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from '../form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { loginRequest } from '../../services/slices/user';
+import { loginRequest } from '../../services/slices/auth';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const Login = () => {
     email: '',
     password: '',
   });
-  const { isLoading } = useSelector((state) => state.user);
+  const { isLoading } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
     const value = e.target.value;

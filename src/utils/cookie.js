@@ -29,6 +29,13 @@ export const setCookie = (name, value, props) => {
   document.cookie = updatedCookie;
 };
 
+export const setCookies = (payload) => {
+  const accessToken = payload.accessToken.split('Bearer ')[1];
+  const refreshToken = payload.refreshToken;
+  setCookie('accessToken', accessToken);
+  setCookie('refreshToken', refreshToken);
+};
+
 export const deleteCookie = (name) => {
   setCookie(name, null, { expires: -1 });
 };

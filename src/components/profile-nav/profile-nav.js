@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import styles from './profile-nav.module.scss';
-import { logoutRequest } from '../../services/slices/user';
+import { logoutRequest } from '../../services/slices/auth';
 
 export const ProfileNav = () => {
   const dispatch = useDispatch();
