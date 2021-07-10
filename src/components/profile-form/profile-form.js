@@ -8,7 +8,7 @@ import { updateUserInfoRequest } from '../../services/slices/user';
 export const ProfileForm = () => {
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const { user, isLoading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -87,14 +87,18 @@ export const ProfileForm = () => {
           />
         </div>
 
-        <div className={styles.buttonsWrapper}>
-          <Button type="secondary" size="medium" onClick={onCancelClick}>
-            Отмена
-          </Button>
-          <Button type="primary" size="medium">
-            Сохранить
-          </Button>
-        </div>
+        {isLoading ? (
+          <span className="text text_type_main-default text_centered">Идёт запрос...</span>
+        ) : (
+          <div className={styles.buttonsWrapper}>
+            <Button type="secondary" size="medium" onClick={onCancelClick}>
+              Отмена
+            </Button>
+            <Button type="primary" size="medium">
+              Сохранить
+            </Button>
+          </div>
+        )}
       </form>
     )
   );

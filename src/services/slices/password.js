@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../constants/api';
+import { checkResponse } from '../../utils';
 
 const initialState = {
   isResetEmailSent: false,
@@ -8,34 +9,26 @@ const initialState = {
   isLoading: false,
 };
 
-export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswordEmail', async (email) => {
-  const fetchSettings = {
+const setFetchSettings = (bodyPayload) => {
+  return {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(email),
+    body: JSON.stringify(bodyPayload),
   };
+};
 
+export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswordEmail', async (email) => {
+  const fetchSettings = setFetchSettings(null, email);
   const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res;
+  return await checkResponse(response);
 });
 
 export const resetPassword = createAsyncThunk('password/reset', async (payload) => {
-  const fetchSettings = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  };
-
+  const fetchSettings = setFetchSettings(null, payload);
   const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res;
+  return await checkResponse(response);
 });
 
 const passwordSlice = createSlice({

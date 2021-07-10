@@ -10,41 +10,30 @@ const initialState = {
   isLoading: false,
 };
 
-export const registerRequest = createAsyncThunk('auth/registerRequest', async (payload) => {
-  const fetchSettings = {
+const setFetchSettings = (bodyPayload) => {
+  return {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(bodyPayload),
   };
+};
 
+export const registerRequest = createAsyncThunk('auth/registerRequest', async (payload) => {
+  const fetchSettings = setFetchSettings(payload);
   const response = await fetch(REGISTER_URL, fetchSettings);
   return await checkResponse(response);
 });
 
 export const loginRequest = createAsyncThunk('auth/loginRequest', async (payload) => {
-  const fetchSettings = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  };
-
+  const fetchSettings = setFetchSettings(payload);
   const response = await fetch(LOGIN_URL, fetchSettings);
   return await checkResponse(response);
 });
 
 export const logoutRequest = createAsyncThunk('auth/logoutRequest', async () => {
-  const fetchSettings = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token: getCookie('refreshToken') }),
-  };
-
+  const fetchSettings = setFetchSettings({ token: getCookie('refreshToken') });
   const response = await fetch(LOGOUT_URL, fetchSettings);
   return await checkResponse(response);
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './profile-nav.module.scss';
 import { logoutRequest } from '../../services/slices/auth';
 
 export const ProfileNav = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const onLogoutClick = (e) => {
     e.preventDefault();
@@ -27,9 +28,13 @@ export const ProfileNav = () => {
           </NavLink>
         </li>
         <li>
-          <button className={`${styles.link} ${styles.button}`} onClick={onLogoutClick}>
-            Выход
-          </button>
+          {isLoading ? (
+            <button className={`${styles.link} ${styles.button}`}>Идёт запрос...</button>
+          ) : (
+            <button className={`${styles.link} ${styles.button}`} onClick={onLogoutClick}>
+              Выход
+            </button>
+          )}
         </li>
       </ul>
 

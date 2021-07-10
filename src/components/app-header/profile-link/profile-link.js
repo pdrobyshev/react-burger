@@ -6,7 +6,7 @@ import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import LinkItem from '../../link-item/link-item';
 
 const Profile = () => {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <div className={styles.profile}>
