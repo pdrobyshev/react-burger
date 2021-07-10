@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './profile-form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { updateUserInfoRequest } from '../../services/slices/user';
+import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user';
 
 export const ProfileForm = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,10 @@ export const ProfileForm = () => {
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    dispatch(getUserInfoRequest());
+  }, []);
 
   useEffect(() => {
     user &&

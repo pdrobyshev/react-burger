@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../constants/api';
-import { checkResponse } from '../../utils';
+import { checkResponse, setFetchSettings } from '../../utils';
 
 const initialState = {
   isResetEmailSent: false,
@@ -9,24 +9,14 @@ const initialState = {
   isLoading: false,
 };
 
-const setFetchSettings = (bodyPayload) => {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(bodyPayload),
-  };
-};
-
 export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswordEmail', async (email) => {
-  const fetchSettings = setFetchSettings(null, email);
+  const fetchSettings = setFetchSettings('POST', '', email);
   const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
   return await checkResponse(response);
 });
 
 export const resetPassword = createAsyncThunk('password/reset', async (payload) => {
-  const fetchSettings = setFetchSettings(null, payload);
+  const fetchSettings = setFetchSettings('POST', '', payload);
   const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
   return await checkResponse(response);
 });

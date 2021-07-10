@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { USER_INFO_URL, REFRESH_TOKEN_URL } from '../../constants/api';
 import { getCookie, setCookies } from '../../utils/cookie';
-import { checkResponse } from '../../utils';
+import { checkResponse, setFetchSettings } from '../../utils';
 
 const initialState = {
   isLoggedIn: !!getCookie('accessToken'),
@@ -10,69 +10,39 @@ const initialState = {
   isLoading: false,
 };
 
-export const refreshTokenRequest = async () => {
-  const fetchSettings = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: getCookie('refreshToken'),
-    },
-    body: JSON.stringify({ token: getCookie('refreshToken') }),
-  };
-
+const refreshTokenRequest = async () => {
+  const fetchSettings = setFetchSettings('POST', getCookie('refreshToken'), {
+    token: getCookie('refreshToken'),
+  });
   const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
   return await checkResponse(response);
 };
 
-export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', async () => {
-  const fetchSettings = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getCookie('accessToken')}`,
-    },
-  };
-
+const fetchWithRefresh = async (url, fetchSettings) => {
   try {
-    const response = await fetch(USER_INFO_URL, fetchSettings);
+    const response = await fetch(url, fetchSettings);
     return await checkResponse(response);
   } catch (err) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshTokenRequest();
       setCookies(refreshData);
 
-      const response = await fetch(USER_INFO_URL, fetchSettings);
+      const response = await fetch(url, fetchSettings);
       return await checkResponse(response);
     } else {
       return Promise.reject(err);
     }
   }
+};
+
+export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', async () => {
+  const fetchSettings = setFetchSettings('GET', `Bearer ${getCookie('accessToken')}`);
+  return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
 });
 
 export const updateUserInfoRequest = createAsyncThunk('user/updateUserInfoRequest', async (payload) => {
-  const fetchSettings = {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getCookie('accessToken')}`,
-    },
-    body: JSON.stringify(payload),
-  };
-
-  try {
-    const response = await fetch(USER_INFO_URL, fetchSettings);
-    return await checkResponse(response);
-  } catch (err) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshTokenRequest();
-      setCookies(refreshData);
-
-      const response = await fetch(USER_INFO_URL, fetchSettings);
-      return await checkResponse(response);
-    } else {
-      return Promise.reject(err);
-    }
-  }
+  const fetchSettings = setFetchSettings('PATCH', `Bearer ${getCookie('accessToken')}`, payload);
+  return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
 });
 
 const userSlice = createSlice({

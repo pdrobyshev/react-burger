@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../constants/api';
 import { deleteCookie, getCookie, setCookies } from '../../utils/cookie';
-import { checkResponse } from '../../utils';
+import { checkResponse, setFetchSettings } from '../../utils';
 
 const initialState = {
   isLoggedIn: !!getCookie('accessToken'),
@@ -10,30 +10,20 @@ const initialState = {
   isLoading: false,
 };
 
-const setFetchSettings = (bodyPayload) => {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(bodyPayload),
-  };
-};
-
 export const registerRequest = createAsyncThunk('auth/registerRequest', async (payload) => {
-  const fetchSettings = setFetchSettings(payload);
+  const fetchSettings = setFetchSettings('POST', '', payload);
   const response = await fetch(REGISTER_URL, fetchSettings);
   return await checkResponse(response);
 });
 
 export const loginRequest = createAsyncThunk('auth/loginRequest', async (payload) => {
-  const fetchSettings = setFetchSettings(payload);
+  const fetchSettings = setFetchSettings('POST', '', payload);
   const response = await fetch(LOGIN_URL, fetchSettings);
   return await checkResponse(response);
 });
 
 export const logoutRequest = createAsyncThunk('auth/logoutRequest', async () => {
-  const fetchSettings = setFetchSettings({ token: getCookie('refreshToken') });
+  const fetchSettings = setFetchSettings('POST', '', { token: getCookie('refreshToken') });
   const response = await fetch(LOGOUT_URL, fetchSettings);
   return await checkResponse(response);
 });
