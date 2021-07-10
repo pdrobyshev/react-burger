@@ -70,8 +70,6 @@ export const refreshTokenRequest = async () => {
   };
 
   const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
-  console.log('refreshTokenRequest response');
-  console.log(response);
   return await checkResponse(response);
 };
 
@@ -82,6 +80,32 @@ export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', as
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getCookie('accessToken')}`,
     },
+  };
+
+  try {
+    const response = await fetch(USER_INFO_URL, fetchSettings);
+    return await checkResponse(response);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshTokenRequest();
+      setCookies(refreshData);
+
+      const response = await fetch(USER_INFO_URL, fetchSettings);
+      return await checkResponse(response);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+});
+
+export const updateUserInfoRequest = createAsyncThunk('user/updateUserInfoRequest', async (payload) => {
+  const fetchSettings = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getCookie('accessToken')}`,
+    },
+    body: JSON.stringify(payload),
   };
 
   try {
@@ -153,6 +177,20 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUserInfoRequest.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateUserInfoRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserInfoRequest.fulfilled, (state, action) => {
+        if (action.payload.accessToken) {
+          setCookies(action.payload);
+        }
+        state.user = action.payload.user;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(updateUserInfoRequest.rejected, (state) => {
         state.isLoading = false;
       }),
 });

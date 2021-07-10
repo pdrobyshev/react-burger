@@ -59,15 +59,15 @@ const App = () => {
           <ProtectedRoute path="/profile" exact>
             <Profile />
           </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders" exact>
+          <Route path="/profile/orders" exact>
             <History />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders/:id" exact>
+          </Route>
+          <Route path="/profile/orders/:id" exact>
             <HistoryOrder />
-          </ProtectedRoute>
-          <ProtectedRoute path="/ingredients/:id" exact>
+          </Route>
+          <Route path="/ingredients/:id" exact>
             <Ingredient />
-          </ProtectedRoute>
+          </Route>
           <Route>
             <NotFound404 />
           </Route>
