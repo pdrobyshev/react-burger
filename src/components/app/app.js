@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import {
   Constructor,
@@ -19,14 +20,15 @@ import AppHeader from '../app-header/app-header';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { ProtectedRouteAuthorized } from '../protected-route-authorized/protected-route-authorized';
 import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected-route-with-reset';
-import { useDispatch } from 'react-redux';
 import { getUserInfoRequest } from '../../services/slices/user';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
+  const accessToken = getCookie('accessToken');
 
   useEffect(() => {
-    dispatch(getUserInfoRequest());
+    accessToken && dispatch(getUserInfoRequest());
   }, [dispatch]);
 
   return (
@@ -59,12 +61,12 @@ const App = () => {
           <ProtectedRoute path="/profile" exact>
             <Profile />
           </ProtectedRoute>
-          <Route path="/profile/orders" exact>
+          <ProtectedRoute path="/profile/orders" exact>
             <History />
-          </Route>
-          <Route path="/profile/orders/:id" exact>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:id" exact>
             <HistoryOrder />
-          </Route>
+          </ProtectedRoute>
           <Route path="/ingredients/:id" exact>
             <Ingredient />
           </Route>
