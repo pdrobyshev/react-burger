@@ -15,10 +15,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color: #F2F2F3;
 }
 
 .name {
   display: block;
 
   text-align: center;
+  color: #F2F2F3;
+}
+
+.link {
+  text-decoration: none;
 }

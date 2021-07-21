@@ -1,0 +1,23 @@
+.form {
+  composes: mb-6 from global;
+
+  max-width: 480px;
+  flex-grow: 1;
+}
+
+.inputWrapper {
+  composes: mb-6 from global;
+
+  :global(.input__container) {
+    width: 100%;
+  }
+
+  :global(.input) {
+    width: 100%;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

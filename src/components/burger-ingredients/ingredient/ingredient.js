@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-
-import { openIngredientModal } from '../../../services/slices/modals';
+import { Link, useLocation } from 'react-router-dom';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = ({ ingredient }) => {
-  const { image, price, name } = ingredient;
-  const dispatch = useDispatch();
+  const { image, price, name, _id } = ingredient;
+  const location = useLocation();
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
   const counters = useMemo(() => {
@@ -35,21 +34,23 @@ const Ingredient = ({ ingredient }) => {
   });
   const opacity = isDragging ? 0.25 : 1;
 
-  const handleClick = () => dispatch(openIngredientModal(ingredient));
-
   return (
-    <li className={styles.item} style={{ opacity }} onClick={handleClick} ref={dragRef}>
+    <li className={styles.item} style={{ opacity }} ref={dragRef}>
       {counters[ingredient._id] && <Counter count={counters[ingredient._id]} size="default" />}
 
-      <div className="pl-4  pr-4  mb-1">
-        <img className={styles.image} src={image} alt={name} />
-        <div className={styles.price}>
-          <span className="text  text_type_digits-default  mr-2">{price}</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </div>
+      <Link className={styles.link} to={{ pathname: `/ingredients/${_id}`, state: { background: location } }}>
+        <>
+          <div className="pl-4  pr-4  mb-1">
+            <img className={styles.image} src={image} alt={name} />
+            <div className={styles.price}>
+              <span className="text  text_type_digits-default  mr-2">{price}</span>
+              <CurrencyIcon type="primary" />
+            </div>
+          </div>
 
-      <span className={`${styles.name}  text  text_type_main-default`}>{name}</span>
+          <span className={`${styles.name}  text  text_type_main-default`}>{name}</span>
+        </>
+      </Link>
     </li>
   );
 };
@@ -59,6 +60,7 @@ Ingredient.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

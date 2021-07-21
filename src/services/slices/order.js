@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API_URL } from '../../constants/api';
+import { ORDER_URL } from '../../constants/api';
+import { checkResponse, setFetchSettings } from '../../utils';
 
 const initialState = {
   orderId: null,
@@ -9,18 +10,9 @@ const initialState = {
 };
 
 export const createOrder = createAsyncThunk('burger/createOrder', async (order) => {
-  const fetchSettings = {
-    method: 'POST',
-    body: JSON.stringify(order),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const response = await fetch(`${API_URL}orders`, fetchSettings);
-  if (!response.ok) return Promise.reject(`Что-то пошло не так :( Статус ${response.status}`);
-  const res = await response.json();
-  return res.order.number;
+  const fetchSettings = setFetchSettings('POST', '', order);
+  const response = await fetch(ORDER_URL, fetchSettings);
+  return await checkResponse(response);
 });
 
 const orderSlice = createSlice({
@@ -38,7 +30,7 @@ const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orderId = action.payload;
+        state.orderId = action.payload.order.number;
       })
       .addCase(createOrder.rejected, (state) => {
         state.orderId = null;

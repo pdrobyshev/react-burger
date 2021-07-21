@@ -1,49 +1,104 @@
 import React, { useEffect } from 'react';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { getUserInfoRequest } from '../../services/slices/user';
+import { getCookie } from '../../utils/cookie';
 import { getIngredients } from '../../services/slices/burger';
-import { closeIngredientModal, closeOrderModal } from '../../services/slices/modals';
 
+import {
+  Constructor,
+  Feed,
+  FeedOrder,
+  ForgotPassword,
+  History,
+  HistoryOrder,
+  Ingredient,
+  Login,
+  NotFound404,
+  Profile,
+  Register,
+  ResetPassword,
+} from '../../pages';
 import AppHeader from '../app-header/app-header';
-import PageContent from '../page-content/page-content';
-import Error from '../error/error';
-import Loader from '../loader/loader';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
+import { ProtectedRoute } from '../protected-route/protected-route';
+import { ProtectedRouteAuthorized } from '../protected-route-authorized/protected-route-authorized';
+import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected-route-with-reset';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import Loader from '../loader/loader';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { orderId } = useSelector((state) => state.order);
-  const { hasError, isLoading } = useSelector((state) => state.burger);
-  const { currentIngredient, isIngredientModalOpened, isOrderModalOpened } = useSelector(
-    (state) => state.modals
-  );
-
-  const onIngredientModalClose = () => dispatch(closeIngredientModal());
-  const onOrderModalClose = () => dispatch(closeOrderModal());
+  const location = useLocation();
+  const history = useHistory();
+  const accessToken = getCookie('accessToken');
+  const { isLoading } = useSelector((state) => state.burger);
+  const ingredients = useSelector((state) => state.burger.ingredients);
+  const background = history.action === 'PUSH' && location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    !ingredients.length && dispatch(getIngredients());
+    accessToken && dispatch(getUserInfoRequest());
+  }, [dispatch, accessToken, ingredients]);
 
-  const content = hasError ? <Error /> : <PageContent />;
+  const onIngredientModalClose = () => history.goBack();
 
   return (
     <>
       <AppHeader />
-      {isLoading ? <Loader /> : content}
 
-      {isOrderModalOpened && orderId && (
-        <Modal onModalClose={onOrderModalClose}>
-          <OrderDetails orderId={orderId} />
-        </Modal>
-      )}
+      {isLoading && <Loader />}
 
-      {isIngredientModalOpened && currentIngredient && (
-        <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
-          <IngredientDetails {...currentIngredient} />
-        </Modal>
+      {!!ingredients.length && (
+        <>
+          <Switch location={background || location}>
+            <Route exact path="/">
+              <Constructor />
+            </Route>
+            <ProtectedRouteAuthorized exact path="/login">
+              <Login />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteAuthorized exact path="/register">
+              <Register />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteAuthorized exact path="/forgot-password">
+              <ForgotPassword />
+            </ProtectedRouteAuthorized>
+            <ProtectedRouteWithReset exact path="/reset-password">
+              <ResetPassword />
+            </ProtectedRouteWithReset>
+            <Route exact path="/feed">
+              <Feed />
+            </Route>
+            <Route exact path="/feed/:id">
+              <FeedOrder />
+            </Route>
+            <ProtectedRoute exact path="/profile">
+              <Profile />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/profile/orders">
+              <History />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/profile/orders/:id">
+              <HistoryOrder />
+            </ProtectedRoute>
+            <Route exact path="/ingredients/:id">
+              <Ingredient />
+            </Route>
+            <Route>
+              <NotFound404 />
+            </Route>
+          </Switch>
+
+          {background && (
+            <Route path="/ingredients/:id" exact>
+              <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
+                <IngredientDetails />
+              </Modal>
+            </Route>
+          )}
+        </>
       )}
     </>
   );
