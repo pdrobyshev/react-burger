@@ -35,7 +35,7 @@ const App = () => {
   const accessToken = getCookie('accessToken');
   const { isLoading } = useSelector((state) => state.burger);
   const ingredients = useSelector((state) => state.burger.ingredients);
-  let background = history.action === 'PUSH' && location.state && location.state.background;
+  const background = history.action === 'PUSH' && location.state && location.state.background;
 
   useEffect(() => {
     !ingredients.length && dispatch(getIngredients());
