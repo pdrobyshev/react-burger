@@ -1,0 +1,11 @@
+.list {
+  composes: pl-2 pr-2 from global;
+
+  max-width: 608px;
+  width: 100%;
+  max-height: 852px;
+  margin: 0;
+  list-style: none;
+
+  box-sizing: border-box;
+}
