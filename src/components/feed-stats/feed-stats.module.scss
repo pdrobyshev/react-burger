@@ -1,27 +1,20 @@
-.feedWrapper {
-  composes: mt-10 from global;
-
-  max-width: 1248px;
+.feedStats {
+  max-width: 580px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-
-  box-sizing: border-box;
-
-  background-color: #2f2f37;
 }
 
-.main {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  grid-gap: 60px;
-  place-content: center;
-  place-items: center;
+.flexWrapper {
+  composes: mb-15 from global;
+
+  display: flex;
 }
 
-.mainOrders {
-  //max-width: 1288px;
-  place-items: start;
+.totalWrapper {
+  composes: mb-10 from global;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .title {
@@ -30,21 +23,21 @@
   box-sizing: border-box;
 }
 
-.flexWrapper {
-  display: flex;
-
-  composes: mb-15 from global;
-}
-
 .ordersInfo {
   max-width: 584px;
   width: 100%;
 }
 
-.text {
-  display: block;
+.textTitle {
+  composes: text  text_type_main-medium  mb-6 from global;
 
-  composes: mb-2 from global;
+  display: block;
+}
+
+.smallDigits {
+  composes: text text_type_digits-default mb-2 from global;
+
+  display: block;
 
   &:last-child {
     margin-bottom: 0;
@@ -55,11 +48,17 @@
   color: #00CCCC;
 }
 
-.displayBlock {
+.totalTitle {
+  composes: text  text_type_main-medium from global;
+
   display: block;
 }
 
 .digits {
+  composes: text  text_type_digits-large from global;
+
+  display: block;
+
   text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
 }
 
