@@ -71,28 +71,28 @@ const App = () => {
             <Route exact path="/feed">
               <Feed />
             </Route>
-            <Route exact path="/feed/:id">
-              <FeedOrder />
-            </Route>
             <ProtectedRoute exact path="/profile">
               <Profile />
             </ProtectedRoute>
             <ProtectedRoute exact path="/profile/orders">
               <History />
             </ProtectedRoute>
-            <ProtectedRoute exact path="/profile/orders/:id">
-              <HistoryOrder />
-            </ProtectedRoute>
             <Route exact path="/ingredients/:id">
               <Ingredient />
             </Route>
+            <Route exact path="/feed/:id">
+              <FeedOrder />
+            </Route>
+            <ProtectedRoute exact path="/profile/orders/:id">
+              <HistoryOrder />
+            </ProtectedRoute>
             <Route>
               <NotFound404 />
             </Route>
           </Switch>
 
           {background && (
-            <Route path="/ingredients/:id" exact>
+            <Route exact path="/ingredients/:id">
               <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
                 <IngredientDetails />
               </Modal>

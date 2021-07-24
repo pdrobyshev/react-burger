@@ -6,7 +6,7 @@ import { closeOrderModal } from '../../services/slices/modals';
 import ConstructorContent from '../../components/constructor-content/constructor-content';
 import Error from '../../components/error/error';
 import Modal from '../../components/modal/modal';
-import OrderInfo from '../../components/order-info/order-info';
+import OrderDetails from '../../components/order-details/order-details';
 
 export const Constructor = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const Constructor = () => {
 
       {isOrderModalOpened && orderId && (
         <Modal onModalClose={onOrderModalClose}>
-          <OrderInfo orderId={orderId} />
+          <OrderDetails orderId={orderId} />
         </Modal>
       )}
     </>

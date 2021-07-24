@@ -14,7 +14,7 @@ const Nav = () => {
           <LinkItem Icon={BurgerIcon} text="Конструктор" to="/" />
         </li>
         <li className={styles.item}>
-          <LinkItem Icon={ListIcon} text="Лента заказов" to="feed" />
+          <LinkItem Icon={ListIcon} text="Лента заказов" to="/feed" />
         </li>
       </ul>
 

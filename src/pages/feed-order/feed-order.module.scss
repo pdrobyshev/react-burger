@@ -1,3 +1,16 @@
 .wrapper {
   composes: mt-30 from global;
+
+  max-width: 640px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.number {
+  composes: text text_type_digits-default mb-10 from global;
+
+  display: block;
+
+  text-align: center;
 }

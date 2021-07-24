@@ -1,23 +1,78 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './order-info.module.scss';
-import done from '../../images/done.png';
+import img from '../../images/done.png';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const OrderInfo = ({ orderId }) => (
+export const OrderInfo = () => (
   <section>
-    <h2 className={`${styles.title}  mb-4  text  text_type_digits-large`}>{orderId}</h2>
-    <span className={`${styles.titleText}  mb-15  text  text_type_main-medium`}>идентификатор заказа</span>
-    <img className={`${styles.icon}  mb-15`} src={done} alt="order done" width={120} height={120} />
-    <span className={`${styles.text}  text  text_type_main-default  mb-2`}>Ваш заказ начали готовить</span>
-    <span className={`${styles.text}  text  text_type_main-default  text_color_inactive`}>
-      Дождитесь готовности на орбитальной станции
-    </span>
+    <h2 className={`${styles.title}  mb-3`}>Black Hole Singularity острый бургер</h2>
+    <span className={styles.status}>Выполнен</span>
+
+    <span className={`${styles.title}  mb-6`}>Состав:</span>
+
+    <ul className={`${styles.list} scroll`}>
+      <li className={styles.item}>
+        <span className={styles.imgWrapper}>
+          <img className={styles.img} src={img} alt="img" width="64" height="64" />
+        </span>
+        <span className={styles.ingredient}>Флюоресцентная булка R2-D3</span>
+
+        <div className={styles.flexWrapper}>
+          <span>2</span>x<span>20</span>
+          <CurrencyIcon type="primary" />
+        </div>
+      </li>
+      <li className={styles.item}>
+        <span className={styles.imgWrapper}>
+          <img className={styles.img} src={img} alt="img" width="64" height="64" />
+        </span>
+        <span className={styles.ingredient}>Филе Люминесцентного тетраодонтимформа</span>
+
+        <div className={styles.flexWrapper}>
+          <span>1</span>x<span>300</span>
+          <CurrencyIcon type="primary" />
+        </div>
+      </li>
+      <li className={styles.item}>
+        <span className={styles.imgWrapper}>
+          <img className={styles.img} src={img} alt="img" width="64" height="64" />
+        </span>
+        <span className={styles.ingredient}>Соус традиционный галактический</span>
+
+        <div className={styles.flexWrapper}>
+          <span>2</span>x<span>20</span>
+          <CurrencyIcon type="primary" />
+        </div>
+      </li>
+      <li className={styles.item}>
+        <span className={styles.imgWrapper}>
+          <img className={styles.img} src={img} alt="img" width="64" height="64" />
+        </span>
+        <span className={styles.ingredient}>Плоды фалленианского дерева</span>
+
+        <div className={styles.flexWrapper}>
+          <span>2</span>x<span>20</span>
+          <CurrencyIcon type="primary" />
+        </div>
+      </li>
+      <li className={styles.item}>
+        <span className={styles.imgWrapper}>
+          <img className={styles.img} src={img} alt="img" width="64" height="64" />
+        </span>
+        <span className={styles.ingredient}>Флюоресцентная булка R2-D3</span>
+
+        <div className={styles.flexWrapper}>
+          <span>2</span>x<span>20</span>
+          <CurrencyIcon type="primary" />
+        </div>
+      </li>
+    </ul>
+
+    <div className={styles.total}>
+      <span className={styles.datetime}>Вчера, 13:50 i-GMT+3</span>
+      <span className={styles.price}>510</span>
+      <CurrencyIcon type="primary" />
+    </div>
   </section>
 );
-
-OrderInfo.propTypes = {
-  orderId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-};
-
-export default OrderInfo;
