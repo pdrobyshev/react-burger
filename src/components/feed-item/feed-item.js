@@ -1,49 +1,77 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import styles from './feed-item.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import img from '../../images/done.png';
 
-export const FeedItem = () => {
+export const FeedItem = ({ _id, number, name, ingredients: orderIngredients }) => {
   const location = useLocation();
+  const { ingredients } = useSelector((state) => state.burger);
+
+  const feedOrderIngredients = useMemo(() => {
+    return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
+  }, [orderIngredients, ingredients]);
+
+  const showImages = (feedOrderIngredients) => {
+    const images = [];
+
+    for (let i = 0; i < feedOrderIngredients.length; i++) {
+      const ing = feedOrderIngredients[i];
+
+      if (feedOrderIngredients.length > 5 && i === 5) {
+        images.push(
+          <li className={styles.imagesItem} key={ing._id}>
+            <img className={styles.image} src={ing.image_mobile} alt={ing.name} width="64" height="64" />
+            <span className={styles.count}>+{feedOrderIngredients.length - 5}</span>
+          </li>
+        );
+      } else {
+        images.push(
+          <li className={styles.imagesItem} key={ing._id}>
+            <img className={styles.image} src={ing.image_mobile} alt={ing.name} width="64" height="64" />
+          </li>
+        );
+      }
+    }
+
+    return images;
+  };
+
+  const price = useMemo(() => {
+    return feedOrderIngredients.reduce((acc, el) => acc + el.price, 0);
+  }, [feedOrderIngredients]);
 
   return (
-    <Link className={styles.item} to={location.pathname === '/feed' ? '/feed/123' : '/profile/orders/123'}>
-      <div className={`${styles.flexWrapper}  mb-6`}>
-        <span className={styles.order}>#034535</span>
-        <span className={styles.datetime}>Сегодня, 16:20 i-GMT+3</span>
-      </div>
+    <>
+      {feedOrderIngredients.length && price && (
+        <li>
+          <Link
+            className={styles.item}
+            to={{
+              pathname: location.pathname === '/feed' ? `/feed/${_id}` : `/profile/orders/${_id}`,
+              state: { background: location },
+            }}
+          >
+            <div className={`${styles.flexWrapper}  mb-6`}>
+              <span className={styles.order}>#{number}</span>
+              <span className={styles.datetime}>Сегодня, 16:20 i-GMT+3</span>
+            </div>
 
-      <span className={styles.name}>Death Star Starship Main бургер</span>
+            <span className={styles.name}>{name}</span>
 
-      <div className={styles.flexWrapper}>
-        <ul className={styles.images}>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-          <li className={styles.imagesItem}>
-            <img className={styles.image} src={img} alt="img" width="64" height="64" />
-          </li>
-        </ul>
+            <div className={styles.flexWrapper}>
+              <ul className={styles.images}>{showImages(feedOrderIngredients)}</ul>
 
-        <div className={styles.priceWrapper}>
-          <span className={styles.price}>480</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </div>
-    </Link>
+              <div className={styles.priceWrapper}>
+                <span className={styles.price}>{price}</span>
+                <CurrencyIcon type="primary" />
+              </div>
+            </div>
+          </Link>
+        </li>
+      )}
+    </>
   );
 };

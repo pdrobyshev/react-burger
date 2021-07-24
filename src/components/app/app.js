@@ -27,6 +27,7 @@ import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
+import { OrderInfo } from '../order-info/order-info';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const App = () => {
     accessToken && dispatch(getUserInfoRequest());
   }, [dispatch, accessToken, ingredients]);
 
-  const onIngredientModalClose = () => history.goBack();
+  const onModalClose = () => history.goBack();
 
   return (
     <>
@@ -92,11 +93,18 @@ const App = () => {
           </Switch>
 
           {background && (
-            <Route exact path="/ingredients/:id">
-              <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
-                <IngredientDetails />
-              </Modal>
-            </Route>
+            <Switch>
+              <Route exact path="/ingredients/:id">
+                <Modal title="Детали ингредиента" onModalClose={onModalClose}>
+                  <IngredientDetails />
+                </Modal>
+              </Route>
+              <Route exact path="/feed/:id">
+                <Modal title="Надо получить номер заказа" onModalClose={onModalClose}>
+                  <OrderInfo />
+                </Modal>
+              </Route>
+            </Switch>
           )}
         </>
       )}

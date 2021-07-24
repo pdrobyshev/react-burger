@@ -3,12 +3,17 @@ import React, { useEffect } from 'react';
 import styles from './feed.module.scss';
 import { FeedList } from '../../components/feed-list/feed-list';
 import { FeedStats } from '../../components/feed-stats/feed-stats';
+import { useDispatch } from 'react-redux';
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed';
 
 export const Feed = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    //Этот экран доступен всем пользователям и должен обновляться в режиме реального времени, когда авторизованный пользователь создаёт заказ.
-    // проверить на токен и создать соединение по вебсокету
-  }, []);
+    dispatch(WS_CONNECTION_START());
+
+    return () => dispatch(WS_CONNECTION_CLOSE());
+  }, [dispatch]);
 
   return (
     <div className={styles.feedWrapper}>

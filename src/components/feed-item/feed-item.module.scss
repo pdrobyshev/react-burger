@@ -96,19 +96,21 @@
   &:nth-child(6) {
     z-index: 1;
 
-    &::after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      content: '+3';
-    }
-
     .image {
       opacity: 0.6;
     }
   }
+
+  &:nth-child(n+7) {
+    display: none;
+  }
+}
+
+.count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .image {
