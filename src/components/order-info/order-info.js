@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './order-details.module.scss';
+import styles from './order-info.module.scss';
 import done from '../../images/done.png';
 
-const OrderDetails = ({ orderId }) => (
+const OrderInfo = ({ orderId }) => (
   <section>
     <h2 className={`${styles.title}  mb-4  text  text_type_digits-large`}>{orderId}</h2>
     <span className={`${styles.titleText}  mb-15  text  text_type_main-medium`}>идентификатор заказа</span>
@@ -16,8 +16,8 @@ const OrderDetails = ({ orderId }) => (
   </section>
 );
 
-OrderDetails.propTypes = {
+OrderInfo.propTypes = {
   orderId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
-export default OrderDetails;
+export default OrderInfo;
