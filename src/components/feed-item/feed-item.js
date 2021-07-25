@@ -50,7 +50,7 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients }) =
           <Link
             className={styles.item}
             to={{
-              pathname: location.pathname === '/feed' ? `/feed/${_id}` : `/profile/orders/${_id}`,
+              pathname: location.pathname === '/feed' ? `/feed/${number}` : `/profile/orders/${number}`,
               state: { background: location },
             }}
           >

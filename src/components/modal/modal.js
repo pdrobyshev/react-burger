@@ -9,7 +9,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 const modalRoot = document.getElementById('modals');
 const KEYCODE_ESC = 27;
 
-const Modal = ({ title = '', children, onModalClose }) => {
+const Modal = ({ title = '', orderNumber = '', children, onModalClose }) => {
   useEffect(() => {
     const onEscPress = (e) => {
       if (e.keyCode === KEYCODE_ESC) onModalClose();
@@ -25,6 +25,9 @@ const Modal = ({ title = '', children, onModalClose }) => {
       <section className={`${styles.modal}  ${title !== '' ? 'pb-15' : 'pt-15  pb-30'}  p-10`}>
         <div className={`${styles.header}  ${title !== '' ? 'pt-3  pb-3' : 'mb-9'}`}>
           {title && <h2 className={`${styles.title}  text  text_type_main-large`}>{title}</h2>}
+          {orderNumber && (
+            <h2 className={`${styles.title}  text  text_type_digits-default`}>#{orderNumber}</h2>
+          )}
           <span className={styles.icon} onClick={onModalClose}>
             <CloseIcon type="primary" />
           </span>

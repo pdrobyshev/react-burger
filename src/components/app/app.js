@@ -28,6 +28,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
 import { OrderInfo } from '../order-info/order-info';
+import { FeedModal } from '../feed-modal/feed-modal';
+import { RESET_ORDER, resetOrder } from '../../services/slices/order';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,6 +46,10 @@ const App = () => {
   }, [dispatch, accessToken, ingredients]);
 
   const onModalClose = () => history.goBack();
+  const onOrderInfoModalClose = () => {
+    dispatch(resetOrder());
+    history.goBack();
+  };
 
   return (
     <>
@@ -69,21 +75,24 @@ const App = () => {
             <ProtectedRouteWithReset exact path="/reset-password">
               <ResetPassword />
             </ProtectedRouteWithReset>
+
+            <Route exact path="/ingredients/:id">
+              <Ingredient />
+            </Route>
+
             <Route exact path="/feed">
               <Feed />
             </Route>
+            <Route exact path="/feed/:id">
+              <FeedOrder />
+            </Route>
+
             <ProtectedRoute exact path="/profile">
               <Profile />
             </ProtectedRoute>
             <ProtectedRoute exact path="/profile/orders">
               <History />
             </ProtectedRoute>
-            <Route exact path="/ingredients/:id">
-              <Ingredient />
-            </Route>
-            <Route exact path="/feed/:id">
-              <FeedOrder />
-            </Route>
             <ProtectedRoute exact path="/profile/orders/:id">
               <HistoryOrder />
             </ProtectedRoute>
@@ -100,9 +109,7 @@ const App = () => {
                 </Modal>
               </Route>
               <Route exact path="/feed/:id">
-                <Modal title="Надо получить номер заказа" onModalClose={onModalClose}>
-                  <OrderInfo />
-                </Modal>
+                <FeedModal onModalClose={onOrderInfoModalClose} />
               </Route>
             </Switch>
           )}

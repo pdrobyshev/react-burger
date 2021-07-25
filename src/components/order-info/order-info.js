@@ -1,78 +1,50 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './order-info.module.scss';
-import img from '../../images/done.png';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const OrderInfo = () => (
-  <section>
-    <h2 className={`${styles.title}  mb-3`}>Black Hole Singularity острый бургер</h2>
-    <span className={styles.status}>Выполнен</span>
+export const OrderInfo = () => {
+  const { ingredients } = useSelector((state) => state.burger);
+  const order = useSelector((state) => state.order.order);
+  const { name, status, ingredients: orderIngredients } = order;
 
-    <span className={`${styles.title}  mb-6`}>Состав:</span>
+  const feedOrderIngredients = useMemo(() => {
+    return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
+  }, [orderIngredients, ingredients]);
 
-    <ul className={`${styles.list} scroll`}>
-      <li className={styles.item}>
-        <span className={styles.imgWrapper}>
-          <img className={styles.img} src={img} alt="img" width="64" height="64" />
-        </span>
-        <span className={styles.ingredient}>Флюоресцентная булка R2-D3</span>
+  const price = useMemo(() => {
+    return feedOrderIngredients.reduce((acc, el) => acc + el.price, 0);
+  }, [feedOrderIngredients]);
 
-        <div className={styles.flexWrapper}>
-          <span>2</span>x<span>20</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </li>
-      <li className={styles.item}>
-        <span className={styles.imgWrapper}>
-          <img className={styles.img} src={img} alt="img" width="64" height="64" />
-        </span>
-        <span className={styles.ingredient}>Филе Люминесцентного тетраодонтимформа</span>
+  return (
+    <section>
+      <h2 className={`${styles.title}  mb-3`}>{name}</h2>
+      <span className={styles.status}>{status === 'done' ? 'Выполнен' : 'В работе'}</span>
 
-        <div className={styles.flexWrapper}>
-          <span>1</span>x<span>300</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </li>
-      <li className={styles.item}>
-        <span className={styles.imgWrapper}>
-          <img className={styles.img} src={img} alt="img" width="64" height="64" />
-        </span>
-        <span className={styles.ingredient}>Соус традиционный галактический</span>
+      <span className={`${styles.title}  mb-6`}>Состав:</span>
 
-        <div className={styles.flexWrapper}>
-          <span>2</span>x<span>20</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </li>
-      <li className={styles.item}>
-        <span className={styles.imgWrapper}>
-          <img className={styles.img} src={img} alt="img" width="64" height="64" />
-        </span>
-        <span className={styles.ingredient}>Плоды фалленианского дерева</span>
+      <ul className={`${styles.list} scroll`}>
+        {feedOrderIngredients.map(({ _id, image_mobile, name, price }) => (
+          <li className={styles.item} key={_id}>
+            <span className={styles.imgWrapper}>
+              <img className={styles.img} src={image_mobile} alt={name} width="64" height="64" />
+            </span>
+            <span className={styles.ingredient}>{name}</span>
 
-        <div className={styles.flexWrapper}>
-          <span>2</span>x<span>20</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </li>
-      <li className={styles.item}>
-        <span className={styles.imgWrapper}>
-          <img className={styles.img} src={img} alt="img" width="64" height="64" />
-        </span>
-        <span className={styles.ingredient}>Флюоресцентная булка R2-D3</span>
+            <div className={styles.flexWrapper}>
+              <span>1</span>x<span>{price}</span>
+              <CurrencyIcon type="primary" />
+            </div>
+          </li>
+        ))}
+      </ul>
 
-        <div className={styles.flexWrapper}>
-          <span>2</span>x<span>20</span>
-          <CurrencyIcon type="primary" />
-        </div>
-      </li>
-    </ul>
-
-    <div className={styles.total}>
-      <span className={styles.datetime}>Вчера, 13:50 i-GMT+3</span>
-      <span className={styles.price}>510</span>
-      <CurrencyIcon type="primary" />
-    </div>
-  </section>
-);
+      <div className={styles.total}>
+        <span className={styles.datetime}>Вчера, 13:50 i-GMT+3</span>
+        <span className={styles.price}>{price}</span>
+        <CurrencyIcon type="primary" />
+      </div>
+    </section>
+  );
+};
