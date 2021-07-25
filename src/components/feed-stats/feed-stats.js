@@ -1,34 +1,47 @@
 import React from 'react';
 
 import styles from './feed-stats.module.scss';
+import { useSelector } from 'react-redux';
 
-export const FeedStats = () => (
-  <section className={styles.feedStats}>
-    <div className={styles.flexWrapper}>
-      <div className={styles.orderNumbers}>
-        <span className={styles.orderStatus}>Готовы:</span>
-        <span className={`${styles.digits} ${styles.textGreen}`}>034533</span>
-        <span className={`${styles.digits} ${styles.textGreen}`}>034533</span>
-        <span className={`${styles.digits} ${styles.textGreen}`}>034533</span>
-        <span className={`${styles.digits} ${styles.textGreen}`}>034533</span>
-        <span className={`${styles.digits} ${styles.textGreen}`}>034533</span>
+export const FeedStats = () => {
+  const { total, totalToday, orders } = useSelector((state) => state.feed);
+  const doneOrders = [];
+  const inProgressOrders = [];
+
+  orders
+    .slice(0, 20)
+    .forEach((el) => (el.status === 'done' ? doneOrders.push(el) : inProgressOrders.push(el)));
+
+  return (
+    <section className={styles.feedStats}>
+      <div className={styles.flexWrapper}>
+        <div className={styles.orderNumbers}>
+          <span className={styles.orderStatus}>Готовы:</span>
+          <ul className={styles.list}>
+            {doneOrders.map((el) => (
+              <li className={`${styles.digits} ${styles.textGreen}`}>{el.number}</li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.orderNumbers}>
+          <span className={styles.orderStatus}>В работе:</span>
+          <ul className={styles.list}>
+            {inProgressOrders.map((el) => (
+              <li className={styles.digits}>{el.number}</li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div className={styles.orderNumbers}>
-        <span className={styles.orderStatus}>В работе:</span>
-        <span className={styles.digits}>034533</span>
-        <span className={styles.digits}>034533</span>
-        <span className={styles.digits}>034533</span>
+
+      <div className={styles.totalWrapper}>
+        <span className={styles.totalTitle}>Выполнено за все время:</span>
+        <span className={`${styles.digits} ${styles.digitsLarge}`}>{total}</span>
       </div>
-    </div>
 
-    <div className={styles.totalWrapper}>
-      <span className={styles.totalTitle}>Выполнено за все время:</span>
-      <span className={`${styles.digits} ${styles.digitsLarge}`}>28 752</span>
-    </div>
-
-    <div className={styles.totalWrapper}>
-      <span className={styles.totalTitle}>Выполнено за сегодня:</span>
-      <span className={`${styles.digits} ${styles.digitsLarge}`}>138</span>
-    </div>
-  </section>
-);
+      <div className={styles.totalWrapper}>
+        <span className={styles.totalTitle}>Выполнено за сегодня:</span>
+        <span className={`${styles.digits} ${styles.digitsLarge}`}>{totalToday}</span>
+      </div>
+    </section>
+  );
+};
