@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserInfoRequest } from '../../services/slices/user';
 import { getCookie } from '../../utils/cookie';
 import { getIngredients } from '../../services/slices/burger';
+import { getUserInfoRequest } from '../../services/slices/user';
+import { resetOrder } from '../../services/slices/order';
 
 import {
   Constructor,
@@ -27,9 +28,7 @@ import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
-import { OrderInfo } from '../order-info/order-info';
 import { FeedModal } from '../feed-modal/feed-modal';
-import { RESET_ORDER, resetOrder } from '../../services/slices/order';
 
 const App = () => {
   const dispatch = useDispatch();

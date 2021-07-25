@@ -5,7 +5,7 @@ import { FeedItem } from '../feed-item/feed-item';
 import { useSelector } from 'react-redux';
 
 export const FeedList = () => {
-  const { wsConnected, orders } = useSelector((state) => state.feed);
+  const orders = useSelector((state) => state.feed.orders);
 
   return (
     orders && (

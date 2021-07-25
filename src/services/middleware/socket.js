@@ -13,7 +13,7 @@ export const socketMiddleware = (wsUrl) => {
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { type, payload } = action;
+      const { type } = action;
 
       if (type === WS_CONNECTION_START.toString()) socket = new WebSocket(wsUrl);
       if (type === WS_CONNECTION_CLOSE.toString()) socket.close();

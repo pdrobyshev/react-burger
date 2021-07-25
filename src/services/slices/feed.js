@@ -28,8 +28,6 @@ export const ordersFeed = createSlice({
       state.error = action.payload;
     },
     wsGetMessage: (state, action) => {
-      // console.log('wsGetMessage');
-      // console.log(action.payload);
       const { orders, total, totalToday } = action.payload;
       state.orders = orders;
       state.total = total;

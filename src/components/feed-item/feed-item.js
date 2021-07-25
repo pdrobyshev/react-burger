@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import styles from './feed-item.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import img from '../../images/done.png';
 
 export const FeedItem = ({ _id, number, name, ingredients: orderIngredients }) => {
   const location = useLocation();

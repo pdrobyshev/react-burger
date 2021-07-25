@@ -8,7 +8,6 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 
 export const ProfileForm = () => {
   const dispatch = useDispatch();
-  const [isDisabled, setIsDisabled] = useState(false);
   const { user, isLoading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: '',
@@ -62,7 +61,7 @@ export const ProfileForm = () => {
             type={'text'}
             placeholder={'Имя'}
             onChange={onChange}
-            icon={isDisabled ? 'CloseIcon' : 'EditIcon'}
+            icon={'EditIcon'}
             value={formData.name}
             name={'name'}
           />
@@ -72,7 +71,7 @@ export const ProfileForm = () => {
             type={'email'}
             placeholder={'Логин'}
             onChange={onChange}
-            icon={isDisabled ? 'CloseIcon' : 'EditIcon'}
+            icon={'EditIcon'}
             value={formData.email}
             name={'email'}
           />
@@ -82,7 +81,7 @@ export const ProfileForm = () => {
             type={'password'}
             placeholder={'Пароль'}
             onChange={onChange}
-            icon={isDisabled ? 'CloseIcon' : 'EditIcon'}
+            icon={'EditIcon'}
             value={formData.password}
             name={'password'}
           />

@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { ORDER_URL } from '../../constants/api';
 import { checkResponse, setFetchSettings } from '../../utils';
