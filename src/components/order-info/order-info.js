@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { getDateTime } from '../../utils';
+
 import styles from './order-info.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const OrderInfo = () => {
   const { ingredients } = useSelector((state) => state.burger);
   const order = useSelector((state) => state.order.order);
-  const { name, status, ingredients: orderIngredients } = order;
+  const { name, status, ingredients: orderIngredients, createdAt } = order;
+
+  const time = getDateTime(createdAt);
 
   const feedOrderIngredients = useMemo(() => {
     return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
@@ -41,7 +45,7 @@ export const OrderInfo = () => {
       </ul>
 
       <div className={styles.total}>
-        <span className={styles.datetime}>Вчера, 13:50 i-GMT+3</span>
+        <span className={styles.datetime}>{time}</span>
         <span className={styles.price}>{price}</span>
         <CurrencyIcon type="primary" />
       </div>

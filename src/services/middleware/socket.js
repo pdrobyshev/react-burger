@@ -23,11 +23,6 @@ export const socketMiddleware = () => {
         socket.onclose = () => dispatch(wsConnectionClosed());
         socket.onerror = (event) => dispatch(wsConnectionError(event));
         socket.onmessage = (event) => dispatch(wsGetMessage(JSON.parse(event.data)));
-
-        // if (type === wsSendMessage) {
-        //   const message = { ...payload, token: user.token };
-        //   socket.send(JSON.stringify(message));
-        // }
       }
 
       next(action);

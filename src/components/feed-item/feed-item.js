@@ -2,12 +2,16 @@ import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { getDateTime } from '../../utils';
+
 import styles from './feed-item.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const FeedItem = ({ _id, number, name, ingredients: orderIngredients }) => {
+export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, createdAt }) => {
   const location = useLocation();
   const { ingredients } = useSelector((state) => state.burger);
+
+  const time = getDateTime(createdAt);
 
   const feedOrderIngredients = useMemo(() => {
     return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
@@ -55,7 +59,7 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients }) =
           >
             <div className={`${styles.flexWrapper}  mb-6`}>
               <span className={styles.order}>#{number}</span>
-              <span className={styles.datetime}>Сегодня, 16:20 i-GMT+3</span>
+              <span className={styles.datetime}>{time}</span>
             </div>
 
             <span className={styles.name}>{name}</span>
