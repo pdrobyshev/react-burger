@@ -8,7 +8,6 @@ import { ResetPassword } from './reset-password/reset-password';
 import { NotFound404 } from './not-found/not-found';
 import { Profile } from './profile/profile';
 import { History } from './history/history';
-import { HistoryOrder } from './history-order/history-order';
 import { Ingredient } from './ingredient/ingredient';
 
 export {
@@ -22,6 +21,5 @@ export {
   NotFound404,
   Profile,
   History,
-  HistoryOrder,
   Ingredient,
 };

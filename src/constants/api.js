@@ -1,5 +1,5 @@
 const API_URL = 'https://norma.nomoreparties.space/api';
-const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const WS_URL = 'wss://norma.nomoreparties.space/orders';
 export const INGREDIENTS_URL = `${API_URL}/ingredients`;
 export const ORDER_URL = `${API_URL}/orders`;
 export const REGISTER_URL = `${API_URL}/auth/register`;
@@ -10,4 +10,3 @@ export const REFRESH_TOKEN_URL = `${API_URL}/auth/token`;
 export const SEND_RESET_PASSWORD_EMAIL_URL = `${API_URL}/password-reset`;
 export const RESET_PASSWORD_URL = `${API_URL}/password-reset/reset`;
 export const ALL_ORDERS_URL = `${WS_URL}/all`;
-export const USER_ORDERS_URL = `${WS_URL}/`;

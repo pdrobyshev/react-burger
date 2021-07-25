@@ -7,15 +7,15 @@ import {
   wsGetMessage,
 } from '../slices/feed';
 
-export const socketMiddleware = (wsUrl) => {
+export const socketMiddleware = () => {
   return (store) => {
     let socket = null;
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { type } = action;
+      const { type, payload } = action;
 
-      if (type === WS_CONNECTION_START.toString()) socket = new WebSocket(wsUrl);
+      if (type === WS_CONNECTION_START.toString()) socket = new WebSocket(payload);
       if (type === WS_CONNECTION_CLOSE.toString()) socket.close();
 
       if (socket) {

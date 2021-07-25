@@ -6,12 +6,13 @@ import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/
 import styles from './feed.module.scss';
 import { FeedList } from '../../components/feed-list/feed-list';
 import { FeedStats } from '../../components/feed-stats/feed-stats';
+import { ALL_ORDERS_URL } from '../../constants/api';
 
 export const Feed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(WS_CONNECTION_START());
+    dispatch(WS_CONNECTION_START(ALL_ORDERS_URL));
 
     return () => dispatch(WS_CONNECTION_CLOSE());
   }, [dispatch]);

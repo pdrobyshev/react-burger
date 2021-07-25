@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { ORDER_URL } from '../../constants/api';
 import { checkResponse, setFetchSettings } from '../../utils';
+import { getCookie } from '../../utils/cookie';
 
 const initialState = {
   orderId: null,
@@ -11,7 +12,7 @@ const initialState = {
 };
 
 export const createOrder = createAsyncThunk('burger/createOrder', async (order) => {
-  const fetchSettings = setFetchSettings('POST', '', order);
+  const fetchSettings = setFetchSettings('POST', `Bearer ${getCookie('accessToken')}`, order);
   const response = await fetch(ORDER_URL, fetchSettings);
   return await checkResponse(response);
 });

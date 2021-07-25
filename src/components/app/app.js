@@ -13,7 +13,6 @@ import {
   FeedOrder,
   ForgotPassword,
   History,
-  HistoryOrder,
   Ingredient,
   Login,
   NotFound404,
@@ -74,18 +73,15 @@ const App = () => {
             <ProtectedRouteWithReset exact path="/reset-password">
               <ResetPassword />
             </ProtectedRouteWithReset>
-
             <Route exact path="/ingredients/:id">
               <Ingredient />
             </Route>
-
             <Route exact path="/feed">
               <Feed />
             </Route>
             <Route exact path="/feed/:id">
               <FeedOrder />
             </Route>
-
             <ProtectedRoute exact path="/profile">
               <Profile />
             </ProtectedRoute>
@@ -93,7 +89,7 @@ const App = () => {
               <History />
             </ProtectedRoute>
             <ProtectedRoute exact path="/profile/orders/:id">
-              <HistoryOrder />
+              <FeedOrder />
             </ProtectedRoute>
             <Route>
               <NotFound404 />
@@ -110,6 +106,9 @@ const App = () => {
               <Route exact path="/feed/:id">
                 <FeedModal onModalClose={onOrderInfoModalClose} />
               </Route>
+              <ProtectedRoute exact path="/profile/orders/:id">
+                <FeedModal onModalClose={onOrderInfoModalClose} />
+              </ProtectedRoute>
             </Switch>
           )}
         </>
