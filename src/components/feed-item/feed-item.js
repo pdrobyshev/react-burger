@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -77,4 +78,12 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, cre
       )}
     </>
   );
+};
+
+FeedItem.propTypes = {
+  _id: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  createdAt: PropTypes.string.isRequired,
 };

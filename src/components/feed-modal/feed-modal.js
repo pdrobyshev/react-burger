@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { getOrderInfo } from '../../services/slices/order';
 
@@ -23,4 +24,8 @@ export const FeedModal = ({ onModalClose }) => {
       </Modal>
     )
   );
+};
+
+FeedModal.propTypes = {
+  onModalClose: PropTypes.func.isRequired,
 };

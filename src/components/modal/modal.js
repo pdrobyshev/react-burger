@@ -44,6 +44,7 @@ const Modal = ({ title = '', orderNumber = '', children, onModalClose }) => {
 
 Modal.propTypes = {
   title: PropTypes.string,
+  orderNumber: PropTypes.number,
   children: PropTypes.element.isRequired,
   onModalClose: PropTypes.func.isRequired,
 };

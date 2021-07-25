@@ -40,15 +40,16 @@ const Ingredient = ({ ingredient }) => {
 
       <Link className={styles.link} to={{ pathname: `/ingredients/${_id}`, state: { background: location } }}>
         <>
-          <div className="pl-4  pr-4  mb-1">
+          <div className={styles.ingredient}>
             <img className={styles.image} src={image} alt={name} />
-            <div className={styles.price}>
-              <span className="text  text_type_digits-default  mr-2">{price}</span>
+
+            <div className={styles.priceWrapper}>
+              <span className={styles.price}>{price}</span>
               <CurrencyIcon type="primary" />
             </div>
           </div>
 
-          <span className={`${styles.name}  text  text_type_main-default`}>{name}</span>
+          <span className={styles.name}>{name}</span>
         </>
       </Link>
     </li>

@@ -18,16 +18,20 @@ export const FeedStats = () => {
         <div className={styles.orderNumbers}>
           <span className={styles.orderStatus}>Готовы:</span>
           <ul className={styles.list}>
-            {doneOrders.map((el) => (
-              <li className={`${styles.digits} ${styles.textGreen}`}>{el.number}</li>
+            {doneOrders.map(({ _id, number }) => (
+              <li key={_id} className={`${styles.digits} ${styles.textGreen}`}>
+                {number}
+              </li>
             ))}
           </ul>
         </div>
         <div className={styles.orderNumbers}>
           <span className={styles.orderStatus}>В работе:</span>
           <ul className={styles.list}>
-            {inProgressOrders.map((el) => (
-              <li className={styles.digits}>{el.number}</li>
+            {inProgressOrders.map(({ _id, number }) => (
+              <li key={_id} className={styles.digits}>
+                {number}
+              </li>
             ))}
           </ul>
         </div>

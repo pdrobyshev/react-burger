@@ -1,11 +1,23 @@
 .totalWrapper {
+  composes: mr-4 from global;
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-.price {
+.priceWrapper {
+  composes: mr-10 from global;
+
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.price {
+  composes: text text_type_digits-medium mr-2 from global;
+}
+
+.loader {
+  composes: text text_type_main-medium from global;
 }

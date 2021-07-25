@@ -5,7 +5,7 @@ import styles from './ingredients-list.module.scss';
 import Ingredient from '../ingredient/ingredient';
 
 const IngredientsList = ({ ingredients }) => (
-  <ul className={`${styles.list}  pt-6  pl-4  pr-2`}>
+  <ul className={styles.list}>
     {ingredients.map((ingredient) => (
       <Ingredient key={ingredient._id} ingredient={ingredient} />
     ))}

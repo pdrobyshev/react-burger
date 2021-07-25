@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const ProtectedRouteWithReset = ({ children, ...rest }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -13,4 +14,8 @@ export const ProtectedRouteWithReset = ({ children, ...rest }) => {
       }
     />
   );
+};
+
+ProtectedRouteWithReset.propTypes = {
+  children: PropTypes.element.isRequired,
 };
