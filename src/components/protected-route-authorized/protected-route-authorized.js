@@ -6,7 +6,14 @@ import PropTypes from 'prop-types';
 export const ProtectedRouteAuthorized = ({ children, ...rest }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  return <Route {...rest} render={() => (isLoggedIn ? <Redirect to="/" /> : children)} />;
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isLoggedIn ? <Redirect to={location.state?.from?.pathname || '/'} /> : children
+      }
+    />
+  );
 };
 
 ProtectedRouteAuthorized.propTypes = {
