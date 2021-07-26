@@ -18,7 +18,10 @@ export const OrderInfo = () => {
   }, [orderIngredients, ingredients]);
 
   const price = useMemo(() => {
-    return feedOrderIngredients.reduce((acc, el) => acc + el.price, 0);
+    return feedOrderIngredients.reduce(
+      (acc, el) => (el.type === 'bun' ? acc + el.price * 2 : acc + el.price),
+      0
+    );
   }, [feedOrderIngredients]);
 
   return (
@@ -29,7 +32,7 @@ export const OrderInfo = () => {
       <span className={`${styles.title}  mb-6`}>Состав:</span>
 
       <ul className={`${styles.list} scroll`}>
-        {feedOrderIngredients.map(({ _id, image_mobile, name, price }) => (
+        {feedOrderIngredients.map(({ _id, image_mobile, name, price, type }) => (
           <li className={styles.item} key={_id}>
             <span className={styles.imgWrapper}>
               <img className={styles.img} src={image_mobile} alt={name} width="64" height="64" />
@@ -37,7 +40,7 @@ export const OrderInfo = () => {
             <span className={styles.ingredient}>{name}</span>
 
             <div className={styles.flexWrapper}>
-              <span>1</span>x<span>{price}</span>
+              <span>{type === 'bun' ? 2 : 1}</span>x<span>{price}</span>
               <CurrencyIcon type="primary" />
             </div>
           </li>

@@ -44,7 +44,7 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, cre
   };
 
   const price = useMemo(() => {
-    return feedOrderIngredients.reduce((acc, el) => acc + el.price, 0);
+    return feedOrderIngredients.reduce((acc, el) => el.type === 'bun' ? acc + el.price * 2 : acc + el.price, 0);
   }, [feedOrderIngredients]);
 
   return (
