@@ -24,7 +24,7 @@ export const History = () => {
     <div className={styles.flexWrapper}>
       <ProfileNav />
       {!orders.length && <Loader />}
-      {orders && !!orders.length && <FeedList />}
+      {!!orders.length && <FeedList />}
     </div>
   );
 };
