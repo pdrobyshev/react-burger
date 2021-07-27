@@ -5,7 +5,7 @@ import { INGREDIENTS_URL } from '../../../constants/api';
 import { createOrder } from '../order/order';
 import { checkResponse } from '../../../utils';
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   bun: null,
   constructorIngredients: [],
