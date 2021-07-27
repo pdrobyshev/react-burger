@@ -1,16 +1,16 @@
-import userReducer, { getUserInfoRequest, initialState, updateUserInfoRequest } from './user';
+import reducer, { getUserInfoRequest, initialState, updateUserInfoRequest } from './user';
 
 describe('user reducer', () => {
   it('should return the initial state', () => {
-    const reducer = userReducer(undefined, {});
-    expect(reducer).toEqual(initialState);
+    const state = reducer(undefined, {});
+    expect(state).toEqual(initialState);
   });
 
   it('should handle getUserInfoRequest pending', () => {
     const action = { type: getUserInfoRequest.pending.type };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = { ...initialState, isLoading: true };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 
   it('should handle getUserInfoRequest fulfilled', () => {
@@ -23,27 +23,27 @@ describe('user reducer', () => {
         },
       },
     };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = {
       user: action.payload.user,
       isLoggedIn: true,
       isLoading: false,
     };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 
   it('should handle getUserInfoRequest rejected', () => {
     const action = { type: getUserInfoRequest.rejected.type };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = { ...initialState, isLoading: false };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 
   it('should handle updateUserInfoRequest pending', () => {
     const action = { type: updateUserInfoRequest.pending.type };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = { ...initialState, isLoading: true };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 
   it('should handle updateUserInfoRequest fulfilled', () => {
@@ -56,19 +56,19 @@ describe('user reducer', () => {
         },
       },
     };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = {
       user: action.payload.user,
       isLoggedIn: true,
       isLoading: false,
     };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 
   it('should handle updateUserInfoRequest rejected', () => {
     const action = { type: updateUserInfoRequest.rejected.type };
-    const reducer = userReducer(initialState, action);
+    const state = reducer(initialState, action);
     const result = { ...initialState, isLoading: false };
-    expect(reducer).toEqual(result);
+    expect(state).toEqual(result);
   });
 });

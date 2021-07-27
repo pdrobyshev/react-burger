@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../../constants/api';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-const initialState = {
+export const initialState = {
   isResetEmailSent: false,
   isPasswordReset: false,
   isLoading: false,
