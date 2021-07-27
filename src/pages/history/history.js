@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed';
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed/feed';
 import { WS_URL } from '../../constants/api';
 import { getCookie } from '../../utils/cookie';
 

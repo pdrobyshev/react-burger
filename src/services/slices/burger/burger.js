@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-import { INGREDIENTS_URL } from '../../constants/api';
-import { createOrder } from './order';
-import { checkResponse } from '../../utils';
+import { INGREDIENTS_URL } from '../../../constants/api';
+import { createOrder } from '../order/order';
+import { checkResponse } from '../../../utils';
 
 const initialState = {
   ingredients: [],

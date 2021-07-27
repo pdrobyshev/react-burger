@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { getOrderInfo } from '../../services/slices/order';
+import { getOrderInfo } from '../../services/slices/order/order';
 
 import { OrderInfo } from '../order-info/order-info';
 import Modal from '../modal/modal';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { sendResetPasswordEmail } from '../../services/slices/password';
+import { sendResetPasswordEmail } from '../../services/slices/password/password';
 
 import styles from '../form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';

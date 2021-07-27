@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed';
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed/feed';
 import { ALL_ORDERS_URL } from '../../constants/api';
 
 import styles from './feed.module.scss';

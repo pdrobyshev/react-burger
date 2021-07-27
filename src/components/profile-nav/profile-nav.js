@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logoutRequest } from '../../services/slices/auth';
+import { logoutRequest } from '../../services/slices/auth/auth';
 
 import styles from './profile-nav.module.scss';
 

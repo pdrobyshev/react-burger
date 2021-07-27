@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { closeOrderModal } from '../../services/slices/order';
+import { closeOrderModal } from '../../services/slices/order/order';
 
 import ConstructorContent from '../../components/constructor-content/constructor-content';
 import Error from '../../components/error/error';

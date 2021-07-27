@@ -3,9 +3,9 @@ import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCookie } from '../../utils/cookie';
-import { getIngredients } from '../../services/slices/burger';
-import { getUserInfoRequest } from '../../services/slices/user';
-import { resetOrder } from '../../services/slices/order';
+import { getIngredients } from '../../services/slices/burger/burger';
+import { getUserInfoRequest } from '../../services/slices/user/user';
+import { resetOrder } from '../../services/slices/order/order';
 
 import {
   Constructor,

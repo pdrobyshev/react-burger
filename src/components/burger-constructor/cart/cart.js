@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { createOrder } from '../../../services/slices/order';
+import { createOrder } from '../../../services/slices/order/order';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

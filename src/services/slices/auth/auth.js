@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../constants/api';
-import { deleteCookie, getCookie, setCookies } from '../../utils/cookie';
-import { checkResponse, setFetchSettings } from '../../utils';
+import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../../constants/api';
+import { deleteCookie, getCookie, setCookies } from '../../../utils/cookie';
+import { checkResponse, setFetchSettings } from '../../../utils';
 
 const initialState = {
   isLoggedIn: !!getCookie('accessToken'),

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
-import { addConstructorBun, addConstructorIngredient } from '../../../services/slices/burger';
-import { setOrderElementsIds } from '../../../services/slices/order';
+import { addConstructorBun, addConstructorIngredient } from '../../../services/slices/burger/burger';
+import { setOrderElementsIds } from '../../../services/slices/order/order';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { ORDER_URL } from '../../constants/api';
-import { checkResponse, setFetchSettings } from '../../utils';
-import { getCookie } from '../../utils/cookie';
+import { ORDER_URL } from '../../../constants/api';
+import { checkResponse, setFetchSettings } from '../../../utils';
+import { getCookie } from '../../../utils/cookie';
 
 export const initialState = {
   orderId: null,
