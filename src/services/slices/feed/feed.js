@@ -3,7 +3,7 @@ import { createAction, createSlice } from '@reduxjs/toolkit';
 export const WS_CONNECTION_START = createAction('WS_CONNECTION_START');
 export const WS_CONNECTION_CLOSE = createAction('WS_CONNECTION_CLOSE');
 
-const initialState = {
+export const initialState = {
   orders: [],
   total: 0,
   totalToday: 0,
