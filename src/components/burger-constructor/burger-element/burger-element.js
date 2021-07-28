@@ -93,6 +93,8 @@ BurgerElement.propTypes = {
   text: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  idx: PropTypes.number.isRequired,
 };
 
 export default BurgerElement;

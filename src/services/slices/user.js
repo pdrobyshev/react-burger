@@ -10,14 +10,6 @@ const initialState = {
   isLoading: false,
 };
 
-const refreshTokenRequest = async () => {
-  const fetchSettings = setFetchSettings('POST', getCookie('refreshToken'), {
-    token: getCookie('refreshToken'),
-  });
-  const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
-  return await checkResponse(response);
-};
-
 const fetchWithRefresh = async (url, fetchSettings) => {
   try {
     const response = await fetch(url, fetchSettings);
@@ -33,6 +25,14 @@ const fetchWithRefresh = async (url, fetchSettings) => {
       return Promise.reject(err);
     }
   }
+};
+
+const refreshTokenRequest = async () => {
+  const fetchSettings = setFetchSettings('POST', getCookie('refreshToken'), {
+    token: getCookie('refreshToken'),
+  });
+  const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
+  return await checkResponse(response);
 };
 
 export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', async () => {
@@ -54,9 +54,6 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUserInfoRequest.fulfilled, (state, action) => {
-        if (action.payload.accessToken) {
-          setCookies(action.payload);
-        }
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -68,9 +65,6 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUserInfoRequest.fulfilled, (state, action) => {
-        if (action.payload.accessToken) {
-          setCookies(action.payload);
-        }
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.isLoading = false;

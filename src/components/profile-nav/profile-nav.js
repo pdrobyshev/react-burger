@@ -19,7 +19,7 @@ export const ProfileNav = () => {
     <section className={styles.nav}>
       <ul className={styles.list}>
         <li>
-          <NavLink className={styles.link} activeClassName={styles.activeLink} to="/profile">
+          <NavLink className={styles.link} activeClassName={styles.activeLink} to="/profile" exact>
             Профиль
           </NavLink>
         </li>

@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserInfoRequest } from '../../services/slices/user';
 import { getCookie } from '../../utils/cookie';
 import { getIngredients } from '../../services/slices/burger';
+import { getUserInfoRequest } from '../../services/slices/user';
+import { resetOrder } from '../../services/slices/order';
 
 import {
   Constructor,
@@ -12,7 +13,6 @@ import {
   FeedOrder,
   ForgotPassword,
   History,
-  HistoryOrder,
   Ingredient,
   Login,
   NotFound404,
@@ -27,6 +27,7 @@ import { ProtectedRouteWithReset } from '../protected-route-with-reset/protected
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
+import { FeedModal } from '../feed-modal/feed-modal';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,11 @@ const App = () => {
     accessToken && dispatch(getUserInfoRequest());
   }, [dispatch, accessToken, ingredients]);
 
-  const onIngredientModalClose = () => history.goBack();
+  const onModalClose = () => history.goBack();
+  const onOrderInfoModalClose = () => {
+    dispatch(resetOrder());
+    history.goBack();
+  };
 
   return (
     <>
@@ -68,6 +73,9 @@ const App = () => {
             <ProtectedRouteWithReset exact path="/reset-password">
               <ResetPassword />
             </ProtectedRouteWithReset>
+            <Route exact path="/ingredients/:id">
+              <Ingredient />
+            </Route>
             <Route exact path="/feed">
               <Feed />
             </Route>
@@ -81,22 +89,27 @@ const App = () => {
               <History />
             </ProtectedRoute>
             <ProtectedRoute exact path="/profile/orders/:id">
-              <HistoryOrder />
+              <FeedOrder />
             </ProtectedRoute>
-            <Route exact path="/ingredients/:id">
-              <Ingredient />
-            </Route>
             <Route>
               <NotFound404 />
             </Route>
           </Switch>
 
           {background && (
-            <Route path="/ingredients/:id" exact>
-              <Modal title="Детали ингредиента" onModalClose={onIngredientModalClose}>
-                <IngredientDetails />
-              </Modal>
-            </Route>
+            <Switch>
+              <Route exact path="/ingredients/:id">
+                <Modal title="Детали ингредиента" onModalClose={onModalClose}>
+                  <IngredientDetails />
+                </Modal>
+              </Route>
+              <Route exact path="/feed/:id">
+                <FeedModal onModalClose={onOrderInfoModalClose} />
+              </Route>
+              <ProtectedRoute exact path="/profile/orders/:id">
+                <FeedModal onModalClose={onOrderInfoModalClose} />
+              </ProtectedRoute>
+            </Switch>
           )}
         </>
       )}

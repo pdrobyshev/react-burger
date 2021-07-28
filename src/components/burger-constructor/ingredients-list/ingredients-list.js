@@ -58,7 +58,7 @@ const IngredientsList = () => {
     bun || constructorIngredients.length ? (
       <>
         {bun && (
-          <div className="pl-8  pr-4">
+          <div className={styles.bun}>
             <ConstructorElement
               type="top"
               draggable={false}
@@ -75,7 +75,7 @@ const IngredientsList = () => {
         </ul>
 
         {bun && (
-          <div className="pl-8  pr-4">
+          <div className={styles.bun}>
             <ConstructorElement
               type="bottom"
               draggable={false}

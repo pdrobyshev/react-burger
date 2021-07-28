@@ -11,7 +11,7 @@
   margin-bottom: 4px;
 }
 
-.price {
+.priceWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,13 @@
   color: #F2F2F3;
 }
 
+.price {
+  composes: text  text_type_digits-default  mr-2 from global;
+}
+
 .name {
+  composes: text text_type_main-default from global;
+
   display: block;
 
   text-align: center;
@@ -28,4 +34,8 @@
 
 .link {
   text-decoration: none;
+}
+
+.ingredient {
+  composes: pl-4  pr-4  mb-1 from global;
 }

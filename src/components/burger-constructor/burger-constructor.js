@@ -9,9 +9,9 @@ const BurgerConstructor = () => {
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
   return (
-    <div className={`${styles.content}  pl-4  mt-25`}>
+    <div className={styles.content}>
       <IngredientsList />
-      {bun || constructorIngredients.length ? <Cart /> : null}
+      {bun && constructorIngredients.length ? <Cart /> : null}
     </div>
   );
 };

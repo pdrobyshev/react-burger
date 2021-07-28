@@ -1,0 +1,100 @@
+.title {
+  composes: text text_type_main-medium from global;
+  display: block;
+}
+
+.status {
+  composes: text text_type_main-default mb-15 from global;
+  display: block;
+
+  color: #00CCCC;
+}
+
+.list {
+  composes: mb-10 pr-6 from global;
+
+  max-height: 320px;
+  height: 100%;
+  padding-left: 0;
+  margin-top: 0;
+  list-style: none;
+}
+
+.item {
+  composes: mb-4 from global;
+
+  display: flex;
+  align-items: center;
+}
+
+.imgWrapper {
+  composes: mr-4 from global;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+  background: linear-gradient(to right, #801AB2, #4C4CFF);
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+
+    content: '';
+
+    background-color: #131316;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
+
+.img {
+  position: relative;
+
+  display: block;
+  width: auto;
+  max-height: 56px;
+
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.ingredient {
+  composes: text text_type_main-default mr-4 from global;
+  flex-grow: 1;
+}
+
+.flexWrapper {
+  composes: text text_type_digits-default from global;
+
+  display: flex;
+  align-items: center;
+
+  span {
+    font: inherit;
+  }
+}
+
+.total {
+  display: flex;
+  align-items: center;
+}
+
+.datetime {
+  composes: text text_type_main-default text_color_inactive from global;
+  margin-right: auto;
+}
+
+.price {
+  composes: text text_type_digits-default mr-2 from global;
+}

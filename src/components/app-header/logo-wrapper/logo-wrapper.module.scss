@@ -2,6 +2,8 @@
   display: none;
 
   @media (min-width: 1024px) {
+    composes: ml-4  mr-4 from global;
+
     display: flex;
     place-self: center;
   }

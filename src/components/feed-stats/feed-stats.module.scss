@@ -1,0 +1,68 @@
+.feedStats {
+  max-width: 580px;
+  width: 100%;
+}
+
+.flexWrapper {
+  composes: mb-15 from global;
+
+  display: flex;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 320px;
+  margin: 0;
+  padding: 0;
+}
+
+.orderNumbers {
+  max-width: 272px;
+  width: 100%;
+
+  &:first-child {
+    margin-right: 32px;
+  }
+}
+
+.orderStatus {
+  composes: text  text_type_main-medium  mb-6 from global;
+
+  display: block;
+}
+
+.totalWrapper {
+  composes: mb-10 from global;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.totalTitle {
+  composes: text  text_type_main-medium from global;
+
+  display: block;
+}
+
+.digits {
+  composes: text text_type_digits-default mb-2 from global;
+
+  display: block;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.digitsLarge {
+  composes: text_type_digits-large from global;
+
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.textGreen {
+  color: #00CCCC;
+}

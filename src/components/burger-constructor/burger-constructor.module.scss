@@ -1,4 +1,6 @@
 .content {
+  composes: pl-4  mt-25 from global;
+
   max-width: 600px;
   width: 100%;
 

@@ -1,4 +1,6 @@
 .list {
+  composes: pt-6  pl-4  pr-2 from global;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   grid-gap: 40px 24px;

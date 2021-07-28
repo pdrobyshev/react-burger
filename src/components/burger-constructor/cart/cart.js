@@ -37,12 +37,12 @@ const Cart = () => {
   );
 
   return (
-    <section className={`${styles.totalWrapper}  mr-4`}>
-      <div className={`${styles.price}  mr-10`}>
-        <span className="text  text_type_digits-medium  mr-2">{totalPrice}</span>
+    <section className={styles.totalWrapper}>
+      <div className={styles.priceWrapper}>
+        <span className={styles.price}>{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      {isLoading ? <span className="text  text_type_main-medium">Оформляем заказ</span> : orderBtn}
+      {isLoading ? <span className={styles.loader}>Оформляем заказ</span> : orderBtn}
     </section>
   );
 };
