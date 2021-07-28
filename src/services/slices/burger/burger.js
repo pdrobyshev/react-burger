@@ -43,10 +43,6 @@ export const burgerSlice = createSlice({
         (ingredient) => ingredient.constructorIngredientId !== action.payload
       );
     },
-    resetConstructorState(state) {
-      state.bun = null;
-      state.constructorIngredients = [];
-    },
     moveConstructorItem(state, action) {
       const arr = [...state.constructorIngredients];
       const dragItem = arr[action.payload.dragIndex];
@@ -85,6 +81,5 @@ export const {
   addConstructorBun,
   addConstructorIngredient,
   deleteConstructorIngredient,
-  resetConstructorState,
   moveConstructorItem,
 } = burgerSlice.actions;

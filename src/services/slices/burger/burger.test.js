@@ -1,11 +1,15 @@
+import { v4 as uuidv4 } from 'uuid';
 import reducer, {
   initialState,
   addConstructorBun,
   addConstructorIngredient,
   deleteConstructorIngredient,
-  resetConstructorState,
   moveConstructorItem,
+  getIngredients,
 } from './burger';
+import { createOrder } from '../order/order';
+
+jest.mock('uuid');
 
 describe('burger reducer', () => {
   it('should return the initial state', () => {
@@ -26,81 +30,90 @@ describe('burger reducer', () => {
   it('should add constructor ingredient', () => {
     const payload = {
       name: 'Ингредиент',
-      constructorIngredientId: 4,
+      constructorIngredientId: uuidv4.mockImplementation(() => '123'),
     };
-    const state = reducer({ initialState }, addConstructorIngredient(payload));
-    const result = { ...initialState, constructorIngredients: [...payload] };
+    const state = reducer(initialState, addConstructorIngredient(payload));
+    const result = {
+      ...initialState,
+      constructorIngredients: [{ name: 'Ингредиент', constructorIngredientId: '123' }],
+    };
     expect(state).toEqual(result);
   });
 
-  // it('should reset order', () => {
-  //   const state = reducer(initialState, resetOrder());
-  //   const result = { ...initialState, order: null };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle modal close', () => {
-  //   const state = reducer(initialState, closeOrderModal());
-  //   const result = { ...initialState, isOrderModalOpened: false };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle createOrder pending', () => {
-  //   const action = { type: createOrder.pending.type };
-  //   const state = reducer(initialState, action);
-  //   const result = { ...initialState, isLoading: true };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle createOrder fulfilled', () => {
-  //   const action = {
-  //     type: createOrder.fulfilled.type,
-  //     payload: {
-  //       order: {
-  //         number: '1241',
-  //       },
-  //     },
-  //   };
-  //   const state = reducer(initialState, action);
-  //   const result = {
-  //     ...initialState,
-  //     isLoading: false,
-  //     orderId: action.payload.order.number,
-  //     isOrderModalOpened: true,
-  //   };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle createOrder rejected', () => {
-  //   const action = { type: createOrder.rejected.type };
-  //   const state = reducer(initialState, action);
-  //   const result = { ...initialState, orderId: null, isLoading: false };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle getOrderInfo pending', () => {
-  //   const action = { type: getOrderInfo.pending.type };
-  //   const state = reducer(initialState, action);
-  //   const result = { ...initialState, isLoading: true };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle getOrderInfo fulfilled', () => {
-  //   const action = {
-  //     type: getOrderInfo.fulfilled.type,
-  //     payload: {
-  //       orders: [{}],
-  //     },
-  //   };
-  //   const state = reducer(initialState, action);
-  //   const result = { ...initialState, isLoading: false, order: action.payload.orders[0] };
-  //   expect(state).toEqual(result);
-  // });
-  //
-  // it('should handle getOrderInfo rejected', () => {
-  //   const action = { type: getOrderInfo.rejected.type };
-  //   const state = reducer(initialState, action);
-  //   const result = { ...initialState, order: null, isLoading: false };
-  //   expect(state).toEqual(result);
-  // });
+  it('should delete constructor ingredient', () => {
+    const payload = '1';
+    const state = reducer(
+      {
+        ...initialState,
+        constructorIngredients: [{ name: 'Булка', constructorIngredientId: '1' }],
+      },
+      deleteConstructorIngredient(payload)
+    );
+    const result = { ...initialState, constructorIngredients: [] };
+    expect(state).toEqual(result);
+  });
+
+  it('should move constructor item', () => {
+    const payload = { dragIndex: 1, hoverIndex: 0 };
+    const state = reducer(
+      {
+        ...initialState,
+        constructorIngredients: [{ name: 'asd' }, { name: 'zxc' }],
+      },
+      moveConstructorItem(payload)
+    );
+    const result = { ...initialState, constructorIngredients: [{ name: 'zxc' }, { name: 'asd' }] };
+    expect(state).toEqual(result);
+  });
+
+  it('should handle getIngredients pending', () => {
+    const action = { type: getIngredients.pending.type };
+    const state = reducer(initialState, action);
+    const result = {
+      ...initialState,
+      isLoading: true,
+      hasError: false,
+    };
+    expect(state).toEqual(result);
+  });
+
+  it('should handle getIngredients fulfilled', () => {
+    const action = {
+      type: getIngredients.fulfilled.type,
+      payload: {
+        data: [{ name: 'ing1' }, { name: 'ing2' }],
+      },
+    };
+    const state = reducer(initialState, action);
+    const result = {
+      ...initialState,
+      isLoading: false,
+      hasError: false,
+      ingredients: action.payload.data,
+    };
+    expect(state).toEqual(result);
+  });
+
+  it('should handle getIngredients rejected', () => {
+    const action = { type: getIngredients.rejected.type };
+    const state = reducer(initialState, action);
+    const result = {
+      ...initialState,
+      isLoading: false,
+      hasError: true,
+      ingredients: [],
+    };
+    expect(state).toEqual(result);
+  });
+
+  it('should handle createOrder fulfilled', () => {
+    const action = { type: createOrder.fulfilled.type };
+    const state = reducer(initialState, action);
+    const result = {
+      ...initialState,
+      bun: null,
+      constructorIngredients: [],
+    };
+    expect(state).toEqual(result);
+  });
 });
