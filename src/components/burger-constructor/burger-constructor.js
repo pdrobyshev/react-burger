@@ -11,7 +11,7 @@ const BurgerConstructor = () => {
   return (
     <div className={styles.content}>
       <IngredientsList />
-      {bun && constructorIngredients.length ? <Cart /> : null}
+      {bun || constructorIngredients.length ? <Cart /> : null}
     </div>
   );
 };

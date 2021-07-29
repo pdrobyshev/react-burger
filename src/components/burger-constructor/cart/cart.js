@@ -42,7 +42,7 @@ const Cart = () => {
         <span className={styles.price}>{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      {isLoading ? <span className={styles.loader}>Оформляем заказ</span> : orderBtn}
+      {isLoading ? <span className={styles.loader}>Оформляем заказ</span> : bun && orderBtn}
     </section>
   );
 };
