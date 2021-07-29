@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { USER_INFO_URL, REFRESH_TOKEN_URL } from '../../constants/api';
-import { getCookie, setCookies } from '../../utils/cookie';
-import { checkResponse, setFetchSettings } from '../../utils';
+import { USER_INFO_URL, REFRESH_TOKEN_URL } from '../../../constants/api';
+import { getCookie, setCookies } from '../../../utils/cookie';
+import { checkResponse, setFetchSettings } from '../../../utils';
 
-const initialState = {
+export const initialState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,

@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-import { INGREDIENTS_URL } from '../../constants/api';
-import { createOrder } from './order';
-import { checkResponse } from '../../utils';
+import { INGREDIENTS_URL } from '../../../constants/api';
+import { createOrder } from '../order/order';
+import { checkResponse } from '../../../utils';
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   bun: null,
   constructorIngredients: [],
@@ -42,10 +42,6 @@ export const burgerSlice = createSlice({
       state.constructorIngredients = state.constructorIngredients.filter(
         (ingredient) => ingredient.constructorIngredientId !== action.payload
       );
-    },
-    resetConstructorState(state) {
-      state.bun = null;
-      state.constructorIngredients = [];
     },
     moveConstructorItem(state, action) {
       const arr = [...state.constructorIngredients];
@@ -85,6 +81,5 @@ export const {
   addConstructorBun,
   addConstructorIngredient,
   deleteConstructorIngredient,
-  resetConstructorState,
   moveConstructorItem,
 } = burgerSlice.actions;

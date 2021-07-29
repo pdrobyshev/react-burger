@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { ORDER_URL } from '../../constants/api';
-import { checkResponse, setFetchSettings } from '../../utils';
-import { getCookie } from '../../utils/cookie';
+import { ORDER_URL } from '../../../constants/api';
+import { checkResponse, setFetchSettings } from '../../../utils';
+import { getCookie } from '../../../utils/cookie';
 
-const initialState = {
+export const initialState = {
   orderId: null,
   constructorElementsIds: [],
   isLoading: false,
   order: null,
+  isOrderModalOpened: false,
 };
 
 export const createOrder = createAsyncThunk('burger/createOrder', async (order) => {
@@ -33,6 +34,9 @@ const orderSlice = createSlice({
     resetOrder(state) {
       state.order = null;
     },
+    closeOrderModal(state) {
+      state.isOrderModalOpened = false;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -42,6 +46,7 @@ const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.orderId = action.payload.order.number;
+        state.isOrderModalOpened = true;
       })
       .addCase(createOrder.rejected, (state) => {
         state.orderId = null;
@@ -61,4 +66,4 @@ const orderSlice = createSlice({
 });
 
 export default orderSlice.reducer;
-export const { setOrderElementsIds, resetOrder } = orderSlice.actions;
+export const { closeOrderModal, setOrderElementsIds, resetOrder } = orderSlice.actions;

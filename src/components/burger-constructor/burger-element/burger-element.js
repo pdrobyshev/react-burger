@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { deleteConstructorIngredient, moveConstructorItem } from '../../../services/slices/burger';
+import { deleteConstructorIngredient, moveConstructorItem } from '../../../services/slices/burger/burger';
 
 import styles from './burger-element.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';

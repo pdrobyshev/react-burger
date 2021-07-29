@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user';
+import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user/user';
 
 import styles from './profile-form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';

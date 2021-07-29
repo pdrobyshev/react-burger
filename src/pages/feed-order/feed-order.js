@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getOrderInfo } from '../../services/slices/order';
+import { getOrderInfo } from '../../services/slices/order/order';
 
 import styles from './feed-order.module.scss';
 import { OrderInfo } from '../../components/order-info/order-info';

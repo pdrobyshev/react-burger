@@ -5,7 +5,7 @@ import {
   wsConnectionError,
   wsConnectionOpened,
   wsGetMessage,
-} from '../slices/feed';
+} from '../slices/feed/feed';
 
 export const socketMiddleware = () => {
   return (store) => {
