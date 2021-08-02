@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { resetPassword } from '../../services/slices/password/password';
 
 import styles from '../form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const ResetPassword = () => {
+export const ResetPassword: FC = () => {
   const dispatch = useDispatch();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     password: '',
@@ -17,7 +17,7 @@ export const ResetPassword = () => {
   });
   const { isLoading, isPasswordReset } = useSelector((state) => state.password);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -28,11 +28,13 @@ export const ResetPassword = () => {
   };
 
   const onIconClick = () => {
-    inputRef.current.type = inputRef.current.type === 'password' ? 'text' : 'password';
-    setIsPasswordVisible((prevState) => !prevState);
+    if (inputRef && inputRef.current) {
+      inputRef.current.type = inputRef.current.type === 'password' ? 'text' : 'password';
+      setIsPasswordVisible((prevState) => !prevState);
+    }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword(formData));
   };

@@ -24,8 +24,8 @@ export const initialState: TPasswordState = {
 
 export const sendResetPasswordEmail = createAsyncThunk(
   'password/sendResetPasswordEmail',
-  async (email: string): Promise<TSendResetPasswordResponse> => {
-    const fetchSettings = setFetchSettings('POST', '', email);
+  async (payload: { email: string }): Promise<TSendResetPasswordResponse> => {
+    const fetchSettings = setFetchSettings('POST', '', payload);
     const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
     return await checkResponse(response);
   }

@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { getOrderInfo } from '../../services/slices/order/order';
 
 import styles from './feed-order.module.scss';
 import { OrderInfo } from '../../components/order-info/order-info';
 
-export const FeedOrder = () => {
+export const FeedOrder: FC = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const order = useSelector((state) => state.order.order);
 
   useEffect(() => {

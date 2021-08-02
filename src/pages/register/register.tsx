@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 
-import { loginRequest } from '../../services/slices/auth/auth';
+import { registerRequest } from '../../services/slices/auth/auth';
 
 import styles from '../form.module.scss';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const Login = () => {
+export const Register: FC = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
   });
   const { isLoading } = useSelector((state) => state.auth);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -25,16 +26,19 @@ export const Login = () => {
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(loginRequest(formData));
+    dispatch(registerRequest(formData));
   };
 
   return (
     <section className={styles.formWrapper}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <h2 className={styles.formTitle}>Вход</h2>
+        <h2 className={styles.formTitle}>Регистрация</h2>
 
+        <div className={styles.inputWrapper}>
+          <Input type={'text'} placeholder={'Имя'} onChange={onChange} value={formData.name} name={'name'} />
+        </div>
         <div className={styles.inputWrapper}>
           <Input
             type={'email'}
@@ -52,21 +56,15 @@ export const Login = () => {
           <span className="text text_type_main-default">Идёт запрос...</span>
         ) : (
           <Button type="primary" size="medium">
-            Войти
+            Зарегистрироваться
           </Button>
         )}
       </form>
 
-      <div className={`${styles.flexWrapper}  mb-4`}>
-        <span className={styles.formText}>Вы — новый пользователь?</span>
-        <Link className={styles.formLink} to="/register">
-          Зарегистрироваться
-        </Link>
-      </div>
       <div className={styles.flexWrapper}>
-        <span className={styles.formText}>Забыли пароль?</span>
-        <Link className={styles.formLink} to="/forgot-password">
-          Восстановить пароль
+        <span className={styles.formText}>Уже зарегистрированы?</span>
+        <Link className={styles.formLink} to="/login">
+          Войти
         </Link>
       </div>
     </section>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/slices/feed/feed';
 import { WS_URL } from '../../constants/api';
@@ -10,11 +10,11 @@ import { ProfileNav } from '../../components/profile-nav/profile-nav';
 import { FeedList } from '../../components/feed-list/feed-list';
 import Loader from '../../components/loader/loader';
 
-export const History = () => {
+export const History: FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.feed.orders);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     dispatch(WS_CONNECTION_START(`${WS_URL}?token=${getCookie('accessToken')}`));
 
     return () => dispatch(WS_CONNECTION_CLOSE());

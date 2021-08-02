@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { sendResetPasswordEmail } from '../../services/slices/password/password';
 
 import styles from '../form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const ForgotPassword = () => {
+export const ForgotPassword: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ export const ForgotPassword = () => {
   });
   const { isLoading, isResetEmailSent } = useSelector((state) => state.password);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -25,7 +25,7 @@ export const ForgotPassword = () => {
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(sendResetPasswordEmail(formData));
   };

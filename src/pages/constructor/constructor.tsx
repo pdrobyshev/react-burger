@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { closeOrderModal } from '../../services/slices/order/order';
 
@@ -8,11 +8,10 @@ import Error from '../../components/error/error';
 import Modal from '../../components/modal/modal';
 import OrderDetails from '../../components/order-details/order-details';
 
-export const Constructor = () => {
+export const Constructor: FC = () => {
   const dispatch = useDispatch();
-  const { orderId } = useSelector((state) => state.order);
+  const { orderId, isOrderModalOpened } = useSelector((state) => state.order);
   const { hasError, isLoading } = useSelector((state) => state.burger);
-  const { isOrderModalOpened } = useSelector((state) => state.order);
 
   const onOrderModalClose = () => dispatch(closeOrderModal());
 
