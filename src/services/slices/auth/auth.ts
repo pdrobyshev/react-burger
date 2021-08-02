@@ -1,28 +1,54 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { REGISTER_URL, LOGIN_URL, LOGOUT_URL } from '../../../constants/api';
+import { LOGIN_URL, LOGOUT_URL, REGISTER_URL } from '../../../constants/api';
 import { deleteCookie, getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-export const initialState = {
+type TRegisterRequestResponse = TLoginRequestResponse;
+
+type TLoginRequestResponse = {
+  accessToken: string;
+  refreshToken: string;
+  success: boolean;
+  user: { email: string; name: string };
+};
+
+type TLogoutResponse = {
+  message: string;
+  success: boolean;
+};
+
+type TAuthState = {
+  isLoggedIn: boolean;
+  user: null | { email: string; name: string };
+  isLoading: boolean;
+};
+
+export const initialState: TAuthState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,
 };
 
-export const registerRequest = createAsyncThunk('auth/registerRequest', async (payload) => {
-  const fetchSettings = setFetchSettings('POST', '', payload);
-  const response = await fetch(REGISTER_URL, fetchSettings);
-  return await checkResponse(response);
-});
+export const registerRequest = createAsyncThunk(
+  'auth/registerRequest',
+  async (payload: { email: string; name: string; password: string }): Promise<TRegisterRequestResponse> => {
+    const fetchSettings = setFetchSettings('POST', '', payload);
+    const response = await fetch(REGISTER_URL, fetchSettings);
+    return await checkResponse(response);
+  }
+);
 
-export const loginRequest = createAsyncThunk('auth/loginRequest', async (payload) => {
-  const fetchSettings = setFetchSettings('POST', '', payload);
-  const response = await fetch(LOGIN_URL, fetchSettings);
-  return await checkResponse(response);
-});
+export const loginRequest = createAsyncThunk(
+  'auth/loginRequest',
+  async (payload: { email: string; password: string }): Promise<TLoginRequestResponse> => {
+    const fetchSettings = setFetchSettings('POST', '', payload);
+    const response = await fetch(LOGIN_URL, fetchSettings);
+    return await checkResponse(response);
+  }
+);
 
-export const logoutRequest = createAsyncThunk('auth/logoutRequest', async () => {
+export const logoutRequest = createAsyncThunk('auth/logoutRequest', async (): Promise<TLogoutResponse> => {
   const fetchSettings = setFetchSettings('POST', '', { token: getCookie('refreshToken') });
   const response = await fetch(LOGOUT_URL, fetchSettings);
   return await checkResponse(response);
@@ -31,6 +57,7 @@ export const logoutRequest = createAsyncThunk('auth/logoutRequest', async () => 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addCase(registerRequest.pending, (state) => {

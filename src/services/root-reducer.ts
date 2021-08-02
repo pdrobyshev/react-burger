@@ -7,7 +7,7 @@ import userReducer from './slices/user/user';
 import authReducer from './slices/auth/auth';
 import feedReducer from './slices/feed/feed';
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   burger: burgerReducer,
   order: orderReducer,
   password: passwordReducer,
@@ -15,3 +15,5 @@ export const rootReducer = combineReducers({
   user: userReducer,
   feed: feedReducer,
 });
+
+export default rootReducer;
