@@ -3,27 +3,47 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../../constants/api';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-export const initialState = {
+type TSendResetPasswordResponse = {
+  message: string;
+  success: boolean;
+};
+
+type TResetPasswordResponse = TSendResetPasswordResponse;
+
+type TPasswordState = {
+  isResetEmailSent: boolean;
+  isPasswordReset: boolean;
+  isLoading: boolean;
+};
+
+export const initialState: TPasswordState = {
   isResetEmailSent: false,
   isPasswordReset: false,
   isLoading: false,
 };
 
-export const sendResetPasswordEmail = createAsyncThunk('password/sendResetPasswordEmail', async (email) => {
-  const fetchSettings = setFetchSettings('POST', '', email);
-  const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
-  return await checkResponse(response);
-});
+export const sendResetPasswordEmail = createAsyncThunk(
+  'password/sendResetPasswordEmail',
+  async (email: string): Promise<TSendResetPasswordResponse> => {
+    const fetchSettings = setFetchSettings('POST', '', email);
+    const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
+    return await checkResponse(response);
+  }
+);
 
-export const resetPassword = createAsyncThunk('password/reset', async (payload) => {
-  const fetchSettings = setFetchSettings('POST', '', payload);
-  const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
-  return await checkResponse(response);
-});
+export const resetPassword = createAsyncThunk(
+  'password/reset',
+  async (payload: { password: string; token: string }): Promise<TResetPasswordResponse> => {
+    const fetchSettings = setFetchSettings('POST', '', payload);
+    const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
+    return await checkResponse(response);
+  }
+);
 
 const passwordSlice = createSlice({
   name: 'password',
   initialState,
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addCase(sendResetPasswordEmail.pending, (state) => {
