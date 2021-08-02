@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styles from './app-header.module.scss';
 import Nav from './nav/nav';
 
-const AppHeader = () => (
+const AppHeader: FC = () => (
   <header className={styles.header}>
     <Nav />
   </header>

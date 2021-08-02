@@ -1,22 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ElementType, FC } from 'react';
 
 import styles from './link-item.module.scss';
 import { NavLink } from 'react-router-dom';
 
-const LinkItem = ({ Icon, text, to }) => {
+interface ILinkItemProps {
+  Icon: ElementType;
+  text: string;
+  to: string;
+}
+
+const LinkItem: FC<ILinkItemProps> = ({ Icon, text, to }) => {
   return (
     <NavLink className={styles.link} activeClassName={styles.active} to={to} exact>
       <Icon />
       <span className={styles.text}>{text}</span>
     </NavLink>
   );
-};
-
-LinkItem.propTypes = {
-  Icon: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
 };
 
 export default LinkItem;

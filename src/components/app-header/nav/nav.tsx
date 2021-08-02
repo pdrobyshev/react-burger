@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styles from './nav.module.scss';
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import LinkItem from '../../link-item/link-item';
 import LogoWrapper from '../logo-wrapper/logo-wrapper';
-import Profile from '../profile-link/profile-link';
+import ProfileLink from '../profile-link/profile-link';
 
-const Nav = () => (
+const Nav: FC = () => (
   <nav className={styles.nav}>
     <ul className={styles.list}>
       <li className={styles.item}>
@@ -19,7 +19,7 @@ const Nav = () => (
 
     <LogoWrapper />
 
-    <Profile />
+    <ProfileLink />
   </nav>
 );
 
