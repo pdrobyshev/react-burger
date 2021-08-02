@@ -4,19 +4,19 @@ import { REFRESH_TOKEN_URL, USER_INFO_URL } from '../../../constants/api';
 import { getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-type TFetchSettings = {
-  /*
-    body: undefined
-    method: string
-    headers: {
-      Authorization: string;
-      Content-Type: string;
-    }
-  * */
-  method: string;
-  body: undefined | object;
-  headers: { Authorization: string };
-};
+// type TFetchSettings = {
+//   /*
+//     body: undefined
+//     method: string
+//     headers: {
+//       Authorization: string;
+//       Content-Type: string;
+//     }
+//   * */
+//   method: string;
+//   body: undefined | object;
+//   headers: { Authorization: string };
+// };
 
 type TGetUserInfoRequestResponse = {
   success: boolean;

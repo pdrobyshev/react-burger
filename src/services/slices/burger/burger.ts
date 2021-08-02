@@ -1,11 +1,40 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 import { INGREDIENTS_URL } from '../../../constants/api';
 import { createOrder } from '../order/order';
 import { checkResponse } from '../../../utils';
 
-export const initialState = {
+type TIngredient = {
+  calories: number;
+  carbohydrates: number;
+  constructorIngredientId?: string;
+  fat: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: string;
+  __v: number;
+  _id: string;
+};
+
+type TGetIngredientsRequestResponse = {
+  success: boolean;
+  data: Array<TIngredient>;
+};
+
+type TBurgerState = {
+  ingredients: [] | any;
+  bun: null | any;
+  constructorIngredients: any;
+  isLoading: boolean;
+  hasError: boolean;
+};
+
+export const initialState: TBurgerState = {
   ingredients: [],
   bun: null,
   constructorIngredients: [],
@@ -13,23 +42,26 @@ export const initialState = {
   hasError: false,
 };
 
-export const getIngredients = createAsyncThunk('burger/getIngredients', async () => {
-  const response = await fetch(INGREDIENTS_URL);
-  return await checkResponse(response);
-});
+export const getIngredients = createAsyncThunk(
+  'burger/getIngredients',
+  async (): Promise<TGetIngredientsRequestResponse> => {
+    const response = await fetch(INGREDIENTS_URL);
+    return await checkResponse(response);
+  }
+);
 
 export const burgerSlice = createSlice({
   name: 'burger',
   initialState,
   reducers: {
-    addConstructorBun(state, action) {
+    addConstructorBun(state, action: PayloadAction<TIngredient>) {
       state.bun = action.payload;
     },
     addConstructorIngredient: {
-      reducer: (state, action) => {
+      reducer: (state, action: PayloadAction<TIngredient>) => {
         state.constructorIngredients.push(action.payload);
       },
-      prepare: (ingredient) => {
+      prepare: (ingredient: TIngredient) => {
         return {
           payload: {
             ...ingredient,
@@ -38,12 +70,13 @@ export const burgerSlice = createSlice({
         };
       },
     },
-    deleteConstructorIngredient(state, action) {
+    deleteConstructorIngredient(state, action: PayloadAction<string>) {
       state.constructorIngredients = state.constructorIngredients.filter(
-        (ingredient) => ingredient.constructorIngredientId !== action.payload
+        (ingredient: { constructorIngredientId: string }) =>
+          ingredient.constructorIngredientId !== action.payload
       );
     },
-    moveConstructorItem(state, action) {
+    moveConstructorItem(state, action: PayloadAction<{ dragIndex: number; hoverIndex: number }>) {
       const arr = [...state.constructorIngredients];
       const dragItem = arr[action.payload.dragIndex];
       const hoverItem = arr[action.payload.hoverIndex];
