@@ -1,16 +1,49 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { USER_INFO_URL, REFRESH_TOKEN_URL } from '../../../constants/api';
+import { REFRESH_TOKEN_URL, USER_INFO_URL } from '../../../constants/api';
 import { getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-export const initialState = {
+type TFetchSettings = {
+  /*
+    body: undefined
+    method: string
+    headers: {
+      Authorization: string;
+      Content-Type: string;
+    }
+  * */
+  method: string;
+  body: undefined | object;
+  headers: { Authorization: string };
+};
+
+type TGetUserInfoRequestResponse = {
+  success: boolean;
+  user: { email: string; name: string };
+};
+
+type TRefreshTokenRequestResponse = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+type TUpdateUserInfoRequestResponse = TGetUserInfoRequestResponse;
+
+type TUserState = {
+  isLoggedIn: boolean;
+  user: null | { email: string; name: string };
+  isLoading: boolean;
+};
+
+export const initialState: TUserState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,
 };
 
-const fetchWithRefresh = async (url, fetchSettings) => {
+//TODO: fetchSettings
+const fetchWithRefresh = async (url: string, fetchSettings: any) => {
   try {
     const response = await fetch(url, fetchSettings);
     return await checkResponse(response);
@@ -27,7 +60,7 @@ const fetchWithRefresh = async (url, fetchSettings) => {
   }
 };
 
-const refreshTokenRequest = async () => {
+const refreshTokenRequest = async (): Promise<TRefreshTokenRequestResponse> => {
   const fetchSettings = setFetchSettings('POST', getCookie('refreshToken'), {
     token: getCookie('refreshToken'),
   });
@@ -35,19 +68,30 @@ const refreshTokenRequest = async () => {
   return await checkResponse(response);
 };
 
-export const getUserInfoRequest = createAsyncThunk('user/getUserInfoRequest', async () => {
-  const fetchSettings = setFetchSettings('GET', `Bearer ${getCookie('accessToken')}`);
-  return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
-});
+export const getUserInfoRequest = createAsyncThunk(
+  'user/getUserInfoRequest',
+  async (): Promise<TGetUserInfoRequestResponse> => {
+    const fetchSettings = setFetchSettings('GET', `Bearer ${getCookie('accessToken')}`);
+    return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
+  }
+);
 
-export const updateUserInfoRequest = createAsyncThunk('user/updateUserInfoRequest', async (payload) => {
-  const fetchSettings = setFetchSettings('PATCH', `Bearer ${getCookie('accessToken')}`, payload);
-  return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
-});
+export const updateUserInfoRequest = createAsyncThunk(
+  'user/updateUserInfoRequest',
+  async (payload: {
+    name: string;
+    email: string;
+    password: string;
+  }): Promise<TUpdateUserInfoRequestResponse> => {
+    const fetchSettings = setFetchSettings('PATCH', `Bearer ${getCookie('accessToken')}`, payload);
+    return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addCase(getUserInfoRequest.pending, (state) => {
