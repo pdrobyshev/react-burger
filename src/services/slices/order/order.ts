@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ORDER_URL } from '../../../constants/api';
 import { checkResponse, setFetchSettings } from '../../../utils';
@@ -89,7 +89,7 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setOrderElementsIds(state, action) {
+    setOrderElementsIds(state, action: PayloadAction<Array<string>>) {
       state.constructorElementsIds = action.payload;
     },
     resetOrder(state) {
