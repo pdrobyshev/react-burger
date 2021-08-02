@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { getOrderInfo } from '../../services/slices/order/order';
 
 import { OrderInfo } from '../order-info/order-info';
 import Modal from '../modal/modal';
 
-export const FeedModal = ({ onModalClose }) => {
+interface IFeedModalProps {
+  onModalClose: () => void;
+}
+
+export const FeedModal: FC<IFeedModalProps> = ({ onModalClose }) => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const order = useSelector((state) => state.order.order);
 
   useEffect(() => {
@@ -24,8 +27,4 @@ export const FeedModal = ({ onModalClose }) => {
       </Modal>
     )
   );
-};
-
-FeedModal.propTypes = {
-  onModalClose: PropTypes.func.isRequired,
 };

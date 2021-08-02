@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { useSelector } from '../../services/store';
 
 import styles from './feed-list.module.scss';
 import { FeedItem } from '../feed-item/feed-item';
-import { useSelector } from 'react-redux';
 
-export const FeedList = () => {
+export const FeedList: FC = () => {
   const orders = useSelector((state) => state.feed.orders);
 
   return (

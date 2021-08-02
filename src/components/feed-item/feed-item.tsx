@@ -1,24 +1,31 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store';
 
 import { getDateTime } from '../../utils';
+import { TOrderObject } from '../../services/slices/feed/feed';
+import { TIngredient } from '../../services/slices/burger/burger';
 
 import styles from './feed-item.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, createdAt }) => {
+export const FeedItem: FC<TOrderObject> = ({
+  _id,
+  number,
+  name,
+  ingredients: orderIngredients,
+  createdAt,
+}) => {
   const location = useLocation();
   const { ingredients } = useSelector((state) => state.burger);
 
   const time = getDateTime(createdAt);
 
   const feedOrderIngredients = useMemo(() => {
-    return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
+    return ingredients.filter((ingredient: TIngredient) => orderIngredients.includes(ingredient._id));
   }, [orderIngredients, ingredients]);
 
-  const showImages = (feedOrderIngredients) => {
+  const showImages = (feedOrderIngredients: Array<TIngredient>) => {
     const images = [];
 
     for (let i = 0; i < feedOrderIngredients.length; i++) {
@@ -44,7 +51,10 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, cre
   };
 
   const price = useMemo(() => {
-    return feedOrderIngredients.reduce((acc, el) => el.type === 'bun' ? acc + el.price * 2 : acc + el.price, 0);
+    return feedOrderIngredients.reduce(
+      (acc: number, el: TIngredient) => (el.type === 'bun' ? acc + el.price * 2 : acc + el.price),
+      0
+    );
   }, [feedOrderIngredients]);
 
   return (
@@ -78,12 +88,4 @@ export const FeedItem = ({ _id, number, name, ingredients: orderIngredients, cre
       )}
     </>
   );
-};
-
-FeedItem.propTypes = {
-  _id: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  createdAt: PropTypes.string.isRequired,
 };

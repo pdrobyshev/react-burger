@@ -1,14 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import React, { FC } from 'react';
+import { useSelector } from '../../services/store';
 import { useParams } from 'react-router-dom';
+
+import { TIngredient } from '../../services/slices/burger/burger';
 
 import styles from './ingredient-details.module.scss';
 
-const IngredientDetails = ({ withTitle }) => {
-  const { id } = useParams();
+interface IIngredientDetailsProps {
+  withTitle?: boolean;
+}
+
+const IngredientDetails: FC<IIngredientDetailsProps> = ({ withTitle }) => {
+  const { id } = useParams<{ id: string }>();
   const ingredients = useSelector((state) => state.burger.ingredients);
-  const ingredient = ingredients.find((ing) => ing._id === id);
+  const ingredient = ingredients.find((ing: TIngredient) => ing._id === id);
   const { image_large, name, calories, proteins, fat, carbohydrates } = ingredient;
 
   return (
@@ -39,10 +44,6 @@ const IngredientDetails = ({ withTitle }) => {
       </section>
     </section>
   );
-};
-
-IngredientDetails.propTypes = {
-  withTitle: PropTypes.bool,
 };
 
 export default IngredientDetails;

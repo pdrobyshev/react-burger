@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store';
 
 import { getDateTime } from '../../utils';
+import { TIngredient } from '../../services/slices/burger/burger';
+import { TOrderInfo } from '../../services/slices/order/order';
 
 import styles from './order-info.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,17 +11,17 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 export const OrderInfo = () => {
   const { ingredients } = useSelector((state) => state.burger);
   const order = useSelector((state) => state.order.order);
-  const { name, status, ingredients: orderIngredients, createdAt } = order;
+  const { name, status, ingredients: orderIngredients, createdAt } = order as TOrderInfo;
 
   const time = getDateTime(createdAt);
 
   const feedOrderIngredients = useMemo(() => {
-    return ingredients.filter((ingredient) => orderIngredients.includes(ingredient._id));
+    return ingredients.filter((ingredient: TIngredient) => orderIngredients.includes(ingredient._id));
   }, [orderIngredients, ingredients]);
 
   const price = useMemo(() => {
     return feedOrderIngredients.reduce(
-      (acc, el) => (el.type === 'bun' ? acc + el.price * 2 : acc + el.price),
+      (acc: number, el: TIngredient) => (el.type === 'bun' ? acc + el.price * 2 : acc + el.price),
       0
     );
   }, [feedOrderIngredients]);
@@ -32,7 +34,7 @@ export const OrderInfo = () => {
       <span className={`${styles.title}  mb-6`}>Состав:</span>
 
       <ul className={`${styles.list} scroll`}>
-        {feedOrderIngredients.map(({ _id, image_mobile, name, price, type }) => (
+        {feedOrderIngredients.map(({ _id, image_mobile, name, price, type }: TIngredient) => (
           <li className={styles.item} key={_id}>
             <span className={styles.imgWrapper}>
               <img className={styles.img} src={image_mobile} alt={name} width="64" height="64" />

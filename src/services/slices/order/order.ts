@@ -39,7 +39,7 @@ type TGetOrderInfoResponse = {
   orders: Array<TOrderInfo>;
 };
 
-type TOrderInfo = {
+export type TOrderInfo = {
   createdAt: string;
   ingredients: Array<string>;
   name: string;

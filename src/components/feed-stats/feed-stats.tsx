@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { useSelector } from '../../services/store';
+
+import { TOrderObject } from '../../services/slices/feed/feed';
 
 import styles from './feed-stats.module.scss';
-import { useSelector } from 'react-redux';
 
-export const FeedStats = () => {
+export const FeedStats: FC = () => {
   const { total, totalToday, orders } = useSelector((state) => state.feed);
-  const doneOrders = [];
-  const inProgressOrders = [];
+  const doneOrders: Array<TOrderObject> = [];
+  const inProgressOrders: Array<TOrderObject> = [];
 
   orders
     .slice(0, 20)

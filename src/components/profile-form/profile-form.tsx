@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { getUserInfoRequest, updateUserInfoRequest } from '../../services/slices/user/user';
 
 import styles from './profile-form.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const ProfileForm = () => {
+export const ProfileForm: FC = () => {
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ export const ProfileForm = () => {
       }));
   }, [user]);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -38,17 +38,18 @@ export const ProfileForm = () => {
     });
   };
 
-  const onCancelClick = (e) => {
+  const onCancelClick = (e: MouseEvent) => {
     e.preventDefault();
 
-    setFormData({
-      name: user.name,
-      email: user.email,
-      password: '',
-    });
+    user &&
+      setFormData({
+        name: user.name,
+        email: user.email,
+        password: '',
+      });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUserInfoRequest(formData));
   };
@@ -91,7 +92,7 @@ export const ProfileForm = () => {
           <span className="text text_type_main-default text_centered">Идёт запрос...</span>
         ) : (
           <div className={styles.buttonsWrapper}>
-            <Button type="secondary" size="medium" onClick={onCancelClick}>
+            <Button type="secondary" size="medium" onClick={() => onCancelClick}>
               Отмена
             </Button>
             <Button type="primary" size="medium">

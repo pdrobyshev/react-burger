@@ -3,7 +3,7 @@ import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 export const WS_CONNECTION_START = createAction<string>('WS_CONNECTION_START');
 export const WS_CONNECTION_CLOSE = createAction<undefined>('WS_CONNECTION_CLOSE');
 
-type TOrderObject = {
+export type TOrderObject = {
   createdAt: string;
   ingredients: Array<string>;
   name: string;

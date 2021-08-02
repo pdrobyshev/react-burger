@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 
 import { logoutRequest } from '../../services/slices/auth/auth';
 
 import styles from './profile-nav.module.scss';
 
-export const ProfileNav = () => {
+export const ProfileNav: FC = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
 
-  const onLogoutClick = (e) => {
+  const onLogoutClick = (e: MouseEvent) => {
     e.preventDefault();
     dispatch(logoutRequest());
   };
@@ -32,7 +32,7 @@ export const ProfileNav = () => {
           {isLoading ? (
             <button className={`${styles.link} ${styles.button}`}>Идёт запрос...</button>
           ) : (
-            <button className={`${styles.link} ${styles.button}`} onClick={onLogoutClick}>
+            <button className={`${styles.link} ${styles.button}`} onClick={() => onLogoutClick}>
               Выход
             </button>
           )}

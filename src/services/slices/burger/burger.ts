@@ -5,7 +5,7 @@ import { INGREDIENTS_URL } from '../../../constants/api';
 import { createOrder } from '../order/order';
 import { checkResponse } from '../../../utils';
 
-type TIngredient = {
+export type TIngredient = {
   calories: number;
   carbohydrates: number;
   constructorIngredientId?: string;
