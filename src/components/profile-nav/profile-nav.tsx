@@ -10,7 +10,7 @@ export const ProfileNav: FC = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
 
-  const onLogoutClick = (e: MouseEvent) => {
+  const onLogoutClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(logoutRequest());
   };
@@ -32,7 +32,7 @@ export const ProfileNav: FC = () => {
           {isLoading ? (
             <button className={`${styles.link} ${styles.button}`}>Идёт запрос...</button>
           ) : (
-            <button className={`${styles.link} ${styles.button}`} onClick={() => onLogoutClick}>
+            <button className={`${styles.link} ${styles.button}`} onClick={onLogoutClick}>
               Выход
             </button>
           )}
