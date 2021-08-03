@@ -4,20 +4,6 @@ import { REFRESH_TOKEN_URL, USER_INFO_URL } from '../../../constants/api';
 import { getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
 
-// type TFetchSettings = {
-//   /*
-//     body: undefined
-//     method: string
-//     headers: {
-//       Authorization: string;
-//       Content-Type: string;
-//     }
-//   * */
-//   method: string;
-//   body: undefined | object;
-//   headers: { Authorization: string };
-// };
-
 type TGetUserInfoRequestResponse = {
   success: boolean;
   user: { email: string; name: string };
@@ -42,8 +28,17 @@ export const initialState: TUserState = {
   isLoading: false,
 };
 
-//TODO: fetchSettings
-const fetchWithRefresh = async (url: string, fetchSettings: any) => {
+export type TRefreshTokenRequestBodyPayload = {
+  token: string;
+};
+
+export type TUpdateUserInfoRequestBodyPayload = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+const fetchWithRefresh = async (url: string, fetchSettings: RequestInit) => {
   try {
     const response = await fetch(url, fetchSettings);
     return await checkResponse(response);
@@ -63,8 +58,8 @@ const fetchWithRefresh = async (url: string, fetchSettings: any) => {
 const refreshTokenRequest = async (): Promise<TRefreshTokenRequestResponse> => {
   const fetchSettings = setFetchSettings('POST', getCookie('refreshToken'), {
     token: getCookie('refreshToken'),
-  });
-  const response = await fetch(REFRESH_TOKEN_URL, fetchSettings);
+  } as TRefreshTokenRequestBodyPayload);
+  const response = await fetch(REFRESH_TOKEN_URL, fetchSettings as RequestInit);
   return await checkResponse(response);
 };
 
@@ -72,19 +67,15 @@ export const getUserInfoRequest = createAsyncThunk(
   'user/getUserInfoRequest',
   async (): Promise<TGetUserInfoRequestResponse> => {
     const fetchSettings = setFetchSettings('GET', `Bearer ${getCookie('accessToken')}`);
-    return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
+    return await fetchWithRefresh(USER_INFO_URL, fetchSettings as RequestInit);
   }
 );
 
 export const updateUserInfoRequest = createAsyncThunk(
   'user/updateUserInfoRequest',
-  async (payload: {
-    name: string;
-    email: string;
-    password: string;
-  }): Promise<TUpdateUserInfoRequestResponse> => {
+  async (payload: TUpdateUserInfoRequestBodyPayload): Promise<TUpdateUserInfoRequestResponse> => {
     const fetchSettings = setFetchSettings('PATCH', `Bearer ${getCookie('accessToken')}`, payload);
-    return await fetchWithRefresh(USER_INFO_URL, fetchSettings);
+    return await fetchWithRefresh(USER_INFO_URL, fetchSettings as RequestInit);
   }
 );
 

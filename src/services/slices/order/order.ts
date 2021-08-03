@@ -67,20 +67,29 @@ export const initialState: TOrderState = {
   isOrderModalOpened: false,
 };
 
+export type TCreateOrderBodyPayload = {
+  ingredients: Array<string>;
+};
+
+export type TGetOrderInfoBodyPayload = string;
+
 export const createOrder = createAsyncThunk(
   'burger/createOrder',
-  async (order: { ingredients: Array<string> }): Promise<TCreateOrderResponse> => {
+  async (order: TCreateOrderBodyPayload): Promise<TCreateOrderResponse> => {
     const fetchSettings = setFetchSettings('POST', `Bearer ${getCookie('accessToken')}`, order);
-    const response = await fetch(ORDER_URL, fetchSettings);
+    const response = await fetch(ORDER_URL, fetchSettings as RequestInit);
     return await checkResponse(response);
   }
 );
 
 export const getOrderInfo = createAsyncThunk(
   'order/getOrderInfo',
-  async (id: string): Promise<TGetOrderInfoResponse> => {
+  async (id: TGetOrderInfoBodyPayload): Promise<TGetOrderInfoResponse> => {
     const fetchSettings = setFetchSettings('GET');
-    const response = await fetch(`https://norma.nomoreparties.space/api/orders/${id}`, fetchSettings);
+    const response = await fetch(
+      `https://norma.nomoreparties.space/api/orders/${id}`,
+      fetchSettings as RequestInit
+    );
     return await checkResponse(response);
   }
 );

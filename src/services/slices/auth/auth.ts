@@ -30,27 +30,44 @@ export const initialState: TAuthState = {
   isLoading: false,
 };
 
+export type TRegisterRequestBodyPayload = {
+  email: string;
+  name: string;
+  password: string;
+};
+
+export type TLoginRequestBodyPayload = {
+  email: string;
+  password: string;
+};
+
+export type TLogoutRequestBodyPayload = {
+  token: string;
+};
+
 export const registerRequest = createAsyncThunk(
   'auth/registerRequest',
-  async (payload: { email: string; name: string; password: string }): Promise<TRegisterRequestResponse> => {
+  async (payload: TRegisterRequestBodyPayload): Promise<TRegisterRequestResponse> => {
     const fetchSettings = setFetchSettings('POST', '', payload);
-    const response = await fetch(REGISTER_URL, fetchSettings);
+    const response = await fetch(REGISTER_URL, fetchSettings as RequestInit);
     return await checkResponse(response);
   }
 );
 
 export const loginRequest = createAsyncThunk(
   'auth/loginRequest',
-  async (payload: { email: string; password: string }): Promise<TLoginRequestResponse> => {
+  async (payload: TLoginRequestBodyPayload): Promise<TLoginRequestResponse> => {
     const fetchSettings = setFetchSettings('POST', '', payload);
-    const response = await fetch(LOGIN_URL, fetchSettings);
+    const response = await fetch(LOGIN_URL, fetchSettings as RequestInit);
     return await checkResponse(response);
   }
 );
 
 export const logoutRequest = createAsyncThunk('auth/logoutRequest', async (): Promise<TLogoutResponse> => {
-  const fetchSettings = setFetchSettings('POST', '', { token: getCookie('refreshToken') });
-  const response = await fetch(LOGOUT_URL, fetchSettings);
+  const fetchSettings = setFetchSettings('POST', '', {
+    token: getCookie('refreshToken'),
+  } as TLogoutRequestBodyPayload);
+  const response = await fetch(LOGOUT_URL, fetchSettings as RequestInit);
   return await checkResponse(response);
 });
 

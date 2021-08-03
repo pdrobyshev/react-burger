@@ -1,12 +1,40 @@
 import { format, formatRelative } from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
+import {
+  TRefreshTokenRequestBodyPayload,
+  TUpdateUserInfoRequestBodyPayload,
+} from '../services/slices/user/user';
+import {
+  TResetPasswordEmailBodyPayload,
+  TSendResetPasswordEmailBodyPayload,
+} from '../services/slices/password/password';
+import { TCreateOrderBodyPayload, TGetOrderInfoBodyPayload } from '../services/slices/order/order';
+import {
+  TLoginRequestBodyPayload,
+  TLogoutRequestBodyPayload,
+  TRegisterRequestBodyPayload,
+} from '../services/slices/auth/auth';
 
-//todo fix checkResponse any
-export const checkResponse = (res: any) => {
+export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err));
 };
 
-export const setFetchSettings = (method: string, authorizationHeader: string, bodyPayload: object) => {
+type TFetchSettingsBodyPayload =
+  | TRefreshTokenRequestBodyPayload
+  | TUpdateUserInfoRequestBodyPayload
+  | TSendResetPasswordEmailBodyPayload
+  | TResetPasswordEmailBodyPayload
+  | TCreateOrderBodyPayload
+  | TGetOrderInfoBodyPayload
+  | TRegisterRequestBodyPayload
+  | TLoginRequestBodyPayload
+  | TLogoutRequestBodyPayload;
+
+export const setFetchSettings = (
+  method: string,
+  authorizationHeader?: string,
+  bodyPayload?: TFetchSettingsBodyPayload
+) => {
   return {
     method: method,
     headers: {

@@ -22,20 +22,29 @@ export const initialState: TPasswordState = {
   isLoading: false,
 };
 
+export type TSendResetPasswordEmailBodyPayload = {
+  email: string;
+};
+
+export type TResetPasswordEmailBodyPayload = {
+  password: string;
+  token: string;
+};
+
 export const sendResetPasswordEmail = createAsyncThunk(
   'password/sendResetPasswordEmail',
-  async (payload: { email: string }): Promise<TSendResetPasswordResponse> => {
+  async (payload: TSendResetPasswordEmailBodyPayload): Promise<TSendResetPasswordResponse> => {
     const fetchSettings = setFetchSettings('POST', '', payload);
-    const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings);
+    const response = await fetch(SEND_RESET_PASSWORD_EMAIL_URL, fetchSettings as RequestInit);
     return await checkResponse(response);
   }
 );
 
 export const resetPassword = createAsyncThunk(
   'password/reset',
-  async (payload: { password: string; token: string }): Promise<TResetPasswordResponse> => {
+  async (payload: TResetPasswordEmailBodyPayload): Promise<TResetPasswordResponse> => {
     const fetchSettings = setFetchSettings('POST', '', payload);
-    const response = await fetch(RESET_PASSWORD_URL, fetchSettings);
+    const response = await fetch(RESET_PASSWORD_URL, fetchSettings as RequestInit);
     return await checkResponse(response);
   }
 );
