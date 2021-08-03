@@ -1,21 +1,26 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import React, { FC, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
+
+import { TIngredient } from '../../../services/slices/burger/burger';
+import { useSelector } from '../../../services/store';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Ingredient = ({ ingredient }) => {
+interface IIngredientProps {
+  ingredient: TIngredient;
+}
+
+const Ingredient: FC<IIngredientProps> = ({ ingredient }) => {
   const { image, price, name, _id } = ingredient;
   const location = useLocation();
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
   const counters = useMemo(() => {
-    const counter = {};
+    const counter: { [name: string]: number } = {};
 
-    constructorIngredients.forEach((ingredient) => {
+    constructorIngredients.forEach((ingredient: TIngredient) => {
       if (!counter[ingredient._id]) counter[ingredient._id] = 0;
       counter[ingredient._id]++;
     });
@@ -54,15 +59,6 @@ const Ingredient = ({ ingredient }) => {
       </Link>
     </li>
   );
-};
-
-Ingredient.propTypes = {
-  ingredient: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Ingredient;

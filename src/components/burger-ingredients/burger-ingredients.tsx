@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import styles from './burger-ingredients.module.scss';
 import Tabs from './tabs/tabs';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const [bunsRef, inViewBuns] = useInView({ threshold: 0 });
   const [saucesRef, inViewSauces] = useInView({ threshold: 0 });
   const [mainsRef, inViewMains] = useInView({ threshold: 0 });

@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import styles from './tabs.module.scss';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Tabs = ({ inViewBuns, inViewSauces, inViewMains }) => {
+interface ITabsProps {
+  inViewBuns: boolean;
+  inViewSauces: boolean;
+  inViewMains: boolean;
+}
+
+const Tabs: FC<ITabsProps> = ({ inViewBuns, inViewSauces, inViewMains }) => {
   const [current, setCurrent] = React.useState('Булки');
 
-  const setTab = (value, id) => {
+  const setTab = (value: string, id: string) => {
     setCurrent(value);
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
