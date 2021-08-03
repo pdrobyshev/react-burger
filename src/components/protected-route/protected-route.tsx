@@ -1,0 +1,16 @@
+import React, { FC } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { useSelector } from '../../services/store';
+
+export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isLoggedIn ? children : <Redirect to={{ pathname: '/login', state: { from: location } }} />
+      }
+    />
+  );
+};

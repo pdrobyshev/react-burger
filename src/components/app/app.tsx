@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
+import { Location } from 'history';
 
 import { getCookie } from '../../utils/cookie';
 import { getIngredients } from '../../services/slices/burger/burger';
@@ -29,13 +30,16 @@ import Modal from '../modal/modal';
 import Loader from '../loader/loader';
 import { FeedModal } from '../feed-modal/feed-modal';
 
-const App = () => {
+interface ILocationState extends Location {
+  background?: Location<unknown>;
+}
+
+const App: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<ILocationState>();
   const history = useHistory();
   const accessToken = getCookie('accessToken');
-  const { isLoading } = useSelector((state) => state.burger);
-  const ingredients = useSelector((state) => state.burger.ingredients);
+  const { ingredients, isLoading } = useSelector((state) => state.burger);
   const background = history.action === 'PUSH' && location.state && location.state.background;
 
   useEffect(() => {
