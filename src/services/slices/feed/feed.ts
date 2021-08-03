@@ -1,7 +1,7 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const WS_CONNECTION_START = createAction<string>('WS_CONNECTION_START');
-export const WS_CONNECTION_CLOSE = createAction<undefined>('WS_CONNECTION_CLOSE');
+export const WS_CONNECTION_CLOSE = createAction<string | undefined>('WS_CONNECTION_CLOSE');
 
 export type TOrderObject = {
   createdAt: string;
@@ -41,11 +41,13 @@ export const ordersFeed = createSlice({
       state.wsConnected = false;
       state.error = false;
     },
-    wsConnectionError: (state, action: PayloadAction<boolean>) => {
+    wsConnectionError: (state) => {
       state.wsConnected = false;
-      state.error = action.payload;
+      state.error = true;
     },
     wsGetMessage: (state, action: PayloadAction<TFeedState>) => {
+      console.log(action.payload);
+
       const { orders, total, totalToday } = action.payload;
       state.orders = orders;
       state.total = total;

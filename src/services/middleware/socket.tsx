@@ -6,22 +6,23 @@ import {
   wsConnectionOpened,
   wsGetMessage,
 } from '../slices/feed/feed';
+import { AnyAction, MiddlewareAPI } from 'redux';
 
 export const socketMiddleware = () => {
-  return (store) => {
-    let socket = null;
+  return (store: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
 
-    return (next) => (action) => {
+    return (next: (a: AnyAction) => void) => (action: AnyAction) => {
       const { dispatch } = store;
       const { type, payload } = action;
 
       if (type === WS_CONNECTION_START.toString()) socket = new WebSocket(payload);
-      if (type === WS_CONNECTION_CLOSE.toString()) socket.close();
+      if (type === WS_CONNECTION_CLOSE.toString()) socket && socket.close();
 
       if (socket) {
         socket.onopen = () => dispatch(wsConnectionOpened());
         socket.onclose = () => dispatch(wsConnectionClosed());
-        socket.onerror = (event) => dispatch(wsConnectionError(event));
+        socket.onerror = () => dispatch(wsConnectionError());
         socket.onmessage = (event) => dispatch(wsGetMessage(JSON.parse(event.data)));
       }
 
