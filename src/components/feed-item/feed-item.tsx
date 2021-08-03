@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
 
 import { getDateTime } from '../../utils';
-import { TOrderObject } from '../../services/slices/feed/feed';
-import { TIngredient } from '../../services/slices/burger/burger';
+import { TOrderObject } from '../../services/slices/feed/types';
+import { TIngredient } from '../../services/slices/burger/types';
 
 import styles from './feed-item.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

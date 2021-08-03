@@ -1,25 +1,8 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TFeedState } from './types';
 
 export const WS_CONNECTION_START = createAction<string>('WS_CONNECTION_START');
 export const WS_CONNECTION_CLOSE = createAction<string | undefined>('WS_CONNECTION_CLOSE');
-
-export type TOrderObject = {
-  createdAt: string;
-  ingredients: Array<string>;
-  name: string;
-  number: number;
-  status: string;
-  updatedAt: string;
-  _id: string;
-};
-
-type TFeedState = {
-  orders: Array<TOrderObject>;
-  total: number;
-  totalToday: number;
-  wsConnected: boolean;
-  error: boolean;
-};
 
 export const initialState: TFeedState = {
   orders: [],

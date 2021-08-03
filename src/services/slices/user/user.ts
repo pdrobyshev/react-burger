@@ -3,39 +3,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { REFRESH_TOKEN_URL, USER_INFO_URL } from '../../../constants/api';
 import { getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
-
-type TGetUserInfoRequestResponse = {
-  success: boolean;
-  user: { email: string; name: string };
-};
-
-type TRefreshTokenRequestResponse = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-type TUpdateUserInfoRequestResponse = TGetUserInfoRequestResponse;
-
-type TUserState = {
-  isLoggedIn: boolean;
-  user: null | { email: string; name: string };
-  isLoading: boolean;
-};
+import {
+  TGetUserInfoRequestResponse,
+  TRefreshTokenRequestBodyPayload,
+  TRefreshTokenRequestResponse,
+  TUpdateUserInfoRequestBodyPayload,
+  TUpdateUserInfoRequestResponse,
+  TUserState,
+} from './types';
 
 export const initialState: TUserState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,
-};
-
-export type TRefreshTokenRequestBodyPayload = {
-  token: string;
-};
-
-export type TUpdateUserInfoRequestBodyPayload = {
-  name: string;
-  email: string;
-  password: string;
 };
 
 const fetchWithRefresh = async (url: string, fetchSettings: RequestInit) => {

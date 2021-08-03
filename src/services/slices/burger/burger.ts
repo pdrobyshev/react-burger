@@ -4,35 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { INGREDIENTS_URL } from '../../../constants/api';
 import { createOrder } from '../order/order';
 import { checkResponse } from '../../../utils';
-
-export type TIngredient = {
-  calories: number;
-  carbohydrates: number;
-  constructorIngredientId?: string;
-  fat: number;
-  image: string;
-  image_large: string;
-  image_mobile: string;
-  name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  __v: number;
-  _id: string;
-};
-
-type TGetIngredientsRequestResponse = {
-  success: boolean;
-  data: Array<TIngredient>;
-};
-
-type TBurgerState = {
-  ingredients: [] | any;
-  bun: null | any;
-  constructorIngredients: any;
-  isLoading: boolean;
-  hasError: boolean;
-};
+import { TBurgerState, TGetIngredientsRequestResponse, TIngredient } from './types';
 
 export const initialState: TBurgerState = {
   ingredients: [],

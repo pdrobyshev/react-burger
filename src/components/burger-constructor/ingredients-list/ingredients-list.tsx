@@ -1,13 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 
-import {
-  addConstructorBun,
-  addConstructorIngredient,
-  TIngredient,
-} from '../../../services/slices/burger/burger';
+import { addConstructorBun, addConstructorIngredient } from '../../../services/slices/burger/burger';
 import { setOrderElementsIds } from '../../../services/slices/order/order';
 import { useDispatch, useSelector } from '../../../services/store';
+import { TIngredient } from '../../../services/slices/burger/types';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';

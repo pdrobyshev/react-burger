@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { TIngredient } from '../../../services/slices/burger/burger';
+import { TIngredient } from '../../../services/slices/burger/types';
 
 import styles from './ingredients-list.module.scss';
 import Ingredient from '../ingredient/ingredient';

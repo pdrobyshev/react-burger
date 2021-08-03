@@ -3,17 +3,17 @@ import ruLocale from 'date-fns/locale/ru';
 import {
   TRefreshTokenRequestBodyPayload,
   TUpdateUserInfoRequestBodyPayload,
-} from '../services/slices/user/user';
+} from '../services/slices/user/types';
 import {
   TResetPasswordEmailBodyPayload,
   TSendResetPasswordEmailBodyPayload,
-} from '../services/slices/password/password';
-import { TCreateOrderBodyPayload, TGetOrderInfoBodyPayload } from '../services/slices/order/order';
+} from '../services/slices/password/types';
+import { TCreateOrderBodyPayload, TGetOrderInfoBodyPayload } from '../services/slices/order/types';
 import {
   TLoginRequestBodyPayload,
   TLogoutRequestBodyPayload,
   TRegisterRequestBodyPayload,
-} from '../services/slices/auth/auth';
+} from '../services/slices/auth/types';
 
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err));

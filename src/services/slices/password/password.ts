@@ -2,33 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RESET_PASSWORD_URL, SEND_RESET_PASSWORD_EMAIL_URL } from '../../../constants/api';
 import { checkResponse, setFetchSettings } from '../../../utils';
-
-type TSendResetPasswordResponse = {
-  message: string;
-  success: boolean;
-};
-
-type TResetPasswordResponse = TSendResetPasswordResponse;
-
-type TPasswordState = {
-  isResetEmailSent: boolean;
-  isPasswordReset: boolean;
-  isLoading: boolean;
-};
+import {
+  TPasswordState,
+  TResetPasswordEmailBodyPayload,
+  TResetPasswordResponse,
+  TSendResetPasswordEmailBodyPayload,
+  TSendResetPasswordResponse,
+} from './types';
 
 export const initialState: TPasswordState = {
   isResetEmailSent: false,
   isPasswordReset: false,
   isLoading: false,
-};
-
-export type TSendResetPasswordEmailBodyPayload = {
-  email: string;
-};
-
-export type TResetPasswordEmailBodyPayload = {
-  password: string;
-  token: string;
 };
 
 export const sendResetPasswordEmail = createAsyncThunk(

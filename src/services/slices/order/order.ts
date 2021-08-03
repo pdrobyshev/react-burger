@@ -3,61 +3,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ORDER_URL } from '../../../constants/api';
 import { checkResponse, setFetchSettings } from '../../../utils';
 import { getCookie } from '../../../utils/cookie';
-
-type TUserOrderInfo = {
-  createdAt: string;
-  ingredients: Array<{
-    calories: number;
-    carbohydrates: number;
-    fat: number;
-    image: string;
-    image_large: string;
-    image_mobile: string;
-    name: string;
-    price: number;
-    proteins: number;
-    type: string;
-    __v: number;
-  }>;
-  name: string;
-  number: number;
-  owner: { createdAt: string; email: string; name: string; updatedAt: string };
-  price: number;
-  status: string;
-  updatedAt: string;
-  _id: string;
-};
-
-type TCreateOrderResponse = {
-  name: string;
-  success: boolean;
-  order: TUserOrderInfo;
-};
-
-type TGetOrderInfoResponse = {
-  success: boolean;
-  orders: Array<TOrderInfo>;
-};
-
-export type TOrderInfo = {
-  createdAt: string;
-  ingredients: Array<string>;
-  name: string;
-  number: number;
-  owner: string;
-  status: string;
-  updatedAt: string;
-  __v: number;
-  _id?: string;
-};
-
-type TOrderState = {
-  orderId: null | number;
-  constructorElementsIds: Array<string>;
-  isLoading: boolean;
-  order: null | TOrderInfo;
-  isOrderModalOpened: boolean;
-};
+import {
+  TCreateOrderBodyPayload,
+  TCreateOrderResponse,
+  TGetOrderInfoBodyPayload,
+  TGetOrderInfoResponse,
+  TOrderState,
+} from './types';
 
 export const initialState: TOrderState = {
   orderId: null,
@@ -66,12 +18,6 @@ export const initialState: TOrderState = {
   order: null,
   isOrderModalOpened: false,
 };
-
-export type TCreateOrderBodyPayload = {
-  ingredients: Array<string>;
-};
-
-export type TGetOrderInfoBodyPayload = string;
 
 export const createOrder = createAsyncThunk(
   'burger/createOrder',

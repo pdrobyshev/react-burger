@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from '../../../services/store';
 
-import { TIngredient } from '../../../services/slices/burger/burger';
+import { TIngredient } from '../../../services/slices/burger/types';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
 

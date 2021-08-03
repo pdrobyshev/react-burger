@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { useSelector } from '../../services/store';
 
 import { getDateTime } from '../../utils';
-import { TIngredient } from '../../services/slices/burger/burger';
-import { TOrderInfo } from '../../services/slices/order/order';
+
+import { TIngredient } from '../../services/slices/burger/types';
+import { TOrderInfo } from '../../services/slices/order/types';
 
 import styles from './order-info.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

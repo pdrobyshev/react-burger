@@ -2,8 +2,8 @@ import React, { FC, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 
-import { TIngredient } from '../../../services/slices/burger/burger';
 import { useSelector } from '../../../services/store';
+import { TIngredient } from '../../../services/slices/burger/types';
 
 import styles from './ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

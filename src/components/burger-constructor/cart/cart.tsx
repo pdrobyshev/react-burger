@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../../services/store';
 
 import { createOrder } from '../../../services/slices/order/order';
-import { TIngredient } from '../../../services/slices/burger/burger';
+import { TIngredient } from '../../../services/slices/burger/types';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from '../../services/store';
 import { useParams } from 'react-router-dom';
 
-import { TIngredient } from '../../services/slices/burger/burger';
+import { TIngredient } from '../../services/slices/burger/types';
 
 import styles from './ingredient-details.module.scss';
 

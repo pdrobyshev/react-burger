@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useSelector } from '../../services/store';
 
-import { TOrderObject } from '../../services/slices/feed/feed';
+import { TOrderObject } from '../../services/slices/feed/types';
 
 import styles from './feed-stats.module.scss';
 

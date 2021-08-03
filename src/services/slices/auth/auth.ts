@@ -3,46 +3,20 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { LOGIN_URL, LOGOUT_URL, REGISTER_URL } from '../../../constants/api';
 import { deleteCookie, getCookie, setCookies } from '../../../utils/cookie';
 import { checkResponse, setFetchSettings } from '../../../utils';
-
-type TRegisterRequestResponse = TLoginRequestResponse;
-
-type TLoginRequestResponse = {
-  accessToken: string;
-  refreshToken: string;
-  success: boolean;
-  user: { email: string; name: string };
-};
-
-type TLogoutResponse = {
-  message: string;
-  success: boolean;
-};
-
-type TAuthState = {
-  isLoggedIn: boolean;
-  user: null | { email: string; name: string };
-  isLoading: boolean;
-};
+import {
+  TAuthState,
+  TLoginRequestBodyPayload,
+  TLoginRequestResponse,
+  TLogoutRequestBodyPayload,
+  TLogoutResponse,
+  TRegisterRequestBodyPayload,
+  TRegisterRequestResponse,
+} from './types';
 
 export const initialState: TAuthState = {
   isLoggedIn: !!getCookie('accessToken'),
   user: null,
   isLoading: false,
-};
-
-export type TRegisterRequestBodyPayload = {
-  email: string;
-  name: string;
-  password: string;
-};
-
-export type TLoginRequestBodyPayload = {
-  email: string;
-  password: string;
-};
-
-export type TLogoutRequestBodyPayload = {
-  token: string;
 };
 
 export const registerRequest = createAsyncThunk(
