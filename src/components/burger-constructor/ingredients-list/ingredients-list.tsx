@@ -1,25 +1,29 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { addConstructorBun, addConstructorIngredient } from '../../../services/slices/burger/burger';
+import {
+  addConstructorBun,
+  addConstructorIngredient,
+  TIngredient,
+} from '../../../services/slices/burger/burger';
 import { setOrderElementsIds } from '../../../services/slices/order/order';
+import { useDispatch, useSelector } from '../../../services/store';
 
 import styles from './ingredients-list.module.scss';
 import BurgerElement from '../burger-element/burger-element';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientsList = () => {
+const IngredientsList: FC = () => {
   const dispatch = useDispatch();
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
 
   useEffect(() => {
-    const order = constructorIngredients.map((ingredient) => ingredient._id);
+    const order = constructorIngredients.map((ingredient: TIngredient) => ingredient._id);
     bun && order.push(bun._id);
     order.length && dispatch(setOrderElementsIds(order));
   }, [dispatch, constructorIngredients, bun]);
 
-  const handleDrop = (item) => {
+  const handleDrop = (item: TIngredient) => {
     if (item.type === 'bun') {
       dispatch(addConstructorBun(item));
     } else {
@@ -32,14 +36,14 @@ const IngredientsList = () => {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item) {
+    drop(item: TIngredient) {
       handleDrop(item);
     },
   });
 
   const backgroundColor = isHover && 'rgba(133, 133, 173, 0.5)';
 
-  const burgerElementsList = constructorIngredients.map((ingredient, index) => {
+  const burgerElementsList = constructorIngredients.map((ingredient: TIngredient, index: number) => {
     const { constructorIngredientId, name, image, price } = ingredient;
     return (
       <BurgerElement
@@ -61,7 +65,6 @@ const IngredientsList = () => {
           <div className={styles.bun}>
             <ConstructorElement
               type="top"
-              draggable={false}
               isLocked={true}
               text={`${bun.name} (верх)`}
               thumbnail={bun.image}
@@ -78,7 +81,6 @@ const IngredientsList = () => {
           <div className={styles.bun}>
             <ConstructorElement
               type="bottom"
-              draggable={false}
               isLocked={true}
               text={`${bun.name} (низ)`}
               thumbnail={bun.image}
@@ -94,7 +96,7 @@ const IngredientsList = () => {
   return (
     <section
       className={`${styles.ingredientsWrapper}  ${styles.fixedHeight}  mb-10`}
-      style={{ backgroundColor }}
+      style={{ backgroundColor } as React.CSSProperties}
       ref={dropTarget}
     >
       {constructorContent}

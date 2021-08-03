@@ -1,13 +1,14 @@
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../../services/store';
 
 import { createOrder } from '../../../services/slices/order/order';
+import { TIngredient } from '../../../services/slices/burger/burger';
 
 import styles from './cart.module.scss';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Cart = () => {
+const Cart: FC = () => {
   const dispatch = useDispatch();
   const { constructorElementsIds, isLoading } = useSelector((state) => state.order);
   const { constructorIngredients, bun } = useSelector((state) => state.burger);
@@ -17,7 +18,7 @@ const Cart = () => {
   const totalPrice = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = constructorIngredients
-      ? constructorIngredients.reduce((acc, el) => acc + el.price, 0)
+      ? constructorIngredients.reduce((acc: number, el: TIngredient) => acc + el.price, 0)
       : 0;
     return ingredientsPrice + bunPrice;
   }, [constructorIngredients, bun]);

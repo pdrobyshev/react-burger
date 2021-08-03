@@ -1,16 +1,31 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
+import React, { FC, useRef } from 'react';
+import { useDispatch } from '../../../services/store';
+import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
 
 import { deleteConstructorIngredient, moveConstructorItem } from '../../../services/slices/burger/burger';
 
 import styles from './burger-element.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, idx }) => {
+interface IBurgerElement {
+  isLocked?: boolean;
+  draggable: boolean;
+  text: string;
+  thumbnail: string;
+  price: number;
+  id?: string;
+  idx: number;
+}
+
+const BurgerElement: FC<IBurgerElement> = ({ isLocked, draggable, text, thumbnail, price, id, idx }) => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
+
+  interface DragItem {
+    idx: number;
+    id: string;
+    type: string;
+  }
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'constructor',
@@ -27,7 +42,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: DragItem, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }
@@ -42,7 +57,7 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -59,11 +74,11 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
   dragRef(dropRef(ref));
 
   const opacity = isDragging ? 0.25 : 1;
-  const onDeleteIngredientClick = () => dispatch(deleteConstructorIngredient(id));
+  const onDeleteIngredientClick = () => id && dispatch(deleteConstructorIngredient(id));
 
   return (
     <li
-      className={`${styles.element} ${draggable === true ? styles.draggable : styles.fixed}`}
+      className={`${styles.element} ${draggable ? styles.draggable : styles.fixed}`}
       style={{ opacity }}
       ref={ref}
       data-handler-id={handlerId}
@@ -75,7 +90,6 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
       )}
 
       <ConstructorElement
-        type={type}
         isLocked={isLocked}
         text={text}
         thumbnail={thumbnail}
@@ -84,17 +98,6 @@ const BurgerElement = ({ type, isLocked, draggable, text, thumbnail, price, id, 
       />
     </li>
   );
-};
-
-BurgerElement.propTypes = {
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
-  draggable: PropTypes.bool,
-  text: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  idx: PropTypes.number.isRequired,
 };
 
 export default BurgerElement;
