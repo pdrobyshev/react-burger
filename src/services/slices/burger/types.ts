@@ -22,7 +22,7 @@ export type TGetIngredientsRequestResponse = {
 export type TBurgerState = {
   ingredients: [] | any;
   bun: null | any;
-  constructorIngredients: any;
+  constructorIngredients: Array<TIngredient>;
   isLoading: boolean;
   hasError: boolean;
 };

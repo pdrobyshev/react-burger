@@ -29,8 +29,6 @@ export const ordersFeed = createSlice({
       state.error = true;
     },
     wsGetMessage: (state, action: PayloadAction<TFeedState>) => {
-      console.log(action.payload);
-
       const { orders, total, totalToday } = action.payload;
       state.orders = orders;
       state.total = total;

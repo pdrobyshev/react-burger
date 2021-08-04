@@ -44,8 +44,7 @@ export const burgerSlice = createSlice({
     },
     deleteConstructorIngredient(state, action: PayloadAction<string>) {
       state.constructorIngredients = state.constructorIngredients.filter(
-        (ingredient: { constructorIngredientId: string }) =>
-          ingredient.constructorIngredientId !== action.payload
+        (ingredient) => ingredient.constructorIngredientId !== action.payload
       );
     },
     moveConstructorItem(state, action: PayloadAction<{ dragIndex: number; hoverIndex: number }>) {
