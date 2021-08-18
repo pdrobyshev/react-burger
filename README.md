@@ -1,10 +1,8 @@
 # React Burger 🍔
 
-<a href="https://pdrobyshev.github.io/react-burger/">
-    <h3>
-        <a href="https://fruitoninja.herokuapp.com/">Сайт проекта React Burger</a>
-    </h3>
-</a>
+<h3>
+    <a href="https://pdrobyshev.github.io/react-burger">Сайт проекта React Burger</a>
+</h3>
 
 React Burger - веб приложение для заказа космических бургеров.
 
