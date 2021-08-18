@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+# React Burger 🍔
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a href="https://pdrobyshev.github.io/react-burger/">
+    <h3>
+        <a href="https://fruitoninja.herokuapp.com/">Сайт проекта React Burger</a>
+    </h3>
+</a>
 
-## Available Scripts
+React Burger - веб приложение для заказа космических бургеров.
 
-In the project directory, you can run:
+![img.png](img.png)
 
-### `npm start`
+На главной странице можно собрать бургер, перетаскивая желаемые ингредиенты в правую часть страницы - в специальную область.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для возможности создания заказа - нужно зарегистрироваться или авторизоваться. Есть как общая лента заказов, так и для конкретного пользователя. Можно смотреть полную информацию как об отдельном ингредиенте, так и по конкретно взятому заказу. Ингредиенты в собранном бургере можно менять местами при помощи драг-н-дропа, то есть, перетаскивая их.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Запуск проекта ⏯
 
-### `npm test`
+Для запуска проекта вам необходимо открыть в корне проекта терминал и выполнить команду:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+npm i
+```
 
-### `npm run build`
+После установки всех пакетов выполнить в терминале команду:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Стек технологий
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+<br>
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![Redux-toolkit](https://img.shields.io/badge/redux_toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+<br>
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+<br>
+![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+<br>
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+<br>
