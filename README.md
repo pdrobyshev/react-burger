@@ -35,6 +35,8 @@ npm start
 <br>
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 <br>
+![Websocket](https://img.shields.io/badge/Websocket-2B4C80?style=for-the-badge)
+<br>
 ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 <br>
